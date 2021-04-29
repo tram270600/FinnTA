@@ -1,6 +1,7 @@
 package routers
 
 import (
+	"API_Mongo/middleware"
 	"API_Mongo/models/services"
 
 	"github.com/gin-gonic/gin"
@@ -9,6 +10,7 @@ import (
 //InitRoute using Gin
 func InitRoute() *gin.Engine {
 	router := gin.Default()
+	router.Use(middleware.CORSMiddleware())
 	router.Static("/public", "./public")
 
 	client := router.Group("/", func(c *gin.Context) {
