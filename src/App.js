@@ -1,24 +1,17 @@
-import './App.css';
-
+import React from 'react';
+import {BrowserRouter, Route} from "react-router-dom";
+import Auth from './auth';
+import Login from './login.tsx';
 function App() {
+
   return (
     <div class="App">
-        <div class="header">
-          <h1>Connect with other<br/>Make you better</h1>
-          <a href="/">Sign in to your FinCon Account !</a>
-        </div>
-        <form action="/" method="POST">
-          <div class="field">
-            <input type="text" name="ipEmail" id="ipEmail" placeholder="avc@avc.com"/>
-            <label for="email">Email</label>
-          </div>
-          <div class="field">
-            <input type="password" name="ipPass" id="ipPass" placeholder="ThisIsMyPassword"/>
-            <label for="password">Password</label>
-          </div>
-          <input type="submit" value="Sign in"/>
-        </form>
-        <p>Don't have an account? <a href="/">Sign up</a></p>
+        <BrowserRouter>
+              <main className="form-signin">
+                  <Route path="/" exact component={Auth}/>
+                  <Route path="/login" component={Login}/>
+              </main>
+          </BrowserRouter>
     </div>
   );
 }
