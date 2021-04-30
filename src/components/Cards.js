@@ -40,28 +40,28 @@ const Card = () => {
                     </ul>
                     <ul className = 'cards-items'>
                         <CardItem 
-                            avatar = 'https://upload.wikimedia.org/wikipedia/en/b/bd/Doraemon_character.png'
-                            name = 'Doraemon'
-                            major = 'Computer Science and Engineering'
-                            gpa = '80'
-                            star = '5'
+                            avatar = 'https://thuviendohoa.vn/upload/images/items/hinh-anh-nhan-vat-xuka-shizuka-doraemon-png-630.jpg'
+                            name = 'Xuka'
+                            major = 'Biotechnology'
+                            gpa = '85'
+                            star = '3.5'
                             background = '#A29BFE'
                             color = 'black'
-                            listSubject = {['Principle of Database Management','Digital Logic Design','Calculus']}
+                            listSubject = {['Calculus 2','Chem Lab']}
                         />
                         <CardItem 
-                            avatar = 'https://media.doanhnghiepvn.vn/Images/Uploaded/Share/2019/08/17/nobita.jpg'
-                            name = 'Nobita'
-                            major = 'Business Administration'
-                            gpa = '76.5'
-                            star = '4.5'
+                            avatar = 'https://photo-baomoi.zadn.vn/w700_r1/2019_08_28_304_31996919/a32bd9c43b84d2da8b95.jpg'
+                            name = 'Chaien'
+                            major = 'Electronic of Engineering'
+                            gpa = '78.8'
+                            star = '4'
                             background = '#1A7291'
                             color = '#fff'
-                            listSubject = {['E-Commerce','Micro Economic','Macro Economic','Financial Accounting']}
+                            listSubject = {['Embedded','Physics 2','Digital Logic Design','Calculus']}
                         />
                         <CardItem 
-                            avatar = 'https://media.doanhnghiepvn.vn/Images/Uploaded/Share/2019/08/17/nobita.jpg'
-                            name = 'Nobita'
+                            avatar = 'https://scontent.fsgn1-1.fna.fbcdn.net/v/t1.6435-9/173675054_1559121364419800_5783364412267366985_n.jpg?_nc_cat=106&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=k80HlU5h9WcAX_RswLr&_nc_ht=scontent.fsgn1-1.fna&oh=57ddf3d651bb520c6862f7c6b0693983&oe=60B16EED'
+                            name = 'Mario'
                             major = 'Business Administration'
                             gpa = '76.5'
                             star = '4.5'
