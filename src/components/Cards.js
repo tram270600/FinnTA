@@ -5,7 +5,7 @@ import Fade from 'react-reveal/Fade';
 
 const Card = () => {
     return (
-        <Fade left>
+        <Fade duration={2300} left>
           <div className = 'cards'>
             <div className = 'text-container'>
                 <h1>Teaching Assistant Around You</h1>
