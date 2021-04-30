@@ -8,26 +8,26 @@ const CardItem = (props) => {
         <li>{subject}</li>
     );
     return (
-        <li className = 'cards-item'>
-            <Link className = 'cards-item-links' to = '/'>
-                <div className = 'icon'>
+        <li style = {{backgroundColor: `${props.background}`}} className = 'cards-item'>
+            <div className = 'cards-item-links' to = '/'>
+                <Link style = {{color: `${props.color}`}} className = 'icon'>
                     <i className="fas fa-arrow-right" />
-                </div>
-                <div className = 'title'>
+                </Link>
+                <div style = {{color: `${props.color}`}} className = 'title'>
                     <img src = {props.avatar} alt = 'Avatar' />
                     <h2>{props.name}</h2>
                 </div>
-                <div className = 'infor'>
+                <div style = {{color: `${props.color}`}} className = 'infor'>
                     <h3>Info</h3>
                     <p>{props.major}</p>
-                    <h3>Overall: {props.gpa}</h3>
+                    Overall: <span>{props.gpa}</span>
                     <h3>Subject List</h3>
                     <ul className = 'list-subject'>{listSubject}</ul>
                 </div>
-                <div className = 'icon'>
+                <div className = 'icon bottom'>
                     {props.star} <i className ="far fa-star" />
                 </div>
-            </Link>
+            </div>
         </li>
     )
 }

@@ -1,15 +1,15 @@
 .hero-container{
-    background: url('../../images/background.png');
+    background: url('../../images/background.png') center;
     background-repeat: no-repeat;
-    height: 100vh;
+    height: 90vh;
     max-width: 100%;   
-    background-size: contain;
     object-fit: contain;   
     display: flex;
     align-items: flex-start;
+    /* border: 1px solid black; */
 }
 .btn-link{
-    margin: 22rem 4.5rem;
+    margin: 26rem 2.2rem;
 }
 .btn-learn{
     border-radius: 10px;
