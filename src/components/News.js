@@ -1,13 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './styles/News.css'
 import NewItem from './NewItem'
+import Fade from 'react-reveal/Fade';
+import Slide from 'react-reveal/Slide';
 
 import {Swiper, SwiperSlide} from 'swiper/react'
 import SwipeCore, {Navigation, Pagination} from 'swiper'
 
 import 'swiper/swiper.scss';
+
 // import 'swiper/components/navigation/navigation.scss';
 // import 'swiper/components/pagination/pagination.scss';
+
 
 SwipeCore.use([Navigation, Pagination]);
 
@@ -50,6 +54,11 @@ const News = () => {
             star: '4.5'
         },
     ]
+
+    const [isHoverLeft, setHoverLeft] = useState(false)
+    const [isHoverRight, setHoverRight] = useState(false)
+
+    
     const params = {
         pagination: {
           el: '.swiper-pagination',
@@ -62,23 +71,39 @@ const News = () => {
         },
         slidesPerView : 3
       }
+    const styleHover = {
+        background: '#0191B4',
+        color: '#fff',
+        boxShadow: '0px 14px 44px rgba(14,20,34,0.08)'
+    }
+    const cardHover = {
+        border: '2px solid #FEA250'
+    }
     return (
         <div className = 'news'>
-            <div className = 'text-container'>
-                <h1>News</h1>
-            </div>
-            <div className = 'text-container'>
-                <h3>These are something new everyday include post about finding suitable tutors for specific subject and there are announcement about new course is started.</h3>
-            </div>
-            <Swiper {...params} 
-                onSwiper = {() => console.log('swiper') }
+            <Fade top duration={2000}>
+                <div className = 'text-container'>
+                    <h1>News</h1>
+                </div>
+                <div className = 'text-container'>
+                    <h3>These are something new everyday include post about finding suitable tutors for specific subject and there are announcement about new course is started.</h3>
+                </div>
+            </Fade>
+            
+            <Slide left duration = {2000} >
+                <Swiper  {...params}
+                onSwiper = {() => console.log("hello")}
                 onSlideChange = {() => console.log('slide change')}
-            >
+            >   
+            
                 {
                     data.map (user => (
                         <SwiperSlide key = {user.id}>
-                            <div className = 'news-container'>
+                            <div
+                                className = 'news-container'>
                                 <NewItem 
+                                style = {cardHover}
+                                id = {user.id}
                                 avatar = {user.avatar}
                                 name = {user.name}
                                 comment = {user.comment}
@@ -88,8 +113,24 @@ const News = () => {
                         </SwiperSlide>
                     ))
                 }
-                <button>CLick</button>
-            </Swiper>     
+                <div className = 'container'>
+                    <div className = 'swiper-pagination'></div>
+                    <div className = 'swiper-button'>
+                        <div 
+                        style = {isHoverLeft ? styleHover : null } 
+                        onMouseMove = {(event) => setHoverLeft(true)}
+                        onMouseLeave = {(event) => setHoverLeft(false)}
+                        className = 'swiper-button-prev'><i className="fas fa-arrow-left" /></div>
+                        <div 
+                        style = {isHoverRight ? styleHover : null}
+                        onMouseMove = {(event) => setHoverRight (true)}
+                        onMouseLeave = {(event) => setHoverRight (false)}
+                        className = 'swiper-button-next'><i className="fas fa-arrow-right" /></div>
+                    </div>
+                </div>
+                
+            </Swiper>         
+            </Slide>
         </div>
     )
 }
