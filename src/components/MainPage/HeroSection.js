@@ -1,5 +1,5 @@
 import React ,{useState} from 'react';
-import './styles/HeroSection.css'
+import '../../styles/HeroSection.css'
 import {Link} from 'react-router-dom'
 import background from '../../images/background.png'
 

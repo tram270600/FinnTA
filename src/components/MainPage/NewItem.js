@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import './styles/News.css'
+import '../../styles/News.css'
 
 const NewItem = (props) => {
     const [isCardHover, setCardHover] = useState(false)

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './styles/News.css'
+import '../../styles/News.css'
 import NewItem from './NewItem'
 import Fade from 'react-reveal/Fade';
 import Slide from 'react-reveal/Slide';

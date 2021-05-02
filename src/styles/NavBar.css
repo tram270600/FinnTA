@@ -52,6 +52,7 @@
     border-bottom: 4px solid #0191B4;
     color: #0191B4;
     transition: all 0.3s ease-out;
+    text-decoration: none;
 }
 .btn{
     padding: 8px 20px;
@@ -74,4 +75,13 @@
 .signup:hover{
     background-color: #0191B4;
     color: #fff;
+}
+.noti-container{
+    display: flex;
+}
+.icon {
+    border: 1px solid black;
+}
+.noti {
+    color: black;
 }

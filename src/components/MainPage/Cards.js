@@ -1,6 +1,6 @@
 import React from 'react';
 import CardItem from './CardItem'
-import './styles/Cards.css'
+import '../../styles/Cards.css'
 import Fade from 'react-reveal/Fade';
 
 const Card = () => {
