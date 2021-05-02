@@ -1,3 +1,4 @@
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom'
 import logo from '../../images/Logo.png'
 import NotifyMe from 'react-notification-timeline';
@@ -18,6 +19,8 @@ const NavBar = () => {
             "timestamp": new Date().getTime()
         }
       ]
+    const background = {background: "#5DE2E8"}
+    const [isHover, setHover] = useState(false)
     return (
         <nav className = 'navbar'>
             <div className = 'navbar-container'>
@@ -26,7 +29,7 @@ const NavBar = () => {
                     FinnaTa 
                 </Link>
             </div>
-            <ul className = 'nav-menu'>
+            <ul className = 'nav-menu dash'>
                 <li className = 'nav-items'>
                     <Link to = '/' className = 'nav-links'>
                         About
@@ -54,22 +57,30 @@ const NavBar = () => {
                 </li>
             </ul>
             <div className = 'noti-container'>
-                <div className = 'icon'>
+                <div 
+                onMouseMove = {(event) => setHover(true)}
+                onMouseLeave = {(event) => setHover (false)}
+                style = {isHover ? background : null}
+                className = 'icon-dash'
+                >
                     <i class="fas fa-search"></i>
                 </div>
-                <div className = 'icon'>
-                    <NotifyMe
-                        className = 'noti'
-                        data={data}
-                        storageKey='notific_key'
-                        notific_key='timestamp'
-                        notific_value='update'
-                        heading='Notification Alerts'
-                        sortedByKey={false}
-                        showDate={true}
-                        size={64}
-                        color="yellow"
-                    />
+                <NotifyMe
+                            data={data}
+                            storageKey='notific_key'
+                            notific_key='timestamp'
+                            notific_value='update'
+                            heading='Notification Alerts'
+                            sortedByKey={false}
+                            showDate={true}
+                            size={21}
+                            color= "black"
+                />
+                <div className = 'avatar'>
+                    <div className = 'name'>
+                        <img src = 'https://upload.wikimedia.org/wikipedia/en/b/bd/Doraemon_character.png' alt = 'Avatar'/>
+                        <span>Ubii</span>
+                    </div>
                 </div>
             </div>
         </nav>
