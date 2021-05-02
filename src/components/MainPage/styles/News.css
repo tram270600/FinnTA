@@ -6,9 +6,7 @@
     align-items: center;
     text-align: center;
     justify-content: center;
-    /* border: 1px solid black; */
     margin: auto;
-    /* padding: 10px 20px 20px; */
     margin: 30px auto;
     width: 100%;
 }
@@ -29,9 +27,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* border: 1px solid black; */
     width: 100%;
-    /* color: #fff; */
 }
 .text{
     font-size: 18px;
@@ -59,14 +55,12 @@
     width: 50%;
     padding: 15px;
     justify-content: flex-end;
-    /* border: 1px solid black;  */
     margin-left: auto;
     margin-right: 0;
 }
 .swiper-button-next{
     display: block;
     color:  #0191B4;
-    /* border: 1px solid black; */
     cursor: pointer;
     font-size: 1.5rem;
     margin: 0 20px;
@@ -98,7 +92,6 @@
     width: 20%;
     display: flex;
     color:  #0191B4;
-    /* border: 1px solid black; */
 }
 .swiper-pagination-bullet{
     margin: 10px;
@@ -120,7 +113,6 @@
     transition: 0.2s all ease
 }
 .container{
-    /* border: 1px solid black; */
     align-items: center;
     text-align: center;
     display: flex;

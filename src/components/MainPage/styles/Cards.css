@@ -6,7 +6,6 @@
     align-items: center;
     text-align: center;
     justify-content: center;
-    /* border: 1px solid black; */
     margin: auto;
     padding: 10px 20px 20px;
     width: 50%;
@@ -24,11 +23,9 @@
 .cards-wrapper {
     position: relative;
     margin: 50px 0 45px;
-    /* border: 1px solid black; */
 }
 .cards-items{
     margin-bottom: 24px;
-    /* border: 1px solid black; */
     position: relative;
     display: flex;
 }
@@ -63,7 +60,6 @@
     margin-bottom: 10px;
     display: flex;
     align-items: center;
-    /* color: #fff; */
 }
 .title > img{
     vertical-align: middle;
@@ -73,7 +69,6 @@
     margin-right: 10px;
 }
 .infor{
-    /* color: #ffffff; */
     line-height: 2rem;
 }
 .infor > h3 {

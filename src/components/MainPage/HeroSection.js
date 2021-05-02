@@ -1,7 +1,7 @@
 import React ,{useState} from 'react';
 import './styles/HeroSection.css'
 import {Link} from 'react-router-dom'
-import background from '../images/background.png'
+import background from '../../images/background.png'
 
 const HeroSection = () => {
     const [isHover, setHover] = useState(false)

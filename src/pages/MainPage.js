@@ -1,10 +1,10 @@
 import '../index.css'
-import HeroSection from '../components/HeroSection'
-import NavBar from '../components/NavBar'
-import Cards from '../components/Cards'
-import News from '../components/News'
-import Subscribe from '../components/Subscribe'
-import Footer from '../components/Footer'
+import HeroSection from '../components/MainPage/HeroSection'
+import NavBar from '../components/MainPage/NavBar'
+import Cards from '../components/MainPage/Cards'
+import News from '../components/MainPage/News'
+import Subscribe from '../components/MainPage/Subscribe'
+import Footer from '../components/MainPage/Footer'
 const MainPage = () => {
     return(
         <>
