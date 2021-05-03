@@ -3,7 +3,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import Auth from './auth';
 import Login from './login.tsx';
 import MainPage from './pages/MainPage'
-import Dashboard from './pages/Dashboard'
+import ProfileDash from './pages/ProfileDash'
 function App() {
 
   return (
@@ -14,7 +14,7 @@ function App() {
                   <Route path="/" exact component={Auth}/>
                   <Route path="/login" component={Login}/>
               </main> */}
-            <Route path = '/' exact component = {Dashboard} />
+            <Route path = '/profile' exact component = {ProfileDash} />
           </BrowserRouter>
     </div>
   );

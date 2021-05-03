@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom'
 import logo from '../../images/Logo.png'
+import avatar from '../../images/avatar.png'
 import NotifyMe from 'react-notification-timeline';
 import '../../styles/NavBar.css'
 
@@ -78,8 +79,8 @@ const NavBar = () => {
                 />
                 <div className = 'avatar'>
                     <div className = 'name'>
-                        <img src = 'https://upload.wikimedia.org/wikipedia/en/b/bd/Doraemon_character.png' alt = 'Avatar'/>
-                        <span>Ubii</span>
+                        <img src = {avatar} alt = 'Avatar'/>
+                        <span>Ubyii</span>
                     </div>
                 </div>
             </div>

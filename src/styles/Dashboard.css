@@ -1,0 +1,89 @@
+.dash-container{
+    height: 100vh;
+    max-width: 100%;
+    position: relative;
+    margin-top: 1.2rem;
+    display: flex;
+    border: 1px solid black;
+}
+.dash-sidebar{
+    width: 20%;
+    height: 100%;
+    background: #FFFFFF;
+    box-shadow: 35.0877px 0px 70px rgba(86, 128, 248, 0.05), 23.8596px 5.61404px 50px rgba(0, 0, 0, 0.02);
+    border: 1px solid black;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    text-align: center;
+}
+.dash-body{
+    width: 80%;
+    height: 100%;
+    border: 1px solid black;
+}
+.inDash{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-flow: column;
+    margin: auto;
+    margin-top: 0%;
+
+}
+.avatar > img{
+    vertical-align: middle;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 5%;
+}
+.avatar > h2{
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.dash-sidebar-menu{
+    width: 70%;    
+    margin: auto;
+    margin-top: 0%;
+}
+.menu-icon{
+    text-decoration: none !important;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    /* text-align: center; */
+    margin-bottom: 13%;
+    width: 100% ;
+}
+.menu-icon > i{
+    color: #707C97;
+    margin-right: 10%;
+    font-size: 1.1rem;
+}
+.menu-icon > h3{
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: flex;
+    line-height: 19px;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+    color: #707C97;
+    margin: auto 0;
+    padding: 2%;
+}
+.log-out{
+    width: 70%;    
+    margin: auto 0px;
+    margin-bottom: 10%;
+    align-items: center;
+    text-align: center;
+}
+.log-out > .menu-icon {
+    margin-bottom: 0;
+}
