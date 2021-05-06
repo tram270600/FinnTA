@@ -29,7 +29,7 @@ func InitRoute() *gin.Engine {
 	client.POST("/task", services.CreateTask)
 
 	client.POST("/user/register", services.Register)
-	client.GET("/user/login", services.GetAccount)
+	client.POST("/user/login", services.GetAccount)
 	client.GET("/user", services.User)
 	client.GET("/user/logout", services.Logout)
 	return router

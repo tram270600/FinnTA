@@ -183,7 +183,7 @@ func GetAccount(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
 		return
 	}
-	c.SetCookie("jwt", token, 15, "/", "localhost", false, true)
+	c.SetCookie("jwt", token, 3600 * 24, "/", "localhost", false, true)
 
 	c.JSON(http.StatusOK, account)
 }
