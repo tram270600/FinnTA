@@ -12,7 +12,7 @@ function Auth(){
             console.log(content);
             setValue(content.Email);
         })();
-    });
+    },[]);
 
     return(
         <div>{value ? 'Hi ' + value : "ur not logged in"}</div>
