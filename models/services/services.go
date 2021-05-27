@@ -183,9 +183,9 @@ func GetAccount(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
 		return
 	}
-	c.SetCookie("jwt", token, 3600 * 24, "/", "localhost", false, true)
-
-	c.JSON(http.StatusOK, account)
+	// c.SetCookie("jwt", token, 3600 * 24, "/", "localhost", false, true)
+	c.SetCookie("_id", account.ID, 3600*24, "/", "localhost", false, true)
+	c.JSON(http.StatusOK, gin.H{"jwt": token})
 }
 
 func Register(c *gin.Context) {
@@ -230,7 +230,7 @@ func Register(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"_id": account.ID})
 }
 
-//Get take user information from cookie
+//Get take user information from jwt
 func User(c *gin.Context) {
 	if client == nil {
 		client = db.GetConnection()
@@ -239,14 +239,21 @@ func User(c *gin.Context) {
 	defer cancel()
 
 	//find cookie
-	cookie, err := c.Cookie("jwt")
-	if err != nil {
-		c.JSON(http.StatusNonAuthoritativeInfo, gin.H{"msg": err.Error()})
+	// cookie, err := c.Cookie("jwt")
+	// if err != nil {
+	// 	c.JSON(http.StatusNonAuthoritativeInfo, gin.H{"msg": err.Error()})
+	// 	return
+	// }
+
+	//Take parameter
+	var data map[string]string
+	if err := c.ShouldBindJSON(&data); err != nil {
+		c.JSON(http.StatusConflict, gin.H{"msg_input": err.Error()})
 		return
 	}
 
 	//Take token
-	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(t *jwt.Token) (interface{}, error) {
+	token, err := jwt.ParseWithClaims(data["jwt"], &jwt.StandardClaims{}, func(t *jwt.Token) (interface{}, error) {
 		return []byte(secretKey), nil
 	})
 	if err != nil {
@@ -255,13 +262,15 @@ func User(c *gin.Context) {
 	}
 	claim := token.Claims.(*jwt.StandardClaims)
 
-	//Fine and take account infor
+	//Find and take account infor
 	var account entity.Account
 	err = client.Database("WebDb").Collection("Account").FindOne(ctx, entity.Account{ID: claim.Issuer}).Decode(&account)
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{"msg": err.Error()})
 		return
 	}
+
+	c.SetCookie("_id", account.ID, 3600*24, "/", "localhost", false, true)
 
 	c.JSON(http.StatusOK, account)
 }

@@ -30,7 +30,7 @@ func InitRoute() *gin.Engine {
 
 	client.POST("/user/register", services.Register)
 	client.POST("/user/login", services.GetAccount)
-	client.GET("/user", services.User)
+	client.POST("/user", services.User)
 	client.GET("/user/logout", services.Logout)
 	return router
 }
