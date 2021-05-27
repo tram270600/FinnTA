@@ -3,6 +3,7 @@ import {Redirect} from 'react-router-dom';
 import './login.scss'
 
 import Eye from './eye.svg';
+import talker from './utils/talker';
 
 const Login = () => {
     const [Email, setEmail] = useState('');
@@ -12,15 +13,7 @@ const Login = () => {
 
     const handleForm = async(e:SyntheticEvent)=>{
         e.preventDefault();
-        await fetch('http://localhost:27017/user/login',{
-            method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            credentials: 'include',
-            body: JSON.stringify({
-                Email,
-                Password
-            })
-        });
+        await talker.login({Email, Password})
         setRedirect(true);
     }
 
