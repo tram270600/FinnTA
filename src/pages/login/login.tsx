@@ -1,9 +1,9 @@
 import React, {SyntheticEvent, useState} from 'react';
 import {Redirect} from 'react-router-dom'; 
-import './login.scss'
+import '../../styles/login.scss'
 
-import Eye from './eye.svg';
-import talker from './utils/talker';
+import showPw from '../../images/showPw.svg';
+import talker from '../../utils/talker';
 
 const Login = () => {
     const [Email, setEmail] = useState('');
@@ -45,7 +45,7 @@ const Login = () => {
                 placeholder="ThisIsMyPassword"
                 onChange={(e) => {setPw(e.target.value)}} required/>
                 <label> Password </label>
-                <img src={Eye} width={24} onClick={()=>setShowPassword(!showPassword)} 
+                <img src={showPw} width={24} onClick={()=>setShowPassword(!showPassword)} 
                 style={{filter: showPassword ? 'none' : 'grayscale(100%)'}}></img>
             </div>
             <div className="Container">

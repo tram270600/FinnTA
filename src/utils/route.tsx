@@ -1,5 +1,5 @@
 import Auth from "../auth";
-import Login from "../login";
+import Login from "../pages/login/login";
 import MainPage from "../pages/MainPage";
 import ProfileDash from "../pages/ProfileDash";
 

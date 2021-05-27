@@ -8,7 +8,7 @@ const talker = axios.create({
 })
 
 async function auth(){
-    if (localStorage.getItem("jwt") == "")
+    if (localStorage.getItem("jwt") === "")
         return "Not logged in"
     let res = await talker.post('/user', JSON.stringify({"jwt": localStorage.getItem("jwt")}))
     return res
