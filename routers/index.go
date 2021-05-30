@@ -22,15 +22,17 @@ func InitRoute() *gin.Engine {
 		c.Next()
 	})
 
-	client.DELETE("/task/delete", services.DeleteTask)
-	client.GET("/task/find", services.GetTask)
-	client.PUT("/task/update", services.UpdateTask)
-	client.GET("/task", services.GetAllTask)
-	client.POST("/task", services.CreateTask)
-
+	// User
 	client.POST("/user/register", services.Register)
 	client.POST("/user/login", services.GetAccount)
-	client.POST("/user", services.User)
+	client.GET("/user", services.AuthUser)
+	client.POST("/user", services.GetUser)
+	client.PUT("/user", services.UpdateUser)
 	client.GET("/user/logout", services.Logout)
+
+	// Chat
+	client.POST("/chat/createRoom", services.CreateRoom)
+	client.PUT("/chat", services.SendChat)
+
 	return router
 }

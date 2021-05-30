@@ -16,7 +16,7 @@ const (
 	connectURITemplate = "mongodb+srv://%s:%s@%s/%s?retryWrites=true&w=majority"
 )
 
-func GetConnection() *mongo.Client {
+func CreateConnection() *mongo.Database {
 	username := os.Getenv("USER")
 	password := os.Getenv("PASSWORD")
 	connectString := os.Getenv("DB_CONNECTION_STRING")
@@ -36,5 +36,5 @@ func GetConnection() *mongo.Client {
 		panic(err)
 	}
 
-	return client
+	return client.Database("WebDb")
 }
