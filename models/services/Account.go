@@ -12,23 +12,17 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/crypto/bcrypt"
 	"labix.org/v2/mgo/bson"
 )
 
-const connectTimeout = 10 * time.Second
-const secretKey = "%f#a^u"
-
-var database *mongo.Database
-
 // Login
 func GetAccount(c *gin.Context) {
-	if database == nil {
-		database = db.CreateConnection()
+	if utils.Database == nil {
+		utils.Database = db.CreateConnection()
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), connectTimeout)
+	ctx, cancel := context.WithTimeout(context.Background(), utils.ConnectTimeout)
 	defer cancel()
 
 	var data map[string]string
@@ -40,7 +34,7 @@ func GetAccount(c *gin.Context) {
 		return
 	}
 
-	err = database.Collection("Account").FindOne(ctx, entity.Account{Email: data["Email"]}).Decode(&account)
+	err = utils.Database.Collection("Account").FindOne(ctx, entity.Account{Email: data["Email"]}).Decode(&account)
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"msg": "Wrong email"})
 		return
@@ -54,17 +48,17 @@ func GetAccount(c *gin.Context) {
 
 	claim := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
 		Issuer:    account.ID.Hex(),
-		ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
+		ExpiresAt: time.Now().Add(utils.Jwt_exp).Unix(),
 	})
 
-	token, err := claim.SignedString([]byte(secretKey))
+	token, err := claim.SignedString([]byte(utils.SecretKey))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
 		return
 	}
 
 	// Change status to Online
-	_, err = database.Collection("Account").
+	_, err = utils.Database.Collection("Account").
 		UpdateOne(ctx, entity.Account{ID: account.ID},
 			bson.M{"$set": entity.Account{IsOnline: true}})
 	if err != nil {
@@ -72,17 +66,17 @@ func GetAccount(c *gin.Context) {
 		return
 	}
 
-	c.SetCookie("_id", account.ID.Hex(), 3600*24, "/", "localhost", false, true)
+	c.SetCookie("_id", account.ID.Hex(), utils.Ck_exp, "/", "localhost", false, true)
 	c.JSON(http.StatusOK, gin.H{"jwt": token})
 
 }
 
 func Register(c *gin.Context) {
-	if database == nil {
-		database = db.CreateConnection()
+	if utils.Database == nil {
+		utils.Database = db.CreateConnection()
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), connectTimeout)
+	ctx, cancel := context.WithTimeout(context.Background(), utils.ConnectTimeout)
 	defer cancel()
 
 	var data map[string]string
@@ -93,13 +87,13 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	err := database.Collection("Account").FindOne(ctx, entity.Account{Email: data["Email"]}).Decode(&result)
+	err := utils.Database.Collection("Account").FindOne(ctx, entity.Account{Email: data["Email"]}).Decode(&result)
 	if err == nil {
 		c.JSON(http.StatusConflict, gin.H{"msg": "Duplicated Email Inputed"})
 		return
 	}
 
-	password, err := bcrypt.GenerateFromPassword([]byte(data["Password"]), 12)
+	password, err := bcrypt.GenerateFromPassword([]byte(data["Password"]), utils.Jwt_cost)
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{"msg_bcr": err.Error()})
 		return
@@ -133,7 +127,7 @@ func Register(c *gin.Context) {
 		Updated_at: primitive.NewDateTimeFromTime(time.Now()),
 	}
 
-	_, err = database.Collection("Account").InsertOne(ctx, account)
+	_, err = utils.Database.Collection("Account").InsertOne(ctx, account)
 	if err != nil {
 		c.JSON(http.StatusForbidden, gin.H{"msg": err.Error()})
 		return
@@ -145,10 +139,10 @@ func Register(c *gin.Context) {
 
 //Get take user information from jwt
 func AuthUser(c *gin.Context) {
-	if database == nil {
-		database = db.CreateConnection()
+	if utils.Database == nil {
+		utils.Database = db.CreateConnection()
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), connectTimeout)
+	ctx, cancel := context.WithTimeout(context.Background(), utils.ConnectTimeout)
 	defer cancel()
 
 	//Take parameter
@@ -160,7 +154,7 @@ func AuthUser(c *gin.Context) {
 
 	//Take token
 	token, err := jwt.ParseWithClaims(data["jwt"], &jwt.StandardClaims{}, func(t *jwt.Token) (interface{}, error) {
-		return []byte(secretKey), nil
+		return []byte(utils.SecretKey), nil
 	})
 	if err != nil {
 		c.JSON(http.StatusNonAuthoritativeInfo, gin.H{"msg": err.Error()})
@@ -174,23 +168,23 @@ func AuthUser(c *gin.Context) {
 	if err != nil {
 		panic(err)
 	}
-	err = database.Collection("Account").FindOne(ctx, entity.Account{ID: id}).Decode(&account)
+	err = utils.Database.Collection("Account").FindOne(ctx, entity.Account{ID: id}).Decode(&account)
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{"msg": err.Error()})
 		return
 	}
 
-	c.SetCookie("_id", account.ID.Hex(), 3600*24, "/", "localhost", false, true)
+	c.SetCookie("_id", account.ID.Hex(), utils.Ck_exp, "/", "localhost", false, true)
 
 	c.JSON(http.StatusOK, account)
 
 }
 
 func GetUser(c *gin.Context) {
-	if database == nil {
-		database = db.CreateConnection()
+	if utils.Database == nil {
+		utils.Database = db.CreateConnection()
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), connectTimeout)
+	ctx, cancel := context.WithTimeout(context.Background(), utils.ConnectTimeout)
 	defer cancel()
 
 	var data map[string]string
@@ -206,7 +200,7 @@ func GetUser(c *gin.Context) {
 	}
 
 	var acc entity.Account
-	err = database.Collection("Account").FindOne(ctx, entity.Account{ID: _id}).Decode(&acc)
+	err = utils.Database.Collection("Account").FindOne(ctx, entity.Account{ID: _id}).Decode(&acc)
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"msg": "Not Found ID"})
 		return
@@ -227,10 +221,10 @@ func GetUser(c *gin.Context) {
 }
 
 func UpdateUser(c *gin.Context) {
-	if database == nil {
-		database = db.CreateConnection()
+	if utils.Database == nil {
+		utils.Database = db.CreateConnection()
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), connectTimeout)
+	ctx, cancel := context.WithTimeout(context.Background(), utils.ConnectTimeout)
 	defer cancel()
 
 	var data map[string]string
@@ -239,16 +233,8 @@ func UpdateUser(c *gin.Context) {
 		return
 	}
 
-	// find cookie
-	cookie, err := c.Cookie("_id")
+	_id, err := utils.GetCookie(c)
 	if err != nil {
-		c.JSON(http.StatusNonAuthoritativeInfo, gin.H{"msg": err.Error()})
-		return
-	}
-
-	_id, err := primitive.ObjectIDFromHex(cookie)
-	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{"msg": err.Error()})
 		return
 	}
 
@@ -257,7 +243,7 @@ func UpdateUser(c *gin.Context) {
 	}
 
 	if data["Password"] != "" {
-		password, err := bcrypt.GenerateFromPassword([]byte(data["Password"]), 12)
+		password, err := bcrypt.GenerateFromPassword([]byte(data["Password"]), utils.Jwt_cost)
 		if err != nil {
 			c.JSON(http.StatusConflict, gin.H{"msg_bcr": err.Error()})
 			return
@@ -299,7 +285,7 @@ func UpdateUser(c *gin.Context) {
 		tempAcc.DoB = primitive.NewDateTimeFromTime(dob)
 	}
 
-	result, err := database.Collection("Account").
+	result, err := utils.Database.Collection("Account").
 		UpdateOne(ctx, entity.Account{ID: _id}, bson.M{"$set": tempAcc})
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{"msg_bcr": err.Error()})
@@ -311,10 +297,10 @@ func UpdateUser(c *gin.Context) {
 
 //GET clean cookie
 func Logout(c *gin.Context) {
-	if database == nil {
-		database = db.CreateConnection()
+	if utils.Database == nil {
+		utils.Database = db.CreateConnection()
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), connectTimeout)
+	ctx, cancel := context.WithTimeout(context.Background(), utils.ConnectTimeout)
 	defer cancel()
 
 	cookie, err := c.Cookie("_id")
@@ -330,7 +316,7 @@ func Logout(c *gin.Context) {
 	}
 
 	// CHange status to Offline
-	_, err = database.Collection("Account").
+	_, err = utils.Database.Collection("Account").
 		UpdateOne(ctx, entity.Account{ID: _id}, bson.M{"$set": bson.M{"isOnline": false}})
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{"msg_bcr": err.Error()})

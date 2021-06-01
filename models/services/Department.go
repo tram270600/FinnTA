@@ -3,6 +3,7 @@ package services
 import (
 	"API_Mongo/models/db"
 	"API_Mongo/models/entity"
+	"API_Mongo/utils"
 	"context"
 	"net/http"
 
@@ -11,14 +12,14 @@ import (
 )
 
 func GetAllDepartment(c *gin.Context) {
-	if database == nil {
-		database = db.CreateConnection()
+	if utils.Database == nil {
+		utils.Database = db.CreateConnection()
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), connectTimeout)
+	ctx, cancel := context.WithTimeout(context.Background(), utils.ConnectTimeout)
 	defer cancel()
 
 	var d_list []entity.Department
-	cursor, err := database.Collection("Department").Find(ctx, bson.M{})
+	cursor, err := utils.Database.Collection("Department").Find(ctx, bson.M{})
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return

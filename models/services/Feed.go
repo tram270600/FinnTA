@@ -3,6 +3,7 @@ package services
 import (
 	"API_Mongo/models/db"
 	"API_Mongo/models/entity"
+	"API_Mongo/utils"
 	"context"
 	"net/http"
 	"strconv"
@@ -15,10 +16,10 @@ import (
 )
 
 func CreateFeed(c *gin.Context) {
-	if database == nil {
-		database = db.CreateConnection()
+	if utils.Database == nil {
+		utils.Database = db.CreateConnection()
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), connectTimeout)
+	ctx, cancel := context.WithTimeout(context.Background(), utils.ConnectTimeout)
 	defer cancel()
 
 	var data map[string]string
@@ -27,16 +28,8 @@ func CreateFeed(c *gin.Context) {
 		return
 	}
 
-	// find cookie
-	cookie, err := c.Cookie("_id")
+	_id, err := utils.GetCookie(c)
 	if err != nil {
-		c.JSON(http.StatusNonAuthoritativeInfo, gin.H{"msg": err.Error()})
-		return
-	}
-
-	_id, err := primitive.ObjectIDFromHex(cookie)
-	if err != nil {
-		c.JSON(http.StatusNoContent, gin.H{"msg": err.Error()})
 		return
 	}
 
@@ -45,7 +38,7 @@ func CreateFeed(c *gin.Context) {
 	feed.From = _id
 	feed.Detail = data["Detail"]
 	feed.Updated_at = primitive.NewDateTimeFromTime(time.Now())
-	_, err = database.Collection("Feed").InsertOne(ctx, feed)
+	_, err = utils.Database.Collection("Feed").InsertOne(ctx, feed)
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{"msg": err.Error()})
 		return
@@ -55,21 +48,20 @@ func CreateFeed(c *gin.Context) {
 }
 
 func GetFeed(c *gin.Context) {
-	if database == nil {
-		database = db.CreateConnection()
+	if utils.Database == nil {
+		utils.Database = db.CreateConnection()
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), connectTimeout)
+	ctx, cancel := context.WithTimeout(context.Background(), utils.ConnectTimeout)
 	defer cancel()
 
 	page, _ := strconv.Atoi(c.Query("page"))
 	var f_list []entity.Feed
-	var elementPerPage int64 = 9
 	opt := options.Find()
-	opt.SetSkip(int64(page) * elementPerPage)
-	opt.SetLimit(elementPerPage)
+	opt.SetSkip(int64(page) * utils.ElementPerPage)
+	opt.SetLimit(utils.ElementPerPage)
 	opt.SetSort(bson.M{"_id": -1}) //Desc
 
-	cursor, err := database.Collection("Feed").Find(ctx, bson.M{}, opt)
+	cursor, err := utils.Database.Collection("Feed").Find(ctx, bson.M{}, opt)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return
