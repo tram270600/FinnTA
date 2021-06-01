@@ -13,7 +13,7 @@ const Login = () => {
 
     const handleForm = async (e: SyntheticEvent) => {
         e.preventDefault();
-        await talker.login({ Email, Password })
+        await talker.Account.login({ Email, Password })
         setRedirect(true);
     }
 

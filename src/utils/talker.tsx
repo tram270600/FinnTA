@@ -1,4 +1,15 @@
 import axios from 'axios'
+import {
+    loginData,
+    accountData,
+    updatableData,
+    feed,
+    department,
+    resAccount
+} from 'global/dataType'
+import {
+    toBase64
+} from './converter'
 
 const talker = axios.create({
     baseURL: 'http://localhost:27017',
@@ -9,17 +20,7 @@ const talker = axios.create({
     withCredentials: true
 })
 
-type accountData = {
-    Email: string,
-    Password: string,
-    Name: string,
-    Avatar: string,
-    DoB: string, // Date.toISOString()
-    D_id: string,
-    Bio: string,
-    Role: string //T.A or Student
-}
-
+// Account
 async function auth() {
     if (localStorage.getItem("jwt") === "")
         return "Not logged in"
@@ -29,7 +30,7 @@ async function auth() {
     return res
 }
 
-async function login(data: {}) {
+async function login(data: loginData) {
     type response = {
         jwt: string
     }
@@ -38,7 +39,7 @@ async function login(data: {}) {
 }
 
 async function register(data: accountData, Avatar: File) {
-    getBase64(Avatar, (result: string) => {
+    toBase64(Avatar, (result: string) => {
         data.Avatar = result
     })
     await talker.post('/user/register', JSON.stringify(data))
@@ -46,40 +47,82 @@ async function register(data: accountData, Avatar: File) {
 
 async function logout() {
     await talker.get('/user/logout')
+    localStorage.setItem("jwt", "")
 }
 
 async function getAccount(data: { ID: string }) {
-    let res = await talker.post('/user', JSON.stringify(data))
-    return res
+    let res = await talker.post<resAccount>('/user', JSON.stringify(data))
+    return res.data
 }
 
-async function updateAccount(data: {}) {
+async function updateAccount(data: updatableData) {
     await talker.put('/user', JSON.stringify(data))
 }
 
+// Chat
 async function createRoom(data: { ID: string }) {
-    let res = await talker.post('/chat/createRoom', JSON.stringify(data))
-    return res
+    type response = {
+        ID: string
+    }
+    let res = await talker.post<response>('/chat/createRoom', JSON.stringify(data))
+    return res.data.ID
 }
 
 async function sendMsg(data: { RoomID: string, Msg: string }) {
-    await talker.put('/chat', JSON.stringify(data))
+    type response = {
+        ID: string
+    }
+    let res = await talker.put<response>('/chat', JSON.stringify(data))
+    return res.data.ID
 }
 
-// Convert file to base64
-function getBase64(file: File, cb: Function) {
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-        cb(reader.result)
-    };
-    reader.onerror = function (error) {
-        console.log('Error: ', error);
-    };
+// Department
+async function getAllDepartment() {
+    let res = await talker.get<department>('/department')
+    return res.data
+}
+
+// Feed
+async function createFeed(data: { Detail: string }) {
+    type response = {
+        ID: string
+    }
+    let res = await talker.put<response>('/feed', JSON.stringify(data))
+    return res.data.ID
+}
+
+async function getFeed(page: number) {
+    type response = feed[]
+    let res = await talker.get<response>('/feed' + page)
+    return res.data
+}
+
+const Account = {
+    auth,
+    login,
+    logout,
+    register,
+    getAccount,
+    updateAccount
+}
+
+const Chat = {
+    createRoom,
+    sendMsg
+}
+
+const Department = {
+    getAllDepartment
+}
+
+const Feed = {
+    createFeed,
+    getFeed
 }
 
 export default {
-    auth,
-    login,
-    register
+    Account,
+    Chat,
+    Department,
+    Feed
 }
