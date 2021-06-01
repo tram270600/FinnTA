@@ -5,7 +5,9 @@ import {
     updatableData,
     feed,
     department,
-    resAccount
+    resAccount,
+    chat,
+    room
 } from 'global/dataType'
 import {
     toBase64
@@ -68,12 +70,22 @@ async function createRoom(data: { ID: string }) {
     return res.data.ID
 }
 
+async function getRoom(page: number) {
+    let res = await talker.post<room[]>('/chat/createRoom?page=' + page)
+    return res.data
+}
+
 async function sendMsg(data: { RoomID: string, Msg: string }) {
     type response = {
         ID: string
     }
     let res = await talker.put<response>('/chat', JSON.stringify(data))
     return res.data.ID
+}
+
+async function getMsg(data: { RoomID: string }) {
+    let res = await talker.put<chat>('/chat', JSON.stringify(data))
+    return res.data
 }
 
 // Department
@@ -92,8 +104,7 @@ async function createFeed(data: { Detail: string }) {
 }
 
 async function getFeed(page: number) {
-    type response = feed[]
-    let res = await talker.get<response>('/feed' + page)
+    let res = await talker.get<feed[]>('/feed?page=' + page)
     return res.data
 }
 
@@ -108,7 +119,9 @@ const Account = {
 
 const Chat = {
     createRoom,
-    sendMsg
+    getRoom,
+    sendMsg,
+    getMsg
 }
 
 const Department = {
