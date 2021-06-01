@@ -22,6 +22,7 @@ const secretKey = "%f#a^u"
 
 var database *mongo.Database
 
+// Login
 func GetAccount(c *gin.Context) {
 	if database == nil {
 		database = db.CreateConnection()
@@ -61,7 +62,16 @@ func GetAccount(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
 		return
 	}
-	// c.SetCookie("jwt", token, 3600 * 24, "/", "localhost", false, true)
+
+	// Change status to Online
+	_, err = database.Collection("Account").
+		UpdateOne(ctx, entity.Account{ID: account.ID},
+			bson.M{"$set": entity.Account{IsOnline: true}})
+	if err != nil {
+		c.JSON(http.StatusConflict, gin.H{"msg_bcr": err.Error()})
+		return
+	}
+
 	c.SetCookie("_id", account.ID.Hex(), 3600*24, "/", "localhost", false, true)
 	c.JSON(http.StatusOK, gin.H{"jwt": token})
 
@@ -107,24 +117,20 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	isOnline, err := strconv.ParseBool(data["isOnline"])
-	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{"msg_bcr": err.Error()})
-		return
-	}
-
 	account := entity.Account{
-		ID:       primitive.NewObjectID(),
-		Email:    data["Email"],
-		Password: password,
-		Name:     data["Name"],
-		Avatar:   []byte(data["Avatar"]),
-		Phone:    data["Phone"],
-		DoB:      primitive.NewDateTimeFromTime(dob),
-		D_id:     d_id,
-		Bio:      data["Bio"],
-		Role:     data["Role"],
-		IsOnline: isOnline,
+		ID:         primitive.NewObjectID(),
+		Email:      data["Email"],
+		Password:   password,
+		Name:       data["Name"],
+		Avatar:     []byte(data["Avatar"]),
+		Phone:      data["Phone"],
+		DoB:        primitive.NewDateTimeFromTime(dob),
+		D_id:       d_id,
+		Bio:        data["Bio"],
+		Role:       data["Role"],
+		IsOnline:   false,
+		Created_at: primitive.NewDateTimeFromTime(time.Now()),
+		Updated_at: primitive.NewDateTimeFromTime(time.Now()),
 	}
 
 	_, err = database.Collection("Account").InsertOne(ctx, account)
@@ -205,7 +211,19 @@ func GetUser(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"msg": "Not Found ID"})
 		return
 	}
-	c.JSON(http.StatusOK, acc)
+
+	c.JSON(http.StatusOK, gin.H{
+		"_id":        acc.ID,
+		"Email":      acc.Email,
+		"Name":       acc.Name,
+		"Avatar":     acc.Avatar,
+		"DoB":        acc.DoB,
+		"D_id":       acc.D_id,
+		"Bio":        acc.Bio,
+		"Role":       acc.Role,
+		"isOnline":   acc.IsOnline,
+		"updated_at": acc.Updated_at,
+	})
 }
 
 func UpdateUser(c *gin.Context) {
@@ -235,10 +253,7 @@ func UpdateUser(c *gin.Context) {
 	}
 
 	tempAcc := entity.Account{
-		Name:  data["Name"],
-		Phone: data["Phone"],
-		Bio:   data["Bio"],
-		Role:  data["Role"],
+		Updated_at: primitive.NewDateTimeFromTime(time.Now()),
 	}
 
 	if data["Password"] != "" {
@@ -284,7 +299,8 @@ func UpdateUser(c *gin.Context) {
 		tempAcc.DoB = primitive.NewDateTimeFromTime(dob)
 	}
 
-	result, err := database.Collection("Account").UpdateOne(ctx, entity.Account{ID: _id}, bson.M{"$set": tempAcc})
+	result, err := database.Collection("Account").
+		UpdateOne(ctx, entity.Account{ID: _id}, bson.M{"$set": tempAcc})
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{"msg_bcr": err.Error()})
 		return
@@ -295,6 +311,32 @@ func UpdateUser(c *gin.Context) {
 
 //GET clean cookie
 func Logout(c *gin.Context) {
+	if database == nil {
+		database = db.CreateConnection()
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), connectTimeout)
+	defer cancel()
+
+	cookie, err := c.Cookie("_id")
+	if err != nil {
+		c.JSON(http.StatusNonAuthoritativeInfo, gin.H{"msg": err.Error()})
+		return
+	}
+
+	_id, err := primitive.ObjectIDFromHex(cookie)
+	if err != nil {
+		c.JSON(http.StatusConflict, gin.H{"msg": err.Error()})
+		return
+	}
+
+	// CHange status to Offline
+	_, err = database.Collection("Account").
+		UpdateOne(ctx, entity.Account{ID: _id}, bson.M{"$set": bson.M{"isOnline": false}})
+	if err != nil {
+		c.JSON(http.StatusConflict, gin.H{"msg_bcr": err.Error()})
+		return
+	}
+
 	c.SetCookie("_id", "", -1, "/", "localhost", false, true)
 	c.JSON(http.StatusOK, gin.H{"msg": "Success"})
 }

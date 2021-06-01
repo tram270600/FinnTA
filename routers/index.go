@@ -34,5 +34,12 @@ func InitRoute() *gin.Engine {
 	client.POST("/chat/createRoom", services.CreateRoom)
 	client.PUT("/chat", services.SendChat)
 
+	// Department
+	client.GET("/department", services.GetAllDepartment)
+
+	// Feed
+	client.PUT("/feed", services.CreateFeed)
+	client.GET("/feed", services.GetFeed)
+
 	return router
 }

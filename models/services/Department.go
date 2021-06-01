@@ -1,0 +1,38 @@
+package services
+
+import (
+	"API_Mongo/models/db"
+	"API_Mongo/models/entity"
+	"context"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
+)
+
+func GetAllDepartment(c *gin.Context) {
+	if database == nil {
+		database = db.CreateConnection()
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), connectTimeout)
+	defer cancel()
+
+	var d_list []entity.Department
+	cursor, err := database.Collection("Department").Find(ctx, bson.M{})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
+		return
+	}
+	defer cursor.Close(ctx)
+	for cursor.Next(ctx) {
+		var d entity.Department
+		cursor.Decode(&d)
+		d_list = append(d_list, d)
+	}
+	if err := cursor.Err(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, d_list)
+
+}

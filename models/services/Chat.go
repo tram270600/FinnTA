@@ -62,7 +62,7 @@ func CreateRoom(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"roomID": room.ID})
+	c.JSON(http.StatusOK, gin.H{"ID": room.ID})
 }
 
 func SendChat(c *gin.Context) {
@@ -110,7 +110,7 @@ func SendChat(c *gin.Context) {
 	}
 
 	fmt.Println(msg.Room_id)
-	res, err := database.Collection("Room").
+	_, err = database.Collection("Room").
 		UpdateOne(ctx, bson.M{"_id": bson.M{"$eq": msg.Room_id}},
 			bson.M{"$set": entity.Room{Last_msg: entity.ChatLog{Sender: msg.Sender, Msg: msg.Msg}}})
 
@@ -119,5 +119,5 @@ func SendChat(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"res": res, "ChatID": msg.ID})
+	c.JSON(http.StatusOK, gin.H{"ID": msg.ID})
 }
