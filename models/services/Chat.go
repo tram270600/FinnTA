@@ -60,6 +60,47 @@ func CreateRoom(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"ID": room.ID})
 }
 
+func GetRoom(c *gin.Context) {
+	if utils.Database == nil {
+		utils.Database = db.CreateConnection()
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), utils.ConnectTimeout)
+	defer cancel()
+
+	_id, err := utils.GetCookie(c)
+	if err != nil {
+		return
+	}
+
+	var room_ls []entity.Room
+	page, _ := strconv.Atoi(c.Query("page"))
+
+	opt := options.Find()
+
+	opt.SetSkip(int64(page) * utils.ElementPerPage)
+	opt.SetLimit(utils.ElementPerPage)
+	opt.SetSort(bson.M{"_id": -1}) //Desc
+
+	filter := bson.M{"uid": bson.M{"$all": bson.A{_id}}, "deleted_at": utils.Based_date}
+
+	cursor, err := utils.Database.Collection("Room").Find(ctx, filter, opt)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
+		return
+	}
+	defer cursor.Close(ctx)
+	for cursor.Next(ctx) {
+		var room entity.Room
+		cursor.Decode(&room)
+		room_ls = append(room_ls, room)
+	}
+	if err := cursor.Err(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, room_ls)
+}
+
 func SendChat(c *gin.Context) {
 	if utils.Database == nil {
 		utils.Database = db.CreateConnection()
