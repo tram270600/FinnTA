@@ -36,6 +36,22 @@ type loginData = {
     Password: string
 }
 
+type room = {
+    _id: string,
+    uid: string[],
+    last_msg: {
+        sender: string,
+        msg: string
+    }
+}
+
+type chat = {
+    _id: string,
+    sender: string,
+    msg: string,
+    updated_at: string
+}
+
 type department = {
     _id: string,
     name: string,
@@ -52,4 +68,9 @@ type feed = {
     updated_at: string
 }
 
-export type { accountData, resAccount, loginData, updatableData, department, feed }
+export type {
+    accountData, resAccount, loginData, updatableData,
+    room, chat,
+    department,
+    feed
+}

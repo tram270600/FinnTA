@@ -61,6 +61,11 @@ async function updateAccount(data: updatableData) {
     await talker.put('/user', JSON.stringify(data))
 }
 
+//TA
+async function getSortTA(_sort: string, _by: string, _page: string) {
+    let res = await talker.get<resAccount[]>('/user/TA', { params: { sort: _sort, by: _by, page: _page } })
+}
+
 // Chat
 async function createRoom(data: { ID: string }) {
     type response = {
@@ -70,8 +75,8 @@ async function createRoom(data: { ID: string }) {
     return res.data.ID
 }
 
-async function getRoom(page: number) {
-    let res = await talker.post<room[]>('/chat/createRoom?page=' + page)
+async function getRoom(_page: number) {
+    let res = await talker.get<room[]>('/chat/room', { params: { page: _page } })
     return res.data
 }
 
@@ -103,8 +108,8 @@ async function createFeed(data: { Detail: string }) {
     return res.data.ID
 }
 
-async function getFeed(page: number) {
-    let res = await talker.get<feed[]>('/feed?page=' + page)
+async function getFeed(_page: number) {
+    let res = await talker.get<feed[]>('/feed', { params: { page: _page } })
     return res.data
 }
 
@@ -114,7 +119,11 @@ const Account = {
     logout,
     register,
     getAccount,
-    updateAccount
+    updateAccount,
+}
+
+const TA = {
+    getSortTA
 }
 
 const Chat = {
@@ -135,6 +144,7 @@ const Feed = {
 
 export default {
     Account,
+    TA,
     Chat,
     Department,
     Feed
