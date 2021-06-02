@@ -199,25 +199,14 @@ func GetUser(c *gin.Context) {
 		return
 	}
 
-	var acc entity.Account
+	var acc entity.Out_Account
 	err = utils.Database.Collection("Account").FindOne(ctx, entity.Account{ID: _id}).Decode(&acc)
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"msg": "Not Found ID"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"_id":        acc.ID,
-		"Email":      acc.Email,
-		"Name":       acc.Name,
-		"Avatar":     acc.Avatar,
-		"DoB":        acc.DoB,
-		"D_id":       acc.D_id,
-		"Bio":        acc.Bio,
-		"Role":       acc.Role,
-		"isOnline":   acc.IsOnline,
-		"updated_at": acc.Updated_at,
-	})
+	c.JSON(http.StatusOK, acc)
 }
 
 func UpdateUser(c *gin.Context) {

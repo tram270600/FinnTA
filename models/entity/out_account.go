@@ -2,10 +2,9 @@ package entity
 
 import "go.mongodb.org/mongo-driver/bson/primitive"
 
-type Account struct {
+type Out_Account struct {
 	ID         primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
 	Email      string             `json:"Email,omitempty" bson:"Email,omitempty"`
-	Password   []byte             `json:"-,omitempty" bson:"-,omitempty"`
 	Name       string             `json:"Name,omitempty" bson:"Name,omitempty"`
 	Avatar     []byte             `json:"Avatar,omitempty" bson:"Avatar,omitempty"`
 	Phone      string             `json:"Phone,omitempty" bson:"Phone,omitempty"`
