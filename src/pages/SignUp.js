@@ -108,13 +108,13 @@ const SignUp = () => {
                 </div>
                </form>
                {/* Turn on modal here*/}
-               {/* <div className="Modall">
+               <div className="Modall">
                     <button className="button-default" onClick={toggle}>Show Modal</button>
                     <Modal
                         isShowing={isShowing}
                         hide={toggle}
                     />
-                </div> */}
+                </div>
                <p>Already have an account? <a href="/login">Sign in</a></p>
 
              

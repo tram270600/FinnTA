@@ -5,7 +5,7 @@ import envelope from '../../images/envelope.png'
 import phone from '../../images/phone.png'
 import score from '../../images/score.png'
 import user from '../../images/user.png'
-
+import bd from './bd.svg'
 import '../../styles/DashProfile.css'
 
 const ProfileDashBody = () => {
@@ -25,7 +25,7 @@ const ProfileDashBody = () => {
                                 <h5>Overall: <span>77.8</span></h5>
                             </div>
                             <div className = 'content'>
-                                <img src = {birthday} alt = 'birthday' />
+                                <img src = {bd} alt = 'birthday' />
                                 <h5>Date of birth: <span>27/06/2000</span></h5>
                             </div>
                         </div>

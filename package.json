@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.4",
     "@material-ui/utils": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -10,6 +11,8 @@
     "@types/axios": "^0.14.0",
     "@types/react": "^17.0.4",
     "@types/react-router-dom": "^5.1.7",
+    "@unicef/material-ui": "^0.7.8",
+    "@unicef/material-ui-currency-textfield": "^0.8.6",
     "@welcome-ui/swiper": "^3.0.0",
     "@welcome-ui/utils": "^3.4.3",
     "@xstyled/styled-components": "^2.4.1",

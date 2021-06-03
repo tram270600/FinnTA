@@ -8,7 +8,7 @@ import {
     resAccount,
     chat,
     room
-} from 'global/dataType'
+} from '../global/dataType'
 import {
     toBase64
 } from './converter'
