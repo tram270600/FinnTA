@@ -1,19 +1,19 @@
-import React from 'react';
+import { Provider } from 'react-redux';
 import {BrowserRouter, Route} from "react-router-dom";
+import store from 'app/store';
 import routes from './utils/route';
 function App() {
 
   return (
-    <div class="App">
-        <BrowserRouter>
-              {routes.map((route)=>{
-                return <Route path={route.Path} exact={route.isExact}>
-                  {route.Component}
-                </Route>
-              })}
-          </BrowserRouter>
-    </div>
+      <div className="App">
+          <BrowserRouter>
+                {routes.map((route, i)=>{
+                  return <Route key={i} path={route.Path} exact={route.isExact}>
+                    {route.Component}
+                  </Route>
+                })}
+            </BrowserRouter>
+      </div>
   );
 }
-
 export default App;

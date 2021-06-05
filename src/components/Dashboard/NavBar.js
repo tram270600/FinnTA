@@ -6,6 +6,10 @@ import NotifyMe from 'react-notification-timeline';
 import '../../styles/NavBar.css'
 
 const NavBar = () => {
+    function a (b,c){
+        b = b+c
+        console.log(b)
+    }
     const data =  [
         {
             "update":"70 new employees are shifted",

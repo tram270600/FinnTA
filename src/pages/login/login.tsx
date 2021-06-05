@@ -1,9 +1,9 @@
 import React, { SyntheticEvent, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import '../../styles/login.scss'
+import 'styles/login.scss'
 
-import showPw from '../../images/showPw.svg';
-import talker from '../../utils/talker';
+import showPw from 'images/showPw.svg';
+import talker from 'utils/talker';
 
 const Login = () => {
     const [Email, setEmail] = useState('');
@@ -13,7 +13,7 @@ const Login = () => {
 
     const handleForm = async (e: SyntheticEvent) => {
         e.preventDefault();
-        await talker.login({ Email, Password })
+        await talker.Account.login({ Email, Password })
         setRedirect(true);
     }
 

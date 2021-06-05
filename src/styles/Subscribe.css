@@ -1,4 +1,4 @@
-.sub-container{
+.sub-container {
     padding: 2rem;
     position: relative;
     border: 2px solid #DDDDDD;
@@ -10,34 +10,39 @@
     justify-content: space-between;
     z-index: 9;
     background: #fff;
-    transform: translate(0%,40%);
+    transform: translate(0%, 40%);
 
 }
-.sub-title{
+
+.sub-title {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
 }
-.sub-title > h1{
+
+.sub-title>h1 {
     line-height: 45px;
     color: #0B132A;
     font-weight: 700;
     font-size: 35px;
 }
-.sub-title > h4{
+
+.sub-title>h4 {
     font-size: 16px;
     color: #4F5665;
     font-weight: 400;
     line-height: 30px;
     margin-top: 20px;
 }
-.sub-btn{
+
+.sub-btn {
     width: 250px;
     height: 60px;
     margin-left: 10%;
 }
-.sub{
+
+.sub {
     background: #0191B4;
     border-radius: 10px;
     color: #fff;
