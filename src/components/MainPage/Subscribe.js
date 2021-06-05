@@ -10,7 +10,7 @@ const Subscribe = () => {
                 <h4>Let's subscribe with us and find the fun.</h4>
             </div>
             <div className = 'sub-btn'>
-                <button className = 'btn sub'>Subscribe Now</button>
+                <button className = 'sub'>Subscribe Now</button>
             </div>
         </div>
     )

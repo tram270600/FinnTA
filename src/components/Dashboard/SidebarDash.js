@@ -31,7 +31,7 @@ const SidebarDash = (props) => {
     return (
         <>
             <div className = 'avatar inDash'>
-                    <img src = "https://scontent.fsgn1-1.fna.fbcdn.net/v/t1.6435-9/173675054_1559121364419800_5783364412267366985_n.jpg?_nc_cat=106&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=k80HlU5h9WcAX_RswLr&_nc_ht=scontent.fsgn1-1.fna&oh=57ddf3d651bb520c6862f7c6b0693983&oe=60B16EED" alt = 'Avatar' />
+                    <img src = "https://scontent-hkg4-1.xx.fbcdn.net/v/t1.6435-9/173675054_1559121364419800_5783364412267366985_n.jpg?_nc_cat=106&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=iYlzD0IeYT4AX8hCA2y&_nc_ht=scontent-hkg4-1.xx&oh=72b4b5442405e38859a0b3c1f8c1e06f&oe=60E0E4ED" alt = 'Avatar' />
                     <h2>Mario Nguyen</h2>
                 </div>
             <div className = 'dash-sidebar-menu'>

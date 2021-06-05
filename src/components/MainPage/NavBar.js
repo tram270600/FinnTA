@@ -5,11 +5,11 @@ import logo from '../../images/Logo.png'
 
 const NavBar = () => {
     return (
-        <nav className = 'navbar'>
+        <nav className = 'navbar' style = {{position: "sticky"}} >
             <div className = 'navbar-container'>
                 <Link to = '/' className = 'navbar-logo'>
                     <img src = {logo} className = 'logo' alt = 'Logo' />
-                    FinnaTa 
+                    FinnTa 
                 </Link>
             </div>
             <ul className = 'nav-menu'>

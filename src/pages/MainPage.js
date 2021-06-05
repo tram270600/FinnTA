@@ -10,7 +10,7 @@ const MainPage = () => {
         <>
             <NavBar />
             <HeroSection />
-            <Cards />
+            <Cards />   
             <News />
             <Subscribe />
             <Footer />

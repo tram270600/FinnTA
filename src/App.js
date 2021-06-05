@@ -12,7 +12,7 @@ function App() {
                     {route.Component}
                   </Route>
                 })}
-            </BrowserRouter>
+          </BrowserRouter>
       </div>
   );
 }
