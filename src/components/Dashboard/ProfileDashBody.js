@@ -1,11 +1,10 @@
 import React from 'react';
-import birthday from '../../images/birthday.png'
-import cap from '../../images/cap.png'
-import envelope from '../../images/envelope.png'
-import phone from '../../images/phone.png'
-import score from '../../images/score.png'
-import user from '../../images/user.png'
-import bd from './bd.svg'
+import cap from '../../images/cap.svg'
+import envelope from '../../images/envelope.svg'
+import phone from '../../images/phone.svg'
+import score from '../../images/score.svg'
+import user from '../../images/user.svg'
+import bd from '../../images/bd.svg'
 import '../../styles/DashProfile.css'
 
 const ProfileDashBody = () => {
@@ -78,10 +77,6 @@ const ProfileDashBody = () => {
                 <div className = 'grid progress'>
                     <h1>Progressing Course</h1>
                     <div className = 'gird-container'></div>
-                </div>
-                <div className = 'grid history'>
-                    <h1>History Course</h1>
-                    <div className = 'grid-container'></div>
                 </div>
             </div>
         </>

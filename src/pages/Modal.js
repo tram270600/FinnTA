@@ -8,7 +8,7 @@ import { TextField } from '@material-ui/core';
 
 
 const Modal = ({ isShowing, hide }) => {
-    const [selectedDate, handleDateChange] = useState(new Date());
+const [selectedDate, handleDateChange] = useState(new Date());
 const [value, setValue] = React.useState(100);
 const isValid = value < 1000;
     return isShowing ? ReactDOM.createPortal(  
