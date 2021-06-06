@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 import cap from '../../images/cap.svg'
 import envelope from '../../images/envelope.svg'
 import phone from '../../images/phone.svg'
@@ -6,8 +7,10 @@ import score from '../../images/score.svg'
 import user from '../../images/user.svg'
 import bd from '../../images/bd.svg'
 import '../../styles/DashProfile.css'
+import Dropdown from 'react-bootstrap/Dropdown'
 
 const ProfileDashBody = () => {
+
     return (
         <>
             <div className = 'dash-infor'>
@@ -50,16 +53,25 @@ const ProfileDashBody = () => {
                 </div>
                 <div className = 'dash-button'>
                     <div className = 'button-container'>
-                        <button className = 'btn-square btn-choose'>
-                            <span>Create post</span>
-                        </button>
+                        <DropdownButton 
+                            menuAlign = 'left' 
+                            title = 'Create post'
+                            bsPrefix = 'btn-square btn-choose'
+                        >
+                            <Dropdown.Item href = "#">
+                                Create Course
+                            </Dropdown.Item>
+                            <Dropdown.Item href = "#">
+                                Create Post
+                            </Dropdown.Item>
+                        </DropdownButton>
                         <button className = 'btn-square'>
                             <span>Edit Profile</span>
                         </button>
                     </div>
                     <div className = 'follow-container'>
                         <div className = 'follow-child'>
-                            <h3>100</h3>
+                            <h3>100</h3>    
                             <h4>Posts</h4>
                         </div>
                         <div className = 'follow-child'>
