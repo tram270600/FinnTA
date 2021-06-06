@@ -10,6 +10,11 @@ import SidebarDash from '../components/Dashboard/SidebarDash';
 import NavBar from '../components/Dashboard/NavBar'
 import Modal from "./Modal";
 import useModal from './useModal';
+import ModalCreatePost from './ModalCreatePost';
+import ModalEditProfile from './ModalEditProfile';
+import ModalConfirmBook from './ModalConfirmBook';
+import ModalRating from './ModalRating';
+import ModalViewRate from './ModalViewRate';
 // import Modal from 'react-bootstrap/Modal';
 
 
@@ -18,7 +23,13 @@ const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showPassword2, setShowPassword2] = useState(false);
     const { handleChange, values, handleSubmit } = useSignUpForm();
+
     const {isShowing, toggle} = useModal(); //custom modal hook 
+    const {isShowingCreate, toggleCreate} = useModal();
+    const {isShowingProfile, toggleProfile} = useModal();
+    const {isShowingBook, toggleBook} = useModal();
+    const {isShowingRate, toggleRate} = useModal();
+    const {isShowingViewRate, toggleViewRate} = useModal();
 
     return (
         <div className="loginForm">
@@ -55,7 +66,7 @@ const SignUp = () => {
                             </div>
 
                             <div className="field">
-                                <select NAME="department" SIZE="1">
+                                <select NAME="department" SIZE="1" style ={{width: '360px'}}>
                                     <option VALUE="default"> Choose your faculty </option>
                                     <option VALUE="CSE">CSE - Computer Science and Engineering</option>
                                     <option VALUE="BA"> BA - Business Administration </option>
@@ -113,6 +124,41 @@ const SignUp = () => {
                     <Modal
                         isShowing={isShowing}
                         hide={toggle}
+                    />
+                </div>
+                <div className="Modall">
+                    <button className="button-default" onClick={toggleCreate}>Show Modal Create</button>
+                    <ModalCreatePost
+                        isShowingCreate={isShowingCreate}
+                        hide={toggleCreate}
+                    />
+                </div>
+                {/* <div className="Modall">
+                    <button className="button-default" onClick={toggleProfile}>Show Modal Profile</button>
+                    <ModalEditProfile
+                        isShowingProfile={isShowingProfile}
+                        hide={toggleProfile}
+                    />
+                </div>
+                <div className="Modall">
+                    <button className="button-default" onClick={toggleBook}>Show Modal Book</button>
+                    <ModalConfirmBook
+                        isShowingBook={isShowingBook}
+                        hide={toggleBook}
+                    />
+                </div> */}
+                {/* <div className="Modall">
+                    <button className="button-default" onClick={toggleRate}>Show Modal Rate</button>
+                    <ModalRating
+                        isShowingRate={isShowingRate}
+                        hide={toggleRate}
+                    />
+                </div> */}
+                <div className="Modall">
+                    <button className="button-default" onClick={toggleViewRate}>Show Modal Rate</button>
+                    <ModalViewRate
+                        isShowingViewRate={isShowingViewRate}
+                        hide={toggleViewRate}
                     />
                 </div>
                <p>Already have an account? <a href="/login">Sign in</a></p>

@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import '../styles/modal.scss';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 import {UKeyboardDateTimePicker } from '@unicef/material-ui';
- import { useState } from 'react';
+import { useState } from 'react';
 import { TextField } from '@material-ui/core';
 
 
 const Modal = ({ isShowing, hide }) => {
     const [selectedDate, handleDateChange] = useState(new Date());
-const [value, setValue] = React.useState(100);
-const isValid = value < 1000;
+    const [value, setValue] = React.useState();
+    const isValid = value < 70;
     return isShowing ? ReactDOM.createPortal(  
   <React.Fragment>
     <div id="myModal" class="modal">
@@ -46,7 +46,8 @@ const isValid = value < 1000;
                     <div className="input-number">
                         <label>Price</label>
                         <CurrencyTextField
-                            label="Amount"
+                            style ={{width: '70%'}}
+                            // label="Amount"
                             variant="standard"
                             // value={value}
                             placeholder="Enter price"
@@ -64,12 +65,12 @@ const isValid = value < 1000;
                     <div className="input-number">
                         <label>Date</label>
                         <UKeyboardDateTimePicker
-                        label="Date and Time"
-                        size="small"
-                        colors="red"
-                        // value={selectedDate}
-                        // onChange={handleDateChange}
-                        // InputLabelProps={{className: "dcm"}}
+                            style ={{width: '70%'}}
+                            // label="Date and Time"
+                            size="small"
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                            // InputLabelProps={{className: "dcm"}}
                         /> 
                     </div>
                 </div>
@@ -78,9 +79,10 @@ const isValid = value < 1000;
                     <div className="input-number">
                     <label>GPA</label>
                     <CurrencyTextField
-                            label="Score"
+                            style ={{width: '70%'}}
+                            // label="Score"
                             variant="standard"
-                            // value={value}
+                            value={value}
                             placeholder="Enter score"
                             currencySymbol="/100"
                             outputFormat="string"
@@ -89,16 +91,15 @@ const isValid = value < 1000;
                             // minimumValue="70"
                             maximumValue="100"
                             helperText="Minimum score to start course is 70"
-                            // onChange={(e, value) => setValue(value)}
-		                    // error={isValid}
-		                    // helperText={isValid && "Minimum score to start course is 70"}
+                            onChange={(e, value) => setValue(value)}
+		                    error={isValid}
+		                    helperText={isValid && "Minimum score to start course is 70"}
                         />
                     </div>
                 </div>
                 <div className="field">
-                <label>Description/Message</label>
-                <textarea rows={4} cols={45} label = "Description" placeholder="Add some description"/>
-                    
+                    <label>Description/Message</label>
+                    <textarea rows={4} cols={47} label = "Description" placeholder="Add some description"/>
                 </div>
                 <div className="Container"> 
                     <input type="submit" value="CREATE COURSE"/>  
