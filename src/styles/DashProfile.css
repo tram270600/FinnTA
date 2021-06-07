@@ -74,6 +74,7 @@
     align-items: center;
     font-weight: 600;
     font-size: 1rem;
+    margin-top: 1%;
     /* border: 1px solid blueviolet; */
 }
 .dash-button{
@@ -96,7 +97,7 @@
     /* border: 1px solid black;   */
     margin: 0 6%;
 }
-.btn-square {
+.button-container > .btn-square {
     width: 140px;
     height: 37px;
     border-radius: 7px;
@@ -133,7 +134,7 @@
     line-height: 19px;
     text-transform: uppercase;
 }
-.btn-choose{
+.button-container > .btn-choose{
     background: #0191B4;
     margin-right: 3%;
 }

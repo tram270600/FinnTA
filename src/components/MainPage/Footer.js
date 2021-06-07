@@ -11,7 +11,7 @@ const Footer = () => {
                     <div className = 'footer-logo'>
                         <Link to = '/' className = 'navbar-logo logo-footer'>
                             <img src = {logo} className = 'logo' alt = 'Logo' />
-                            FinnaTa 
+                            FinnTa 
                         </Link>
                     </div>
                     <p>FinnTa is a service that helps student to find teaching assistant, tutor to boost up score.</p>
@@ -51,7 +51,7 @@ const Footer = () => {
                             <i className = 'fab fa-linkedin'></i>
                         </Link>
                     </div>
-                    <small className = 'website-rights'>©2020 Finnta Policy</small>
+                    <small className = 'website-rights'>©2020 FinnTa Policy</small>
                 </div>
                 <div className = 'footer-links'>
                     <div className = 'footer-link-wrapper'>

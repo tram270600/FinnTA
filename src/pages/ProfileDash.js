@@ -8,7 +8,9 @@ const ProfileDash = () => {
     
     return (
         <>
-            <NavBar />
+            <div className = 'profileDash'>
+                <NavBar />
+            </div>
             <div className = 'dash-container'>
                 <div className = 'dash-sidebar'>
                     <SidebarDash 
@@ -16,6 +18,7 @@ const ProfileDash = () => {
                     />
                 </div>
                 <div className = 'dash-body'>
+                    {/*Profile TA view by TA*/}
                     <ProfileDashBody />
                 </div>
             </div>

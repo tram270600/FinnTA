@@ -1,29 +1,33 @@
-import React ,{useState} from 'react';
+import React, { useState } from 'react';
 import '../../styles/HeroSection.css'
-import {Link} from 'react-router-dom'
-import background from '../../images/background.png'
+import { Link } from 'react-router-dom'
+import background from '../../images/background.svg'
 
 const HeroSection = () => {
     const [isHover, setHover] = useState(false)
     const hoverStyle = {
-        transform: 'scale(1.1)'        
+        transform: 'scale(1.1)'
     }
     return (
-        <div className = 'hero-container'>
-            <div className = 'background'>
-                <img src = {background} />
-                <Link to = '/' className = 'btn-link'>
-                    <button 
-                    onMouseMove = {() => setHover(true)} 
-                    onMouseLeave = {() => setHover(false)} 
-                    style = {isHover ? hoverStyle : null} 
-                    className = 'btn-learn'
+        <div className='hero-container'>
+            <div className='text'>
+                <h2>Better learn your friend than your teacher</h2>
+                <h4>The most beautiful thing about learning is that no one take away from you</h4>
+                <Link to='/' className='btn-link'>
+                    <button
+                        onMouseMove={() => setHover(true)}
+                        onMouseLeave={() => setHover(false)}
+                        style={isHover ? hoverStyle : null}
+                        className='btn-learn'
                     >Learn more
-                    </button>
+                        </button>
                 </Link>
             </div>
-            
+            <div className='img'>
+                <img src={background} />
+            </div>
         </div>
+
     )
 }
 export default HeroSection

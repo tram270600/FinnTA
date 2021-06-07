@@ -6,10 +6,7 @@ import NotifyMe from 'react-notification-timeline';
 import '../../styles/NavBar.css'
 
 const NavBar = () => {
-    function a (b,c){
-        b = b+c
-        console.log(b)
-    }
+
     const data =  [
         {
             "update":"70 new employees are shifted",
@@ -84,7 +81,7 @@ const NavBar = () => {
                 <div className = 'avatar'>
                     <div className = 'name'>
                         <img src = {avatar} alt = 'Avatar'/>
-                        <span>Ubyii</span>
+                        <span>Mario</span>
                     </div>
                 </div>
             </div>
