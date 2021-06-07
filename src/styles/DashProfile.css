@@ -1,7 +1,6 @@
 .dash-infor{
     width: 100%;
     height: 30%;
-    /* border: 1px solid red; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -10,12 +9,11 @@
     width: 100%;
     height: 70%;
     overflow: hidden;
-    /* border: 1px solid yellow; */
+    border: 1px solid black;
 }
 .dash-contact-container{
     height: 100%;
     width: 70%;
-    /* border: 1px solid black; */
     display: flex;
     flex-flow: column;
 }
@@ -24,13 +22,11 @@
     justify-content: flex-start;
 }
 .contact{
-    /* border: 1px solid green; */
     align-items: center;
     width: 100%;
 }
 .social{
     width: 42%;
-    /* border: 1px solid black; */
 }
 .general{
     width: 58%;
@@ -43,7 +39,6 @@
 }
 .content {
     display: flex;
-    /* border: 1px solid blue; */
     align-items: center;
     text-align: center;
     margin-bottom: 1.4%;
@@ -61,12 +56,10 @@
 .content > img {
     width: 5%;
     height: 100%;
-    /* border: 1px solid blueviolet; */
     text-align: center;
     align-items: center;
 }
 .dash-describe{
-    /* border: 1px solid palevioletred; */
     align-items: center;
     display: flex;
 }
@@ -75,29 +68,27 @@
     font-weight: 600;
     font-size: 1rem;
     margin-top: 1%;
-    /* border: 1px solid blueviolet; */
 }
 .dash-button{
     height: 100%;
     width: 30%;
-    /* border: 1px solid brown; */
     text-align: center;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     margin-top: 3%;
 }
 .button-container{
-    /* border: 1px solid springgreen; */
-    margin-bottom: 3%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10%;
+        margin-bottom: 3%;
 }
 .follow-container{
     display: flex;
     justify-content: space-between;
-    /* border: 1px solid black;   */
-    margin: 0 6%;
+    padding: 0 15%;
 }
-.button-container > .btn-square {
+.btn-square {
     width: 140px;
     height: 37px;
     border-radius: 7px;
@@ -111,6 +102,13 @@
     transition-duration: 0.3s;
     -webkit-transition-property: transform;
     transition-property: transform;
+    border: 1px solid #4BA1B0;
+    color: #FFFFFF;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    text-transform: uppercase;
 }
 .btn-square:hover,
 .btn-square:focus,
@@ -126,15 +124,8 @@
     line-height: 19px;
     text-transform: uppercase;
 }
-.btn-choose > span {
-    color: #FFFFFF;
-    text-align: center;
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 19px;
-    text-transform: uppercase;
-}
-.button-container > .btn-choose{
+
+.btn-choose{
     background: #0191B4;
     margin-right: 3%;
 }
@@ -155,4 +146,58 @@
     font-weight: 500;
     text-align: center;
     font-size: 1.1rem;
+}
+.dropdown-item{
+    font-size: 1rem !important;
+    font-style: normal !important;
+    font-weight: 800 !important;
+    line-height: 17px !important;
+    text-align: center !important;
+    color: #0191B4 !important;
+    padding: 6% 0 !important;
+}
+.dropdown-menu{
+    height: fit-content !important;
+    padding: 0 !important;
+}
+.dropdown-toggle:focus::after{
+    transform: rotate(180deg) !important;
+}
+.rating-container{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 9%;
+    margin-bottom: 5%;
+}
+.rating-container > .rating-gap {
+    align-items: center;
+    text-align: center;
+}
+.rating-gap > .rating-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: auto 0;
+    margin-bottom: 4%;
+}
+.rating-content > span{
+    font-weight: bold;
+    line-height: 19px;
+    font-size: 1.05rem;
+    text-align: center;
+    align-items: center;
+}
+.rating-content > img{
+    margin-right: 5px;
+}
+.rating-gap > h5 {
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 15px;
+    text-align: center;
+    color: #828282;
+    margin-bottom: 0;
+}
+.rating-container > img{
+    margin-bottom: 4.5%;
 }
