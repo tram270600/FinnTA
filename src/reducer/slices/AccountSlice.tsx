@@ -1,19 +1,19 @@
-import { ActionReducerMapBuilder, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "app/store";
-import { accountData, loginData, resAccount, updatableData } from "global/dataType";
+import { resAccount } from "global/dataType";
 import { loginThunk } from "reducer/thunks/AccountThunk";
 
 
 type fetchState = {
     status: "loading" | "idle",
     err: string | null,
-    account: resAccount
+    data: resAccount
 }
 
 const initialState = {
     status: "idle",
     err: null,
-    account: {} as resAccount,
+    data: {} as resAccount,
 } as fetchState
 
 const selectStatus = (state: RootState) => state.account.status;

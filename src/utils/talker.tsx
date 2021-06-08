@@ -1,13 +1,9 @@
 import axios from 'axios'
 import {
-    loginData,
     accountData,
-    updatableData,
     feed,
-    department,
     resAccount,
-    chat,
-    room
+    chat
 } from 'global/dataType'
 // import {
 //     toBase64
@@ -92,15 +88,8 @@ const Chat = {
     getMsg
 }
 
-
-const Feed = {
-    createFeed,
-    getFeed
-}
-
 export default {
     Account,
     TA,
-    Chat,
-    Feed
+    Chat
 }

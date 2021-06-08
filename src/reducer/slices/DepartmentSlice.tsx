@@ -5,13 +5,13 @@ import { getAllDepartment } from '../thunks/DepartmentThunk'
 type fetchState = {
     status: "loading" | "idle",
     err: string | null,
-    department: department[],
+    data: department[],
 }
 
 const initialState = {
     status: "idle",
     err: null,
-    department: [],
+    data: [],
 } as fetchState
 
 const Department = createSlice({
@@ -25,7 +25,7 @@ const Department = createSlice({
         })
         builder.addCase(getAllDepartment.fulfilled, (state, { payload }) => {
             state.status = "idle"
-            state.department = payload
+            state.data = payload
         })
         builder.addCase(getAllDepartment.rejected, (state, { payload }) => {
             if (payload)

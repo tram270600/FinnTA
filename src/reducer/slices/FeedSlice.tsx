@@ -5,13 +5,13 @@ import { createFeed, getFeed } from "reducer/thunks/FeedThunk";
 type fetchState = {
     status: "loading" | "idle",
     err: string | null,
-    feed: feed[],
+    data: feed[],
 }
 
 const initialState = {
     status: "idle",
     err: null,
-    feed: [],
+    data: [],
 } as fetchState
 
 const Feed = createSlice({
@@ -25,7 +25,7 @@ const Feed = createSlice({
         })
         builder.addCase(createFeed.fulfilled, (state, { payload }) => {
             state.status = "idle"
-            state.feed.push(payload)
+            state.data.push(payload)
         })
         builder.addCase(createFeed.rejected, (state, { payload }) => {
             if (payload)
@@ -39,7 +39,7 @@ const Feed = createSlice({
         })
         builder.addCase(getFeed.fulfilled, (state, { payload }) => {
             state.status = "idle"
-            state.feed = payload
+            state.data = payload
         })
         builder.addCase(getFeed.rejected, (state, { payload }) => {
             if (payload)
