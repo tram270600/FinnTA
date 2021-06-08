@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+@mixin fontStyle($weight, $size, $height, $color) {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $height;
+  color: $color;
+}
+.card-container {
+    height: auto;
+    width: 318px;
+    border-radius: 16px;
+    background: #FFFFFF;
+    margin-top: 1%;
+    margin-bottom: 1.4%;
+    padding: 5px;
+    &:hover{
+        box-shadow: 0px 8px 24px rgba(1, 145, 180, 0.1), 0px 16px 32px rgba(1, 145, 180, 0.08);
+    }
+
+    .img{
+        height: 168px;
+        width: auto;
+        margin-bottom: 14px;
+    }
+    .content {
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-right: 1%;
+
+        .falcuty{
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 9px;
+
+            .title1 {
+                @include fontStyle(600px ,12px ,13px,#6E798C);
+                text-transform: uppercase;
+            }
+            .title2 {
+                @include fontStyle('normal',11px ,15px ,#6E798C)
+            }
+        }
+
+        .text{
+            h3 {
+                @include fontStyle(600px,20px ,25px ,#081F32)
+            }
+            p{
+                @include fontStyle('normal',14px,19px,#374A59)
+            }
+        }
+
+        .footer{
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            padding-right: 4%;
+            .view {
+                display: flex;
+                align-items: center;
+                text-align: center;
+
+                img {
+                    margin-right: 5px;
+                }
+                a{
+                    text-decoration: none;
+                    @include fontStyle(600px,15px,15px,#35BBCA)
+                }
+
+            }
+            .option {
+                text-align: center;
+                align-items: center;
+                display: flex;
+                
+                a{
+                    text-decoration: none;
+                    @include fontStyle(600px,15px,15px ,#35BBCA)
+                }
+            }
+        }
+    }
+}

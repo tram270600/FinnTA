@@ -20,7 +20,8 @@ const Login = () => {
     if (redirect) return <Redirect to="/" />
 
     return (
-        <div className="loginForm">
+        <div className = "backGround">    
+            <div className="loginForm">
             <div className="header">
                 <h1>Connect with other<br />Make you better</h1>
                 <a href="/"><b>Sign in</b> to your FinnTA Account !</a>
@@ -53,6 +54,7 @@ const Login = () => {
                 </div>
             </form>
             <p>Don't have an account? <a href="/">Sign up</a></p>
+        </div>
         </div>
     );
 }

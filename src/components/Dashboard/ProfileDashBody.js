@@ -1,21 +1,47 @@
 import React, { useState } from 'react';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import cap from '../../images/cap.svg'
-import envelope from '../../images/envelope.svg'
-import phone from '../../images/phone.svg'
-import score from '../../images/score.svg'
-import user from '../../images/user.svg'
-import bd from '../../images/bd.svg'
-import line from '../../images/line.svg'
-import star from '../../images/star.svg'
-import course from '../../images/response.svg'
-import clock from '../../images/clock.svg'
-import gradient1 from '../../images/gradient1.svg'
-import '../../styles/DashProfile.css'
+import CardTAView from 'components/Dashboard/CardTAView'
+import cap from 'images/cap.svg'
+import envelope from 'images/envelope.svg'
+import phone from 'images/phone.svg'
+import score from 'images/score.svg'
+import user from 'images/user.svg'
+import bd from 'images/bd.svg'
+import line from 'images/line.svg'
+import star from 'images/star.svg'
+import course from 'images/response.svg'
+import clock from 'images/clock.svg'
+import gradient1 from 'images/gradient1.svg'
+import gradient2 from 'images/gradient2.svg'
+import gradient3 from 'images/gradient3.svg'
+import gradient4 from 'images/gradient4.svg'
+import gradient5 from 'images/gradient5.svg'
+import gradient6 from 'images/gradient6.svg'
+import gradient7 from 'images/gradient7.svg'
+import gradient8 from 'images/gradient8.svg'
+import 'styles/DashProfile.css'
 import Dropdown from 'react-bootstrap/Dropdown'
+import { Grid } from '@material-ui/core';
 
 const ProfileDashBody = () => {
 
+    const imgList = [gradient1, gradient2, gradient3, gradient4, gradient5, gradient6, gradient7, gradient8]
+    
+    const cardList = []
+
+    for (let i = 0; i < 10; i++) {
+        cardList.push(
+        <Grid item>
+            <CardTAView
+                source={imgList[Math.floor(Math.random() * 8)]}
+                falcuty='Business Administration'
+                subject='Principles of Marketing'
+                content='Review chapter for midterm. This is the second part of the SMM starter pack series of articles. If you made it this far, you must be willing to learn about promoting business.'
+                isProgress={true}
+            />
+        </Grid>
+        )
+    }
     return (
         <>
             <div className='dash-infor'>
@@ -25,30 +51,30 @@ const ProfileDashBody = () => {
                             <h3>General Information</h3>
                             <div className='content'>
                                 <img src={cap} alt='Cap' />
-                                <h5>Department: <span>Computer Science and Engineering</span></h5>
+                                <div>Department: <span>Computer Science and Engineering</span></div>
                             </div>
                             <div className='content'>
                                 <img src={score} alt='Score' />
-                                <h5>Overall: <span>77.8</span></h5>
+                                <div>Overall: <span>77.8</span></div>
                             </div>
                             <div className='content'>
                                 <img src={bd} alt='birthday' />
-                                <h5>Date of birth: <span>27/06/2000</span></h5>
+                                <div>Date of birth: <span>27/06/2000</span></div>
                             </div>
                         </div>
                         <div className='contact social'>
                             <h3>Contact</h3>
                             <div className='content'>
                                 <img src={envelope} alt='Email' />
-                                <h5>Email: <span>ngntram.ityu@gmail.com</span></h5>
+                                <div>Email: <span>ngntram.ityu@gmail.com</span></div>
                             </div>
                             <div className='content'>
                                 <img src={phone} alt='Phone' />
-                                <h5>Phone: <span>0123456789</span></h5>
+                                <div>Phone: <span>0123456789</span></div>
                             </div>
                             <div className='content'>
                                 <img src={user} alt='User' />
-                                <h5>Social: <span>facebook.com/ubyii</span></h5>
+                                <div>Social: <span>facebook.com/ubyii</span></div>
                             </div>
                         </div>
                     </div>
@@ -117,8 +143,10 @@ const ProfileDashBody = () => {
             </div>
             <div className='dash-grid'>
                 <h2>Progressing Course</h2>
-                <div className='gird-container'>
-                    <img src={gradient1} />
+                <div className='grid-container'>
+                    <Grid container spacing={5} direction="row">
+                       {cardList}
+                    </Grid>
                 </div>
             </div>
         </>

@@ -7,7 +7,7 @@ import NavBar from '../components/Dashboard/NavBar'
 const ProfileDash = () => {
     
     return (
-        <>
+        <div className = 'view-container'>
             <div className = 'profileDash'>
                 <NavBar />
             </div>
@@ -22,7 +22,7 @@ const ProfileDash = () => {
                     <ProfileDashBody />
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 export default ProfileDash
