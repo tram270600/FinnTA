@@ -1,7 +1,7 @@
 type accountData = {
+    Password: string,
     _id: string,
     Email: string,
-    Password: string,
     Name: string,
     Avatar: string,
     DoB: string, // Date.toISOString() let myDob = new Date(DoB) \ myDob.toISOString()
@@ -59,7 +59,7 @@ type department = {
     courses: {
         _id: string,
         name: string
-    }[]
+    }
 }
 
 type feed = {
