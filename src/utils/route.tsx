@@ -1,43 +1,45 @@
-import Auth from "auth";
-import Login from "pages/login/login";
-import MainPage from "pages/MainPage";
-import ProfileDash from "pages/ProfileDash";
-import SignUp from "pages/SignUp";
 import React from "react";
 
-const routes = [
+const Login = React.lazy(() => import('pages/login/login'))
+const MainPage = React.lazy(() => import('pages/MainPage'))
+const ProfileDash = React.lazy(() => import('pages/ProfileDash'))
+const SignUp = React.lazy(() => import('pages/SignUp'))
+
+type Routes = {
+    Path: string,
+    Component: JSX.Element,
+    isExact: boolean,
+    Scope: "Global" | "T.A" | "Student" | "User",
+}
+
+const routes: Routes[] = [
     {
-        'Path': '/',
-        'Component': <Auth />,
-        'isExact': true
+        Path: '/',
+        Component: <MainPage />,
+        isExact: true,
+        Scope: "Global"
     },
 
     {
-        'Path': '/login',
-        'Component': <Login />,
-        'isExact': false
+        Path: '/login',
+        Component: <Login />,
+        isExact: false,
+        Scope: "Global"
     },
 
     {
-        'Path': '/signup',
-        'Component': <SignUp />,
-        'isExact': false
+        Path: '/signup',
+        Component: <SignUp />,
+        isExact: false,
+        Scope: "Global"
     },
 
     {
-        'Path': '/mainpage',
-        'Component': <MainPage />,
-        'isExact': false
-    },
-
-    {
-        'Path': '/profile',
-        'Component': <ProfileDash />,
-        'isExact': false
+        Path: '/profile',
+        Component: <ProfileDash />,
+        isExact: false,
+        Scope: "User"
     },
 ]
-// routes for roles
-// 1. Logined check
-// 2. Private routes - role
 
 export default routes;
