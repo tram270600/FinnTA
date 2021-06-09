@@ -43,7 +43,7 @@ func CreateFeed(c *gin.Context) {
 		c.JSON(http.StatusConflict, gin.H{"msg": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"ID": feed.ID})
+	c.JSON(http.StatusOK, feed)
 
 }
 

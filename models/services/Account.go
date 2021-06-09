@@ -60,14 +60,29 @@ func GetAccount(c *gin.Context) {
 	// Change status to Online
 	_, err = utils.Database.Collection("Account").
 		UpdateOne(ctx, entity.Account{ID: account.ID},
-			bson.M{"$set": entity.Account{IsOnline: true}})
+			bson.M{"$set": entity.Account{IsOnline: true, Updated_at: primitive.NewDateTimeFromTime(time.Now())}})
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{"msg_bcr": err.Error()})
 		return
 	}
 
+	var res_account = entity.DataAccount{
+		ID:         account.ID,
+		Email:      account.Email,
+		Name:       account.Name,
+		Avatar:     account.Avatar,
+		Phone:      account.Phone,
+		DoB:        account.DoB,
+		D_id:       account.D_id,
+		Bio:        account.Bio,
+		Role:       account.Role,
+		IsOnline:   account.IsOnline,
+		Created_at: account.Created_at,
+		Updated_at: account.Updated_at,
+	}
+
 	c.SetCookie("_id", account.ID.Hex(), utils.Ck_exp, "/", "localhost", false, true)
-	c.JSON(http.StatusOK, gin.H{"jwt": token})
+	c.JSON(http.StatusOK, gin.H{"jwt": token, "account": res_account})
 
 }
 
@@ -163,7 +178,7 @@ func AuthUser(c *gin.Context) {
 	claim := token.Claims.(*jwt.StandardClaims)
 
 	//Find and take account infor
-	var account entity.Account
+	var account entity.DataAccount
 	id, err := primitive.ObjectIDFromHex(claim.Issuer)
 	if err != nil {
 		panic(err)
@@ -187,13 +202,9 @@ func GetUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(context.Background(), utils.ConnectTimeout)
 	defer cancel()
 
-	var data map[string]string
-	if err := c.ShouldBindJSON(&data); err != nil {
-		c.JSON(http.StatusConflict, gin.H{"msg_input": err.Error()})
-		return
-	}
+	ID := c.Query("id")
 
-	_id, err := primitive.ObjectIDFromHex(data["ID"])
+	_id, err := primitive.ObjectIDFromHex(ID)
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{"msg": err.Error()})
 		return
@@ -306,7 +317,7 @@ func Logout(c *gin.Context) {
 
 	// CHange status to Offline
 	_, err = utils.Database.Collection("Account").
-		UpdateOne(ctx, entity.Account{ID: _id}, bson.M{"$set": bson.M{"isOnline": false}})
+		UpdateOne(ctx, entity.Account{ID: _id}, bson.M{"$set": bson.M{"isOnline": false, "Updated_at": primitive.NewDateTimeFromTime(time.Now())}})
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{"msg_bcr": err.Error()})
 		return
