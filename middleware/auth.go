@@ -1,24 +1,19 @@
 package middleware
 
 import (
+	"API_Mongo/utils"
+	"fmt"
 	"net/http"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 )
-
-func AuthRequired(c *gin.Context) {
-	_, err := c.Cookie("jwt")
-	if err != nil {
-		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "unauthorized"})
-		return
-	}
-	c.Next()
-}
 
 func CORSMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// c.Writer.Header().Set("origin", "http://localhost:3001/")
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+		// c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
 		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
 		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
 		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
@@ -29,5 +24,21 @@ func CORSMiddleware() gin.HandlerFunc {
 		}
 
 		c.Next()
+	}
+}
+
+func AuthorizeJWT() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		const BEARER_SCHEMA = "Bearer "
+		authHeader := c.GetHeader("Authorization")
+		tokenString := authHeader[len(BEARER_SCHEMA):]
+		// fmt.Println(tokenString)
+		token, err := jwt.ParseWithClaims(tokenString, &jwt.StandardClaims{}, func(t *jwt.Token) (interface{}, error) {
+			return []byte(utils.SecretKey), nil
+		})
+		if err != nil || !token.Valid {
+			fmt.Println(err.Error())
+			c.AbortWithStatus(http.StatusUnauthorized)
+		}
 	}
 }

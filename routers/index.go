@@ -13,20 +13,19 @@ func InitRoute() *gin.Engine {
 	router.Use(middleware.CORSMiddleware())
 	router.Static("/public", "./public")
 
-	client := router.Group("/", func(c *gin.Context) {
-		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
-		if c.Request.Method == "OPTIONS" {
-			c.AbortWithStatus(204)
-			return
-		}
-		c.Next()
-	})
+	// User
+	router.POST("/user/register", services.Register)
+	router.POST("/user/login", services.GetAccount)
+
+	// Test
+	router.GET("ws/chat", services.TestWatch)
+
+	client := router.Group("/")
+	client.Use(middleware.AuthorizeJWT())
 
 	// User
-	client.POST("/user/register", services.Register)
-	client.POST("/user/login", services.GetAccount)
-	client.GET("/user", services.AuthUser)
-	client.POST("/user", services.GetUser)
+	client.POST("/user", services.AuthUser)
+	client.GET("/user", services.GetUser)
 	client.PUT("/user", services.UpdateUser)
 	client.GET("/user/logout", services.Logout)
 
