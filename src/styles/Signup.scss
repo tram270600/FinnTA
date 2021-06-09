@@ -10,158 +10,167 @@ $primaryBlue: #0191B4;
   font-size: $size;
   line-height: $height;
 }
-
-.loginForm {
-  display: grid;
-  row-gap: 5%;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  .header {
-    display: flex;
-    flex-direction: column;
-    h1 {
-      @include fontStyle(bold, 65px, 70px);
-      /* or 108% */
-
-      display: flex;
-      align-items: center;
-      letter-spacing: -0.5px;
-
-      color: #000000;
-    }
-  }
-  .inputForm {
-    display: grid;
-    row-gap: 5%;
-    padding-inline: 5%;
-
-    .row {
-      background: rgba(242, 245, 250, 0.09);
-      box-shadow: 0px 1.35743px 5.42972px rgba(1, 145, 180, 0.04), 0px 10.8594px 16.2892px rgba(1, 145, 180, 0.12);
-      border-radius: 30px;
-      padding: 10px;
-      // border: 1px solid $primaryBlue;
-      
-      & .column-left{
-        float: left;
-        width: 50%;
-        padding: 10px;
-      }
-      & .column-right{
-        float: right;
-      width: 50%;
-      padding: 10px;
-      }
-    }
-    .field {
-      display: flex;
-      flex-direction: column-reverse;
-      border-bottom: 0.5px solid #c4c4c4;
-      margin-bottom: 5px;
-      &:focus-within {
-        border-bottom: 0.5px solid $primaryBlue;
-      }
-      & img { // .field img
-        display: none;
-        position: absolute;
-        align-self: flex-end;
-      }
-      
-      & input {
-        background-color: rgba(0, 0, 0, 0);
-        border: none;
-        outline: none;
-        opacity: 0%;
-        @include fontStyle(500, 18px, 22px);
-
-        color: #000000;
-        &:focus,
-        &:not(:placeholder-shown) {
-          opacity: 100%;
-          ~ label {
-            transform: translate(0, 0);
-          }
-          ~ img {
-            display: block;
-          }
-        }
-      }
-
-      label {
-        @include fontStyle(500, 16px, 19px);
-        color: #828282;
-        transform: translate(0, 80%);
-        z-index: -1;
-      }
-      select {
-        margin-top: 15px;
-        }
-        
-    
-    }
-    & > .Container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding-inline: 20%;
-      padding-top: 1%;
-      input {
-        width: 270px;
-        height: 82px;
-        padding: 10px;
-        @include fontStyle(bold, 32px, "");
-        text-align: center;
-        letter-spacing: -0.5px;
-        color: #ffffff;
-        background: #0191b4;
-        border-radius: 80px;
-        border: none;
-      }
-    }
-    & > .Container:hover {
-      input{
-        box-shadow: 0px 8px 24px rgba(1, 145, 180, 0.1), 0px 16px 32px rgba(1, 145, 180, 0.08);
-      }
-    }
-
-    & > .Container:active{
-      input{
-        box-shadow: 0px 0px 30px 10px rgba(1, 145, 180, 0.24);
-      }
-    }
-  }
-  & p {
-    padding-top: 10%;
-    text-align: center;
-    @include fontStyle(500, 16px, 19px);
-
-    color: #838383;
-  }
-  a {
-    width: fit-content;
-    padding-top: 10%;
-    @include fontStyle(800, 14px, 17px);
-    color: #35bbca;
-  }
-  b {
-    @include fontStyle(medium, 14px, 17px);
-    color: #35bbca;
-  }
-}
-
-* {
-  transition-duration: 0.5s;
-}
-
-html {
+.backGround {
+  height: 100vh;
   background: url("../images/login_bg.svg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+
+  .loginForm {
+    display: grid;
+    row-gap: 5%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    .header {
+      display: flex;
+      flex-direction: column;
+      h1 {
+        @include fontStyle(bold, 65px, 70px);
+        /* or 108% */
+  
+        display: flex;
+        align-items: center;
+        letter-spacing: -0.5px;
+  
+        color: #000000;
+      }
+    }
+    .inputForm {
+      display: grid;
+      row-gap: 5%;
+      padding-inline: 5%;
+  
+      .row {
+        background: rgba(242, 245, 250, 0.09);
+        box-shadow: 0px 1.35743px 5.42972px rgba(1, 145, 180, 0.04), 0px 10.8594px 16.2892px rgba(1, 145, 180, 0.12);
+        border-radius: 30px;
+        padding: 10px;
+        // border: 1px solid $primaryBlue;
+        
+        & .column-left{
+          float: left;
+          width: 50%;
+          padding: 10px;
+        }
+        & .column-right{
+          float: right;
+        width: 50%;
+        padding: 10px;
+        }
+      }
+      .field {
+        display: flex;
+        flex-direction: column-reverse;
+        border-bottom: 0.5px solid #c4c4c4;
+        margin-bottom: 5px;
+        &:focus-within {
+          border-bottom: 0.5px solid $primaryBlue;
+        }
+        & img { // .field img
+          display: none;
+          position: absolute;
+          align-self: flex-end;
+        }
+        
+        & input {
+          background-color: rgba(0, 0, 0, 0);
+          border: none;
+          outline: none;
+          opacity: 0%;
+          @include fontStyle(500, 18px, 22px);
+  
+          color: #000000;
+          &:focus,
+          &:not(:placeholder-shown) {
+            opacity: 100%;
+            ~ label {
+              transform: translate(0, 0);
+            }
+            ~ img {
+              display: block;
+            }
+          }
+        }
+  
+        label {
+          @include fontStyle(500, 16px, 19px);
+          color: #828282;
+          transform: translate(0, 80%);
+          z-index: -1;
+        }
+        select {
+          margin-top: 15px;
+          }
+          
+      
+      }
+      & > .Container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-inline: 20%;
+        padding-top: 1%;
+        input {
+          width: 270px;
+          height: 82px;
+          padding: 10px;
+          @include fontStyle(bold, 32px, "");
+          text-align: center;
+          letter-spacing: -0.5px;
+          color: #ffffff;
+          background: #0191b4;
+          border-radius: 80px;
+          border: none;
+        }
+      }
+      & > .Container:hover {
+        input{
+          box-shadow: 0px 8px 24px rgba(1, 145, 180, 0.1), 0px 16px 32px rgba(1, 145, 180, 0.08);
+        }
+      }
+  
+      & > .Container:active{
+        input{
+          box-shadow: 0px 0px 30px 10px rgba(1, 145, 180, 0.24);
+        }
+      }
+    }
+    & p {
+      padding-top: 10%;
+      text-align: center;
+      @include fontStyle(500, 16px, 19px);
+  
+      color: #838383;
+    }
+    a {
+      width: fit-content;
+      padding-top: 10%;
+      @include fontStyle(800, 14px, 17px);
+      color: #35bbca;
+    }
+    b {
+      @include fontStyle(medium, 14px, 17px);
+      color: #35bbca;
+    }
+  }
 }
+
+
+* {
+  transition-duration: 0.5s;
+}
+
+// html {
+//   background: url("../images/login_bg.svg") no-repeat center center fixed;
+//   -webkit-background-size: cover;
+//   -moz-background-size: cover;
+//   -o-background-size: cover;
+//   background-size: cover;
+// }
 
 input::-ms-reveal,
 input::-ms-clear {
