@@ -5,7 +5,7 @@ import 'styles/login.scss'
 import showPw from 'images/showPw.svg';
 import { useSelector } from 'react-redux';
 
-import { connect } from 'app/WebSocket';
+// import { connect } from 'app/WebSocket';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { loginThunk } from 'reducer/thunks/AccountThunk';
 import { RootState, useAppDispatch } from 'app/store';
@@ -23,7 +23,7 @@ const Login = () => {
         const res = await dispact(loginThunk({ Email: Email, Password: Password }))
         const account = unwrapResult(res)
         console.log(account)
-        connect()
+        // connect()
         setRedirect(true)
     }
 
