@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '../styles/modal.scss';
+import '../../styles/modal.scss';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 import {UKeyboardDateTimePicker } from '@unicef/material-ui';
 import { useState } from 'react';

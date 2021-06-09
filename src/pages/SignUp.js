@@ -8,13 +8,13 @@ import {Redirect} from 'react-router-dom';
 import ProfileDashBody from '../components/Dashboard/ProfileDashBody';
 import SidebarDash from '../components/Dashboard/SidebarDash';
 import NavBar from '../components/Dashboard/NavBar'
-import Modal from "./Modal";
-import useModal from './useModal';
-import ModalCreatePost from './ModalCreatePost';
-import ModalEditProfile from './ModalEditProfile';
-import ModalConfirmBook from './ModalConfirmBook';
-import ModalRating from './ModalRating';
-import ModalViewRate from './ModalViewRate';
+import Modal from "../components/ModalPopup/Modal";
+import useModal from '../components/ModalPopup/useModal';
+import ModalCreatePost from '../components/ModalPopup/ModalCreatePost';
+import ModalEditProfile from '../components/ModalPopup/ModalEditProfile';
+import ModalConfirmBook from '../components/ModalPopup/ModalConfirmBook';
+import ModalRating from '../components/ModalPopup/ModalRating';
+import ModalViewRate from '../components/ModalPopup/ModalViewRate';
 // import Modal from 'react-bootstrap/Modal';
 
 
