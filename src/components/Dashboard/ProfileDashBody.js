@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import cap from 'images/cap.svg'
 import envelope from 'images/envelope.svg'
 import phone from 'images/phone.svg'
@@ -12,10 +11,12 @@ import course from 'images/response.svg'
 import clock from 'images/clock.svg'
 import filter from 'images/filter.svg'
 import CardGrid from 'components/Dashboard/CardGrid'
+import ButtonTA from 'components/Dashboard/ButtonTA'
+import ButtonTAother from 'components/Dashboard/ButtonTAother'
 import 'styles/DashProfile.css'
-import Dropdown from 'react-bootstrap/Dropdown'
 
-const ProfileDashBody = () => {
+
+const ProfileDashBody = ({isTA}) => {
 
     return (
         <>
@@ -59,21 +60,7 @@ const ProfileDashBody = () => {
                 </div>
                 <div className='dash-button'>
                     <div className='button-container'>
-                        <DropdownButton
-                            menuAlign='left'
-                            title='Create post'
-                            bsPrefix='btn-square btn-choose'
-                        >
-                            <Dropdown.Item href="#">
-                                Create Course
-                            </Dropdown.Item>
-                            <Dropdown.Item href="#">
-                                Create Post
-                            </Dropdown.Item>
-                        </DropdownButton>
-                        <button className='btn-square'>
-                            <span>Edit Profile</span>
-                        </button>
+                        {isTA ? <ButtonTA /> : <ButtonTAother />}
                     </div>
                     <div className='rating-container'>
                         <div className='rating-gap'>
@@ -124,7 +111,10 @@ const ProfileDashBody = () => {
                         <span>Filter</span>
                     </div>
                 </div>
-                <CardGrid />
+                <CardGrid 
+                    isProgress = {true}
+                    isTA = {isTA}
+                />
             </div>
         </>
     )

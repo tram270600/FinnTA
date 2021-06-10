@@ -38,23 +38,37 @@ const routes: Routes[] = [
 
     {
         Path: '/taprofile',
-        Component: <ProfileDash />,
+        Component: <ProfileDash isTA = {true} />,
         isExact: false,
         Scope: "T.A"
     },
 
     {
         Path: '/tacourse',
-        Component: <CourseDash />,
+        Component: <CourseDash isTA = {true}/>,
         isExact: false,
         Scope: "T.A"
     },
 
     {
-        Path: '/tanoti',
+        Path: '/noti',
         Component: <NotiDash />,
         isExact: false,
-        Scope: "T.A"
+        Scope: "User"
+    },
+
+    {
+        Path: '/taprofileother',
+        Component: <ProfileDash isTA = {false} />,
+        isExact: false,
+        Scope: "User"
+    },
+
+    {
+        Path: '/tacourseother',
+        Component: <CourseDash isTA = {false} />,
+        isExact: false,
+        Scope: "User"
     }
 
 ]

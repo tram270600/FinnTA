@@ -4,7 +4,7 @@ import ProfileDashBody from '../components/Dashboard/ProfileDashBody';
 import SidebarDash from '../components/Dashboard/SidebarDash';
 import NavBar from '../components/Dashboard/NavBar'
 
-const ProfileDash = () => {
+const ProfileDash = ({isTA}) => {
     
     return (
         <div className = 'view-container'>
@@ -15,11 +15,13 @@ const ProfileDash = () => {
                 <div className = 'dash-sidebar'>
                     <SidebarDash 
                         isProfile = {true}
+                        isTA = {isTA}
                     />
                 </div>
                 <div className = 'dash-body'>
-                    {/*Profile TA view by TA*/}
-                    <ProfileDashBody />
+                    <ProfileDashBody 
+                        isTA = {isTA}
+                    />
                 </div>
             </div>
         </div>

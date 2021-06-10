@@ -2,10 +2,13 @@ import React from 'react'
 import eye from 'images/eyes.svg'
 import 'styles/Card.scss'
 
-const CardTAView = ({source, falcuty, subject, content, isProgress}) => {
+const CardTAView = ({source, falcuty, subject, content, isProgress, isTA}) => {
     
     const style = {
         color: "#C4C4C4"
+    }
+    const display = {
+        display: "none"
     }
 
     return (
@@ -28,7 +31,8 @@ const CardTAView = ({source, falcuty, subject, content, isProgress}) => {
                         <a href = '#'>{isProgress ? 'View participants' : 'View ratings'}</a>
                     </div>
                     <div className = 'option'>
-                        <a href = '#'>{isProgress ? 'Edit' : 'Reopen'}</a>
+                        <button className = 'ta' style = {isTA ? null : display}> {isProgress ? 'Edit' : 'Reopen'}</button>
+                        <button className = {isProgress ? 'other' : 'other booked'} style = {isTA ? display : null}>{isProgress ? 'Book' : 'Booked'}</button>
                     </div>
                 </div>
             </div>

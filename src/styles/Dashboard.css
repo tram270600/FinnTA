@@ -15,15 +15,17 @@
     display: flex;
 }
 .dash-sidebar{
-    width: 18%;
+    width: 17%;
     height: 100%;
     background: #FFFFFF;
     box-shadow: 35.0877px 0px 70px rgba(86, 128, 248, 0.05), 23.8596px 5.61404px 50px rgba(0, 0, 0, 0.02);
-    display: flex;
-    flex-flow: column;
+    /* display: flex;
+    flex-flow: column; */
     align-items: center;
     text-align: center;
     padding-top: 15px;
+    /* border: 1px solid black; */
+    position: relative;
 }
 .dash-body{
     width: 82%;
@@ -31,20 +33,20 @@
     display: flex;
     flex-direction: column;
     margin-left: 1%;
-    /* border: 1px solid black; */
 }
 .dash-body.noti{
     background: linear-gradient(180deg, rgba(243, 243, 251, 0.7) 0%, rgba(253, 251, 253, 0.7) 100%);
     margin-left: 0%;
 }
-.inDash{
-    align-items: center;
-    justify-content: center;
+.avatar.inDash{
+    align-items: flex-start;
+    justify-content: flex-start;
     display: flex;
     flex-flow: column;
     margin: auto;
     margin-top: 0%;
-
+    width: 100%;
+    padding-left: 15%;
 }
 .avatar > img{
     vertical-align: middle;
@@ -64,7 +66,7 @@
 .dash-sidebar-menu{
     width: 70%;    
     margin: auto;
-    margin-top: 0%;
+    margin-top: 20%;
 }
 .menu-icon{
     text-decoration: none !important;
@@ -93,10 +95,11 @@
 }
 .log-out{
     width: 70%;    
-    margin: auto 0px;
-    margin-bottom: 10%;
+    bottom: 4.5%;
+    left: 13%;
     align-items: center;
     text-align: center;
+    position: absolute;
 }
 .log-out > .menu-icon {
     margin-bottom: 0;

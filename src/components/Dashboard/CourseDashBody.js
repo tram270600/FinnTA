@@ -3,7 +3,7 @@ import 'styles/DashCourse.scss'
 import filter from 'images/filter.svg'
 import CardGrid from './CardGrid';
 
-const CourseDashBody = () => {
+const CourseDashBody = ({isTA}) => {
    
     return (
         <div className='dashcourse-container'>
@@ -17,6 +17,7 @@ const CourseDashBody = () => {
                 </div>
                 <CardGrid 
                     isProgress = {true}
+                    isTA = {isTA}
                 />
             </div>
             <div className='dash-grid'>
@@ -25,6 +26,7 @@ const CourseDashBody = () => {
                 </div>
                 <CardGrid 
                     isProgress = {false}
+                    isTA = {isTA}
                 />
             </div>
         </div>

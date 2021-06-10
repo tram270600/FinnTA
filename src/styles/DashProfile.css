@@ -105,8 +105,8 @@
 .button-container{
     display: flex;
     justify-content: space-between;
-    padding: 0 10%;
-        margin-bottom: 3%;
+    padding: 0 14%;
+    margin-bottom: 3%;
 }
 .follow-container{
     display: flex;
@@ -153,6 +153,14 @@
 .btn-choose{
     background: #0191B4;
     margin-right: 3%;
+}
+.btn-choose > span {
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    text-transform: uppercase;
+    color: white;
 }
 .follow-child{
     /* border: 1px solid black; */

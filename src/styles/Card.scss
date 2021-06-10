@@ -89,9 +89,23 @@
                 align-items: center;
                 display: flex;
                 
-                a{
-                    text-decoration: none;
-                    @include fontStyle(600px,15px,15px ,#35BBCA)
+                .ta{
+                    @include fontStyle(600px,15px,15px ,#35BBCA);
+                    display: contents;
+                }
+                .other{
+                    border-radius: 7px;
+                    background-color: #0191B4;
+                    @include fontStyle(600px,15px,15px,#FFFFFF );
+                    width: 54px;
+                    height: 26px;
+                    border: none;
+                    
+                    &.booked{
+                        background-color: #BDBDBD;
+                        width: 60px;
+                        height: 28px;
+                    }
                 }
             }
         }
