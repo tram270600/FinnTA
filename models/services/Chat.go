@@ -222,6 +222,9 @@ func TestWatch(c *gin.Context) {
 	defer cancel()
 
 	user, _ := primitive.ObjectIDFromHex(c.Query("id"))
+	if user == primitive.NilObjectID {
+		return
+	}
 	matchPipeline := mongo.Pipeline{{{"$match",
 		bson.M{
 			"fullDocument.receiver": user,
