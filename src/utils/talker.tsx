@@ -1,7 +1,6 @@
 import axios from 'axios'
 import {
-    accountData,
-    feed,
+    SignUpAccountData,
     resAccount,
     chat
 } from 'global/dataType'
@@ -20,7 +19,7 @@ export const Talker = axios.create({
 })
 
 // Account
-async function register(data: accountData) {
+async function register(data: SignUpAccountData) {
     let res = await Talker.post('/user/register', JSON.stringify(data))
     if (res.status !== 200)
         return "Error occurred during the registration."
@@ -57,20 +56,6 @@ async function getMsg(RoomID: string, page: number) {
     let res = await Talker.get<chat>('/chat', { params: { room: RoomID, page: page } })
     if (res.status !== 200)
         return "Error occurred when getting msg."
-    return res.data
-}
-
-// Feed
-async function createFeed(data: { Detail: string }) {
-    type response = {
-        ID: string
-    }
-    let res = await Talker.put<response>('/feed', JSON.stringify(data))
-    return res.data.ID
-}
-
-async function getFeed(_page: number) {
-    let res = await Talker.get<feed[]>('/feed', { params: { page: _page } })
     return res.data
 }
 

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "app/store";
+// import { RootState } from "app/store";
 import { resAccount } from "global/dataType";
 import { loginThunk } from "reducer/thunks/AccountThunk";
 
@@ -16,13 +16,13 @@ const initialState = {
     data: {} as resAccount,
 } as fetchState
 
-const selectStatus = (state: RootState) => state.account.status;
+// const selectStatus = (state: RootState) => state.account.status;
 
 const Account = createSlice({
     name: 'Account',
     initialState: initialState,
     reducers: {
-        // putData: (state, action: PayloadAction<accountData>) => state = action.payload
+        // putData: (state, action: PayloadAction<SignUpAccountData>) => state = action.payload
     },
     extraReducers: (builder) => {
         builder.addCase(loginThunk.pending, (state) => {
@@ -31,7 +31,7 @@ const Account = createSlice({
         });
 
         builder.addCase(loginThunk.fulfilled, (state, { payload }) => {
-            // state.account = payload;
+            state.data = payload;
             state.status = "idle";
         });
 
@@ -43,6 +43,7 @@ const Account = createSlice({
     },
 })
 
-const { actions, reducer } = Account
+// const { actions, reducer } = Account
+const { reducer } = Account
 // export const {  } = actions
 export default reducer

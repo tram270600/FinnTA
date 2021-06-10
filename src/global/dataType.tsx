@@ -1,4 +1,4 @@
-type accountData = {
+type SignUpAccountData = {
     Password: string,
     _id: string,
     Email: string,
@@ -48,7 +48,9 @@ type room = {
 
 type chat = {
     _id: string,
+    room_id: string,
     sender: string,
+    receiver: string,
     msg: string,
     updated_at: string
 }
@@ -70,7 +72,7 @@ type feed = {
 }
 
 export type {
-    accountData, resAccount, loginData, updatableData,
+    SignUpAccountData, resAccount, loginData, updatableData,
     room, chat,
     department,
     feed

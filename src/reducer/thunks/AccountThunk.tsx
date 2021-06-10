@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { accountData as resAccount, loginData, updatableData } from 'global/dataType'
+import { resAccount, loginData, updatableData } from 'global/dataType'
 import * as talker from 'utils/talker'
 
 type contactError = {
@@ -30,7 +30,7 @@ export const loginThunk = createAsyncThunk<resAccount, loginData, { rejectValue:
 export const authAccount = createAsyncThunk<resAccount | string, null, { rejectValue: contactError }>(
     'user/auth',
     async (_, thunkApi) => {
-        if (localStorage.getItem("jwt") === "")
+        if (localStorage.getItem("jwt") === null)
             return "Not logged in"
         let res = await talker.Talker.post<resAccount>('/user', JSON.stringify({
             "jwt": localStorage.getItem("jwt")

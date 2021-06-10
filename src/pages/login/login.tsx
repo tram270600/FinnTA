@@ -3,12 +3,11 @@ import { Redirect } from 'react-router-dom';
 import 'styles/login.scss'
 
 import showPw from 'images/showPw.svg';
-import { useSelector } from 'react-redux';
 
-import { connect } from 'app/WebSocket';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { loginThunk } from 'reducer/thunks/AccountThunk';
-import { RootState, useAppDispatch } from 'app/store';
+import { useAppDispatch } from 'app/store';
+import { connect } from 'app/ws';
 
 const Login = () => {
     const [Email, setEmail] = useState('');
@@ -16,14 +15,13 @@ const Login = () => {
     const [redirect, setRedirect] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
-    const dispact = useAppDispatch()
-    // const acc = useSelector((state: RootState) => state.account)
+    const dispatch = useAppDispatch()
     const handleForm = async (e: SyntheticEvent) => {
         e.preventDefault()
-        const res = await dispact(loginThunk({ Email: Email, Password: Password }))
+        const res = await dispatch(loginThunk({ Email: Email, Password: Password }))
         const account = unwrapResult(res)
         console.log(account)
-        connect()
+        dispatch(connect(account._id))
         setRedirect(true)
     }
 

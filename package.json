@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@giantmachines/redux-websocket": "^1.5.1",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
@@ -32,9 +33,9 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "react-swipeable": "^6.1.0",
+    "redux-persist": "^6.0.0",
     "styled-components": "^5.2.3",
     "swiper": "^6.5.9",
-    "typescript": "^4.2.4",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -60,5 +61,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/ws": "^7.4.4",
+    "ts-loader": "^9.2.3",
+    "typescript": "^4.3.2",
+    "ws": "^7.4.6"
   }
 }
