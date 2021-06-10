@@ -8,13 +8,15 @@ import { Redirect } from 'react-router-dom';
 import ProfileDashBody from '../components/Dashboard/ProfileDashBody';
 import SidebarDash from '../components/Dashboard/SidebarDash';
 import NavBar from '../components/Dashboard/NavBar'
-import Modal from "./Modal";
-import useModal from './useModal';
-import ModalCreatePost from './ModalCreatePost';
-import ModalEditProfile from './ModalEditProfile';
-import ModalConfirmBook from './ModalConfirmBook';
-import ModalRating from './ModalRating';
-import ModalViewRate from './ModalViewRate';
+import Modal from "../components/ModalPopup/Modal";
+import useModal from '../components/ModalPopup/useModal';
+import ModalCreatePost from '../components/ModalPopup/ModalCreatePost';
+import ModalEditProfile from '../components/ModalPopup/ModalEditProfile';
+import ModalConfirmBook from '../components/ModalPopup/ModalConfirmBook';
+import ModalRating from '../components/ModalPopup/ModalRating';
+import ModalViewRate from '../components/ModalPopup/ModalViewRate';
+import ModalCourse from '../components/ModalPopup/ModalCourse';
+import useModalCourse from 'components/ModalPopup/useModalCourse';
 // import Modal from 'react-bootstrap/Modal';
 
 
@@ -30,6 +32,7 @@ const SignUp = () => {
     const { isShowingBook, toggleBook } = useModal();
     const { isShowingRate, toggleRate } = useModal();
     const { isShowingViewRate, toggleViewRate } = useModal();
+    const { isShowingCourse, toggleCourse } = useModalCourse();
 
     return (
         <div className='backGround'>
@@ -155,11 +158,18 @@ const SignUp = () => {
                         hide={toggleRate}
                     />
                 </div> */}
-                <div className="Modall">
+                {/* <div className="Modall">
                     <button className="button-default" onClick={toggleViewRate}>Show Modal Rate</button>
                     <ModalViewRate
                         isShowingViewRate={isShowingViewRate}
                         hide={toggleViewRate}
+                    />
+                </div> */}
+                 <div className="Modall">
+                    <button className="button-default" onClick={toggleCourse}>Show Modal Course</button>
+                    <ModalCourse
+                        isShowingCourse={isShowingCourse}
+                        hide={toggleCourse}
                     />
                 </div>
                 <p>Already have an account? <a href="/login">Sign in</a></p>

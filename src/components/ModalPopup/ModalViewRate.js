@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '../styles/modal.scss';
-import avatar from '../images/avatar.png'
+import '../../styles/modal.scss';
+import avatar from '../../images/avatar.png'
 import { makeStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
 import Star from "@material-ui/icons/Star";

@@ -247,7 +247,6 @@ textarea{
       @include fontStyle(600, 14px, '', #0D1C2E);
     }
     }
-  //}
   &::-webkit-scrollbar {
     width: 5px;
     background-color: #F5F5F5;
@@ -260,4 +259,116 @@ textarea{
     border-radius: 10px;
     background-color:rgba(1, 145, 180, 1);
   }
+}
+
+.course-info{
+  border-radius: 50px;
+  margin: auto auto; 
+  width: 40%;
+  height: 90%;
+  background-color: #fff;
+  .gradient-bg{
+    display: flex;
+    justify-content: center;
+    height: 180px;
+    left: 0px;
+    right: 0px;
+    background: linear-gradient(90deg, #BCD1FF 0%, #89AEFF 100%);
+    border-radius: 50px 50px 0px 0px;
+    img{
+      width: 120px;
+    } 
+    .modalcourse-close-button {
+      position: absolute;
+      background-color: transparent;
+      left: 1000px;
+      top: 40px;
+      .closee {
+        color: #ffffff;
+        float: right;
+        font-size: 28px;
+        font-weight: normal;
+        :hover,:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      }
+    }
+  }
+  .header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .ta-info{
+    margin-left: 50px;
+    margin-top: 5px;
+    width: 250px;
+    height: 65px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .info{
+      display: flex;       
+      align-items: center;
+    }
+    img {
+      width: 40px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    .rating{
+      float: right;
+      display: flex;
+      flex-direction: center;
+      align-items: center;
+      margin-right: 10px;
+      h5{
+        @include fontStyle(600, 14px, '', #0D1C2E);
+        margin: 5px 5px 5px 30px;
+      }
+
+    }
+    @include fontStyle(600, 14px, '', #0D1C2E);
+    &:hover{
+      background-color: rgba(53, 187, 202, 0.4);
+    }
+  }
+.course-detail{
+  margin-left: 50px;
+  margin-right: 30px;
+  @include fontStyle(600, 14px, '', #0D1C2E);
+  .threebox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .box{
+      width: 160px;
+      height: 170px;
+      background: #F2F5FA;
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+    }
+  }
+  
+  h6{
+    display: inline-block;
+    @include fontStyle(300, 14px, '', #0D1C2E);
+  }
+  h3{
+    margin-top: 10px;
+    @include fontStyle(600, 16px, 22px, #6E798C);
+  }
+  h1{
+    @include fontStyle(600, 24px, 25px, #0D1C2E);
+  }
+  h5{
+    @include fontStyle(normal, 14px, 20px, #0D1C2E);
+  }
+}
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '../styles/modal.scss';
+import '../../styles/modal.scss';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 import {UKeyboardDateTimePicker } from '@unicef/material-ui';
 import { useState } from 'react';
-import avatar from '../images/avatar.png'
+import avatar from '../../images/avatar.png'
 import { makeStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
