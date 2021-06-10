@@ -4,6 +4,8 @@ const Login = React.lazy(() => import('pages/login/login'))
 const MainPage = React.lazy(() => import('pages/MainPage'))
 const ProfileDash = React.lazy(() => import('pages/ProfileDash'))
 const SignUp = React.lazy(() => import('pages/SignUp'))
+const CourseDash = React.lazy(() => import('pages/CourseDash'))
+const NotiDash = React.lazy(() => import('pages/NotiDash'))
 
 type Routes = {
     Path: string,
@@ -35,11 +37,26 @@ const routes: Routes[] = [
     },
 
     {
-        Path: '/profile',
+        Path: '/taprofile',
         Component: <ProfileDash />,
         isExact: false,
-        Scope: "User"
+        Scope: "T.A"
     },
+
+    {
+        Path: '/tacourse',
+        Component: <CourseDash />,
+        isExact: false,
+        Scope: "T.A"
+    },
+
+    {
+        Path: '/tanoti',
+        Component: <NotiDash />,
+        isExact: false,
+        Scope: "T.A"
+    }
+
 ]
 
 export default routes;

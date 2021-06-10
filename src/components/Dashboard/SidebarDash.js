@@ -37,7 +37,7 @@ const SidebarDash = (props) => {
             <div className = 'dash-sidebar-menu'>
                 <Link 
                 onClick = {(event) => setUser(true)}
-                to = '/profile' 
+                to = '/taprofile' 
                 className = 'menu-icon'
                 onMouseMove = {(event) => setUserHover(true)}
                 onMouseLeave = {(event) => setUserHover(false)}
@@ -47,7 +47,7 @@ const SidebarDash = (props) => {
                 </Link>
                 <Link 
                 onClick = {(event) => setCourse(true)}
-                to = '/' 
+                to = '/tacourse' 
                 className = 'menu-icon'
                 onMouseMove = {(event) => setCourseHover(true)}
                 onMouseLeave = {(event) => setCourseHover(false)}
@@ -55,7 +55,7 @@ const SidebarDash = (props) => {
                     <i style = {(courseHover || isCourse) ? style : null} class="fas fa-border-all"></i>
                     <h3 style = {(courseHover || isCourse) ? style : null}>COURSE</h3>
                 </Link>
-                <Link 
+                <Link  
                 to = '/' 
                 className = 'menu-icon'
                 onMouseMove = {(event) => setChatHover(true)}
@@ -65,7 +65,7 @@ const SidebarDash = (props) => {
                     <h3 style = {(chatHover || isChat) ? style : null}>CHAT</h3>
                 </Link>
                 <Link 
-                to ='/' 
+                to ='/tanoti' 
                 className = 'menu-icon'
                 onMouseMove = {(event) => setNotiHover(true)}
                 onMouseLeave = {(event) => setNotiHover(false)}

@@ -10,10 +10,31 @@
     height: 70%;
     overflow: hidden;
 }
-.grid-container{
-    overflow: scroll;
-    height:100%;
-    padding-bottom: 4%;
+.dash-grid > .dash-title {
+    display: flex;
+    justify-content: space-between;
+}
+.dash-title > span {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 2.1rem;
+    line-height: 50px;
+    color: #0B132A;
+}
+.dash-title > .filter {
+    align-items: center;
+    text-align: center;
+    display: flex;
+    margin-right: 3%;
+    cursor: pointer;
+}
+.filter > span {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 1.1rem;
+    line-height: 17px;
+    color: #0191B4;
+    margin-left: 6px;
 }
 .dash-contact-container{
     height: 100%;
