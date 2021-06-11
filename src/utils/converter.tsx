@@ -11,10 +11,7 @@ function toBase64(file: File, cb: Function) {
     };
 }
 
-async function imgCompress(event: React.ChangeEvent<HTMLInputElement>) {
-    if (event.target.files === null)
-        return
-    const imageFile = event.target.files[0];
+async function imgCompress(imageFile: File) {
     console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
     console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
 
