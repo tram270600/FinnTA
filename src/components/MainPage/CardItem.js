@@ -8,27 +8,36 @@ const CardItem = (props) => {
         <li>{subject}</li>
     );
     return (
-        <li style = {{backgroundColor: `${props.background}`}} className = 'cards-item'>
+        <div className = 'cards-item'>
             <div className = 'cards-item-links' to = '/'>
-                <Link style = {{color: `${props.color}`}} className = 'icon'>
+                <div class = 'cards-gradient' style = {{background: `${props.background}`, marginTop:"0px"}}>
+                <Link className = 'icon' style={{color:'white'}}>
                     <i className="fas fa-arrow-right" />
                 </Link>
-                <div style = {{color: `${props.color}`}} className = 'title'>
+                <div className="avatar">
                     <img src = {props.avatar} alt = 'Avatar' />
+                </div>
+                
+                </div>
+                <div className="content">
+                <div style = {{color: `${props.color}`}} className = 'title'>
+                    {/* <img src = {props.avatar} alt = 'Avatar' /> */}
                     <h2>{props.name}</h2>
                 </div>
                 <div style = {{color: `${props.color}`}} className = 'infor'>
-                    <h3>Info</h3>
+                    <h3>INFO</h3>
                     <p>{props.major}</p>
                     Overall: <span>{props.gpa}</span>
-                    <h3>Subject List</h3>
-                    <ul className = 'list-subject'>{listSubject}</ul>
+                    <h3>SUBJECT LIST</h3>
+                    <div className = 'list-subject'>{listSubject}</div>
+                </div>
+                
                 </div>
                 <div className = 'icon bottom'>
-                    {props.star} <i className ="far fa-star" />
+                    {props.star} <i className ="fas fa-star" style={{color:"#FFC87B"}}/>
                 </div>
             </div>
-        </li>
+        </div>
     )
 }
 export default CardItem

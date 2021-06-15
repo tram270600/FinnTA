@@ -1,6 +1,6 @@
 import React from 'react';
 import CardItem from './CardItem'
-import '../../styles/Cards.css'
+import '../../styles/Cards.scss'
 import Fade from 'react-reveal/Fade';
 
 const Card = () => {
@@ -16,15 +16,15 @@ const Card = () => {
             
             <div className = 'cards-container'>
                 <div className = 'cards-wrapper'>
-                    <ul className = 'cards-items'>
+                    <div className = 'cards-items'>
                         <CardItem 
                             avatar = 'https://upload.wikimedia.org/wikipedia/en/b/bd/Doraemon_character.png'
                             name = 'Doraemon'
                             major = 'Computer Science and Engineering'
                             gpa = '80'
                             star = '5'
-                            background = '#0191B4'
-                            color = '#fff'
+                            background = 'linear-gradient(180deg, #0191B4 0%, #35BBCA 100%)'
+                            color = '#231F20'
                             listSubject = {['Principle of Database Management','Digital Logic Design','Calculus']}
                         />
                         <CardItem 
@@ -33,20 +33,20 @@ const Card = () => {
                             major = 'Business Administration'
                             gpa = '76.5'
                             star = '4.5'
-                            background = '#6C5CE7'
-                            color = '#fff'
+                            background = 'linear-gradient(180deg, #FE7A15 0%, #FFAF72 100%)'
+                            color = '#231F20'
                             listSubject = {['E-Commerce','Micro Economic','Macro Economic','Financial Accounting']}
                         />
-                    </ul>
-                    <ul className = 'cards-items'>
+                    </div>
+                    <div className = 'cards-items'>
                         <CardItem 
                             avatar = 'https://thuviendohoa.vn/upload/images/items/hinh-anh-nhan-vat-xuka-shizuka-doraemon-png-630.jpg'
                             name = 'Xuka'
                             major = 'Biotechnology'
                             gpa = '85'
                             star = '3.5'
-                            background = '#A29BFE'
-                            color = 'black'
+                            background = 'linear-gradient(180deg, #A64DFF 0%, #C68BFF 100%)'
+                            color = '#231F20'
                             listSubject = {['Calculus 2','Chem Lab']}
                         />
                         <CardItem 
@@ -55,8 +55,8 @@ const Card = () => {
                             major = 'Electronic of Engineering'
                             gpa = '78.8'
                             star = '4'
-                            background = '#1A7291'
-                            color = '#fff'
+                            background = 'linear-gradient(180deg, #FE7A15 0%, #FFAF72 100%)'
+                            color = '#231F20'
                             listSubject = {['Embedded','Physics 2','Digital Logic Design','Calculus']}
                         />
                         <CardItem 
@@ -65,11 +65,11 @@ const Card = () => {
                             major = 'Business Administration'
                             gpa = '76.5'
                             star = '4.5'
-                            background = '#5DE2E8'
-                            color = 'black'
+                            background = 'linear-gradient(180deg, #709CFF 0%, #64CDFF 100%)'
+                            color = '#231F20'
                             listSubject = {['E-Commerce','Micro Economic','Macro Economic','Financial Accounting']}
                         />
-                    </ul>
+                    </div>
                 </div>
             </div>
         </div>

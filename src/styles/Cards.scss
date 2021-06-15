@@ -1,0 +1,133 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@mixin fontStyle($weight, $size, $height, $color) {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $height;
+  color: $color;
+}
+.cards{
+    padding: 4rem;
+}
+.text-container{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin: auto;
+    padding: 10px 20px 20px;
+    width: 50%;
+}
+.text-container > h3{
+    color: #4F5665;
+}
+.cards-container{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+}
+.cards-wrapper {
+    position: relative;
+    margin: 50px 0 45px;
+}
+.cards-items{
+    margin-bottom: 24px;
+    position: relative;
+    display: flex;
+    
+    
+}
+.cards-item{
+    width: 300px;
+    display: flex;
+    background: #fff;
+    flex: 1;
+    margin: 0 0.5rem;
+    border-radius: 30px;
+    filter: drop-shadow(0px 40px 50px rgba(154, 170, 207, 0.2)); 
+
+}
+.cards-gradient{
+    height: 150px;
+    width: 100%;
+    /* background: linear-gradient(90deg, #BCD1FF 0%, #89AEFF 100%); */
+    border-radius: 30px 30px 0px 0px;   
+}
+.cards-item-links {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    overflow: hidden;
+    text-decoration: none;
+    /* padding: 10px; */
+}
+.content{
+    margin-top: 40px;
+    padding: 10px 40px 10px;
+}
+.avatar{
+    img {
+    display: block;
+    margin-left: 45%;
+    margin-right: 55%;
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    }
+}
+.icon {
+    /* position: relative; */
+    float:right;
+    /* color: #fff; */
+    font-size: 1.2rem;
+    width: fit-content;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+.bottom {
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+.title{
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    h2{
+    @include fontStyle(800, 22px, 27px, black);
+    }
+    
+}
+.title > img{
+    /* vertical-align: middle; */
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-bottom: 30px;
+}
+.infor{
+    line-height: 2rem;
+    p {
+        @include fontStyle(600, 16px, 15px, black);
+    }
+    .list-subject{
+        @include fontStyle(normal, 16px, 160%, black);
+    }
+}
+.infor > h3 {
+    margin: 20px auto 10px;
+    @include fontStyle(900, 14px, 15px, black);
+    /* margin-top: 10px; */
+}
+.infor > span {
+    @include fontStyle(bold, 16px, 15px, black);
+
+}
