@@ -4,6 +4,12 @@ import '../../styles/Cards.scss'
 import Fade from 'react-reveal/Fade';
 
 const Card = () => {
+    const gradientList = ['linear-gradient(180deg, #0191B4 0%, #35BBCA 100%)', 
+   'linear-gradient(180deg, #FE7A15 0%, #FFAF72 100%)', 
+   "linear-gradient(180deg, #A64DFF 0%, #C68BFF 100%)", 
+   "linear-gradient(108deg, rgba(248, 217, 15, 0.9) 1.48%, rgba(254, 122, 21, 0.9) 100%), #BCD1FF",
+   "linear-gradient(180deg, #709CFF 0%, #64CDFF 100%)"]
+    
     return (
         <Fade duration={2300} left>
           <div className = 'cards'>
@@ -23,7 +29,7 @@ const Card = () => {
                             major = 'Computer Science and Engineering'
                             gpa = '80'
                             star = '5'
-                            background = 'linear-gradient(180deg, #0191B4 0%, #35BBCA 100%)'
+                            background = {gradientList[0]}
                             color = '#231F20'
                             listSubject = {['Principle of Database Management','Digital Logic Design','Calculus']}
                         />
@@ -33,7 +39,7 @@ const Card = () => {
                             major = 'Business Administration'
                             gpa = '76.5'
                             star = '4.5'
-                            background = 'linear-gradient(180deg, #FE7A15 0%, #FFAF72 100%)'
+                            background = {gradientList[1]}
                             color = '#231F20'
                             listSubject = {['E-Commerce','Micro Economic','Macro Economic','Financial Accounting']}
                         />
@@ -45,7 +51,7 @@ const Card = () => {
                             major = 'Biotechnology'
                             gpa = '85'
                             star = '3.5'
-                            background = 'linear-gradient(180deg, #A64DFF 0%, #C68BFF 100%)'
+                            background = {gradientList[2]}
                             color = '#231F20'
                             listSubject = {['Calculus 2','Chem Lab']}
                         />
@@ -55,7 +61,7 @@ const Card = () => {
                             major = 'Electronic of Engineering'
                             gpa = '78.8'
                             star = '4'
-                            background = 'linear-gradient(180deg, #FE7A15 0%, #FFAF72 100%)'
+                            background = {gradientList[3]}
                             color = '#231F20'
                             listSubject = {['Embedded','Physics 2','Digital Logic Design','Calculus']}
                         />
@@ -65,7 +71,7 @@ const Card = () => {
                             major = 'Business Administration'
                             gpa = '76.5'
                             star = '4.5'
-                            background = 'linear-gradient(180deg, #709CFF 0%, #64CDFF 100%)'
+                            background = {gradientList[4]}
                             color = '#231F20'
                             listSubject = {['E-Commerce','Micro Economic','Macro Economic','Financial Accounting']}
                         />
