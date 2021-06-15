@@ -1,13 +1,17 @@
 import React, {useState} from 'react';
 import '../../styles/NavBar.css'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import logo from '../../images/Logo.png'
 
 const NavBar = () => {
+    const history = useHistory();
+    const handleClick = (page) =>{
+        history.push(`/${page}`)
+    }
     return (
-        <nav className = 'navbar' style = {{position: "sticky"}} >
-            <div className = 'navbar-container'>
-                <Link to = '/' className = 'navbar-logo'>
+        <nav className = '_navbar' style = {{position: "sticky"}} >
+            <div className = '_navbar-container'>
+                <Link to = '/' className = '_navbar-logo'>
                     <img src = {logo} className = 'logo' alt = 'Logo' />
                     FinnTa 
                 </Link>
@@ -39,8 +43,8 @@ const NavBar = () => {
                     </Link>
                 </li>
             </ul>
-            <button className = 'btn'>Sign In</button>
-            <button className = 'btn signup'>Sign Up</button>
+            <button className = 'btn' onClick={()=>handleClick('login')}>Sign In</button>
+            <button className = 'btn signup' onClick={()=>handleClick('signup')}>Sign Up</button>
         </nav>
     )
 }

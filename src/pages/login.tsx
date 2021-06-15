@@ -13,14 +13,13 @@ import { imgCompress } from 'utils/converter';
 const Login = () => {
     const [Email, setEmail] = useState('');
     const [Password, setPw] = useState('');
-    const [err, setErr] = useState('');
     const [redirect, setRedirect] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
     const dispatch = useAppDispatch()
     const handleForm = async (e: SyntheticEvent) => {
-        e.preventDefault()
         try {
+            e.preventDefault()
             const res = await dispatch(loginThunk({ Email: Email, Password: Password }))
             const account = unwrapResult(res)
             console.log("Loggeed account:", account)
@@ -28,7 +27,7 @@ const Login = () => {
             setRedirect(true)
         } catch (error) {
             console.log("Failed to login: ", error.message)
-            setErr(error.message)
+            alert(`Login Failed: ${error.message}`)
         }
 
     }
@@ -68,7 +67,6 @@ const Login = () => {
                     <div className="Container">
                         <input type="submit" value="Sign in" />
                     </div>
-                    <p style={{ color: "red" }}>{err}</p>
                 </form>
                 <p>Don't have an account? <a href="/">Sign up</a></p>
             </div>

@@ -1,6 +1,7 @@
 import 'index.css'
 import HeroSection from 'components/MainPage/HeroSection'
-import NavBar from 'components/MainPage/NavBar'
+import * as DefaultNav from 'components/MainPage/NavBar'
+import * as UserNav from 'components/Dashboard/NavBar'
 import Cards from 'components/MainPage/Cards'
 import News from 'components/MainPage/News'
 import Subscribe from 'components/MainPage/Subscribe'
@@ -9,7 +10,7 @@ import { useEffect, useState } from 'react'
 import jwtDecode, { JwtPayload } from "jwt-decode";
 
 const MainPage = () => {
-    const [loggedIn, setLoggedIn] = useState(false)
+    const [loggedIn, setLoggedIn] = useState(true)
     useEffect(() => {
         console.log("Check Logged in")
 
@@ -32,7 +33,7 @@ const MainPage = () => {
     return (
         <>
             {/* Put LoggedIn into NavBar then do sth 😐 */}
-            <NavBar />
+            {loggedIn ? <UserNav.default /> : <DefaultNav.default />}
             <HeroSection />
             <Cards />
             <News />
