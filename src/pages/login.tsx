@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from 'react';
+import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import 'styles/login.scss'
 
@@ -8,21 +8,29 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { loginThunk } from 'reducer/thunks/AccountThunk';
 import { useAppDispatch } from 'app/store';
 import { connect } from 'app/ws';
+import { imgCompress } from 'utils/converter';
 
 const Login = () => {
     const [Email, setEmail] = useState('');
     const [Password, setPw] = useState('');
+    const [err, setErr] = useState('');
     const [redirect, setRedirect] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
     const dispatch = useAppDispatch()
     const handleForm = async (e: SyntheticEvent) => {
         e.preventDefault()
-        const res = await dispatch(loginThunk({ Email: Email, Password: Password }))
-        const account = unwrapResult(res)
-        console.log(account)
-        dispatch(connect(account._id))
-        setRedirect(true)
+        try {
+            const res = await dispatch(loginThunk({ Email: Email, Password: Password }))
+            const account = unwrapResult(res)
+            console.log("Loggeed account:", account)
+            dispatch(connect(account._id))
+            setRedirect(true)
+        } catch (error) {
+            console.log("Failed to login: ", error.message)
+            setErr(error.message)
+        }
+
     }
 
     if (redirect) return <Redirect to="/" />
@@ -60,6 +68,7 @@ const Login = () => {
                     <div className="Container">
                         <input type="submit" value="Sign in" />
                     </div>
+                    <p style={{ color: "red" }}>{err}</p>
                 </form>
                 <p>Don't have an account? <a href="/">Sign up</a></p>
             </div>
