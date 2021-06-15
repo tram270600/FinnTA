@@ -6,6 +6,7 @@ const ProfileDash = React.lazy(() => import('pages/ProfileDash'))
 const SignUp = React.lazy(() => import('pages/SignUp'))
 const CourseDash = React.lazy(() => import('pages/CourseDash'))
 const NotiDash = React.lazy(() => import('pages/NotiDash'))
+const ScheduleDash = React.lazy(() => import('pages/ScheduleDash'))
 
 type Routes = {
     Path: string,
@@ -69,7 +70,14 @@ const routes: Routes[] = [
         Component: <CourseDash isTA = {false} />,
         isExact: false,
         Scope: "User"
-    }
+    },
+
+    {
+        Path: '/taschedule',
+        Component: <ScheduleDash isTA = {true}/>,
+        isExact: false,
+        Scope: "T.A"
+    },
 
 ]
 

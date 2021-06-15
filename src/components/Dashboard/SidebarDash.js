@@ -79,11 +79,11 @@ const SidebarDash = (props) => {
                     <h3 style = {(notiHover || isNoti) ? style : null}>NOTIFICATIONS</h3>
                 </Link>
                 <Link 
-                to = '/' 
+                 to ={props.isTA ? '/taschedule' : '/'} 
                 className = 'menu-icon'
                 onMouseMove = {(event) => setScheHover(true)}
                 onMouseLeave = {(event) => setScheHover(false)}
-                style = {props.isTA ? null : display}
+                // style = {props.isTA ? null : display}
                 >
                     <i style = {(scheHover || isSche) ? style : null} class="far fa-calendar-alt"></i>
                     <h3 style = {(scheHover || isSche) ? style : null}>SCHEDULE</h3>
