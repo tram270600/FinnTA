@@ -1,36 +1,44 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom'
+import {useMemo, useState} from 'react';
 
-const SidebarDash = (props) => {
-    const [userHover, setUserHover] = useState(false);
-    const [isUser, setUser] = useState(props.isProfile)
+const style = {
+    color: "#0191B4",
+    transform: "scale(1.1)",
+    transition: "0.3s all ease-out"
+}
 
-    const [courseHover, setCourseHover] = useState(false);
-    const [isCourse, setCourse] = useState(props.isCourse);
+const BtnList = {"Default":{
+                    "PROFILE":"far fa-user",
+                    "COURSE":"fas fa-border-all"   
+                }, 
+                "User":{
+                    "CHAT":"far fa-comment-dots",
+                    "NOTIFICATIONS":"far fa-bell",
+                    "SCHEDULE":"far fa-calendar-alt",
+                    "SETTINGS":"fas fa-cog"
+                }}
 
-    const [chatHover, setChatHover] = useState(false);
-    const [isChat, setChat] = useState(props.isChat);
-
-    const [notiHover, setNotiHover] = useState(false);
-    const [isNoti, setNoti] = useState(props.isNoti);
-
-    const [scheHover, setScheHover] = useState(false);
-    const [isSche, setSche] = useState(props.isSche);
-
-    const [settingHover, setSettingHover] = useState (false);
-    const [isSetting, setSetting] = useState(props.isSetting);
-
-    const [logHover, setLogHover] = useState(false)
-    const [isLog, setLog] = useState(props.isLog);
-
-    const style = {
-        color: "#0191B4",
-        transform: "scale(1.1)",
-        transition: "0.3s all ease-out"
+const SidebarDash = ({body, setBody, isGuest}) => {
+    const useHolver = () =>{
+        const [holver, setHolver] = useState(false);
+        const eventHandler = useMemo(()=>({
+            onMouseMove() {setHolver(true);},
+            onMouseLeave() {setHolver(false);}
+        }),[]);
+        return [holver, eventHandler];
     }
-    const display = {
-        display: "none"
+
+    const Button = ({btnName, btnClass}) =>{
+        const [holver, eventHandler] = useHolver();
+
+        return (<button
+            className='menu-icon'
+            onClick={()=>setBody(btnName)}
+            {...eventHandler}>
+                <i style = {(holver || body===btnName) ? style : null} class={btnClass}></i>
+                <h3 style = {(holver || body===btnName) ? style : null}>{btnName}</h3>
+            </button>);
     }
+
     return (
         <>
             <div className = 'avatar inDash'>
@@ -38,79 +46,22 @@ const SidebarDash = (props) => {
                     <h2>Mario Nguyen</h2>
             </div>
             <div className = 'dash-sidebar-menu'>
-                <Link 
-                onClick = {(event) => setUser(true)}
-                to = {props.isTA ?  '/taprofile' : '/taprofileother' }
-                className = 'menu-icon'
-                onMouseMove = {(event) => setUserHover(true)}
-                onMouseLeave = {(event) => setUserHover(false)}
-                >
-                    <i style = {(userHover || isUser) ? style : null} class="far fa-user"></i>
-                    <h3 style = {(userHover || isUser) ? style : null}>PROFILE</h3>
-                </Link>
-                <Link 
-                onClick = {(event) => setCourse(true)}
-                to = {props.isTA ? '/tacourse' : '/tacourseother'}
-                className = 'menu-icon'
-                onMouseMove = {(event) => setCourseHover(true)}
-                onMouseLeave = {(event) => setCourseHover(false)}
-                >
-                    <i style = {(courseHover || isCourse) ? style : null} class="fas fa-border-all"></i>
-                    <h3 style = {(courseHover || isCourse) ? style : null}>COURSE</h3>
-                </Link>
-                <Link  
-                to = '/' 
-                className = 'menu-icon'
-                onMouseMove = {(event) => setChatHover(true)}
-                onMouseLeave = {(event) => setChatHover(false)}
-                style = {props.isTA ? null : display}
-                >
-                    <i style = {(chatHover || isChat) ? style : null} class="far fa-comment-dots"></i>
-                    <h3 style = {(chatHover || isChat) ? style : null}>CHAT</h3>
-                </Link>
-                <Link 
-                to ={props.isTA ? '/tanoti' : '/'} 
-                className = 'menu-icon'
-                onMouseMove = {(event) => setNotiHover(true)}
-                onMouseLeave = {(event) => setNotiHover(false)}
-                style = {props.isTA ? null : display}
-                >
-                    <i style = {(notiHover || isNoti) ? style : null} class="far fa-bell"></i>
-                    <h3 style = {(notiHover || isNoti) ? style : null}>NOTIFICATIONS</h3>
-                </Link>
-                <Link 
-                 to ={props.isTA ? '/taschedule' : '/'} 
-                className = 'menu-icon'
-                onMouseMove = {(event) => setScheHover(true)}
-                onMouseLeave = {(event) => setScheHover(false)}
-                // style = {props.isTA ? null : display}
-                >
-                    <i style = {(scheHover || isSche) ? style : null} class="far fa-calendar-alt"></i>
-                    <h3 style = {(scheHover || isSche) ? style : null}>SCHEDULE</h3>
-                </Link>
-                <Link 
-                to = '/' 
-                className = 'menu-icon'
-                onMouseMove = {(event) => setSettingHover(true)}
-                onMouseLeave = {(event) => setSettingHover(false)}
-                style = {props.isTA ? null : display}
-                >
-                    <i style = {(settingHover || isSetting) ? style : null} class="fas fa-cog"></i>
-                    <h3 style = {(settingHover || isSetting) ? style : null}>SETTINGS</h3>
-                </Link>
+                {Object.keys(BtnList).filter((scope)=>{
+                    if(scope==="User" && isGuest)
+                        return false
+                    return true
+                })
+                .map((scope)=>{ 
+                    const btn = BtnList[scope]
+                    return Object.keys(btn).map((name)=>{
+                        return <Button btnClass={btn[name]} btnName={name}/>
+                    })
+                })}
             </div>
             <div className = 'log-out'>
-                <Link
-                to = '/' 
-                className = 'menu-icon'
-                onMouseMove = {(event) => setLogHover(true)}
-                onMouseLeave = {(event) => setLogHover(false)}
-                >
-                    <i style = {logHover ? style : null} class="fas fa-power-off"></i>
-                    <h3 style = {logHover ? style : null}>LOG OUT</h3>
-                </Link>
+                <Button btnClass="fas fa-power-off" btnName="LOG OUT"/>
             </div>
-         </>
+        </>
     )
 }
 export default SidebarDash
