@@ -9,7 +9,7 @@ type contactError = {
 export const getAllDepartment = createAsyncThunk<department[], void, { rejectValue: contactError }>(
     '/department',
     async (_, thunkApi) => {
-        let res = await talker.Talker.get<department[]>('/department')
+        let res = await talker.Conn.get<department[]>('/department')
         if (res.status !== 200)
             return thunkApi.rejectWithValue({
                 msg: "Failed to get Department."

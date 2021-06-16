@@ -14,7 +14,7 @@ export const loginThunk = createAsyncThunk<resAccount, loginData, { rejectValue:
             account: resAccount
         }
 
-        let res = await talker.Talker.post<response>('/user/login', JSON.stringify(data))
+        let res = await talker.Conn.post<response>('/user/login', JSON.stringify(data))
 
         if (res.status !== 200) {
             return thunkApi.rejectWithValue({
@@ -27,12 +27,10 @@ export const loginThunk = createAsyncThunk<resAccount, loginData, { rejectValue:
     },
 )
 
-export const authAccount = createAsyncThunk<resAccount | string, null, { rejectValue: contactError }>(
+export const authAccount = createAsyncThunk<resAccount, null, { rejectValue: contactError }>(
     'user/auth',
     async (_, thunkApi) => {
-        if (localStorage.getItem("jwt") === null)
-            return "Not logged in"
-        let res = await talker.Talker.post<resAccount>('/user', JSON.stringify({
+        let res = await talker.Conn.post<resAccount>('/user', JSON.stringify({
             "jwt": localStorage.getItem("jwt")
         }))
         if (res.status !== 200) {
@@ -47,7 +45,7 @@ export const authAccount = createAsyncThunk<resAccount | string, null, { rejectV
 export const logoutAccount = createAsyncThunk<void, null, { rejectValue: contactError }>(
     'user/logout',
     async (_, thunkApi) => {
-        let res = await talker.Talker.get('/user/logout')
+        let res = await talker.Conn.get('/user/logout')
         if (res.status !== 200) {
             return thunkApi.rejectWithValue({
                 msg: "Failed to Logout."
@@ -57,21 +55,15 @@ export const logoutAccount = createAsyncThunk<void, null, { rejectValue: contact
     }
 )
 
-export const updateAccount = createAsyncThunk<void, updatableData, { rejectValue: contactError }>(
+export const updateAccount = createAsyncThunk<updatableData, updatableData, { rejectValue: contactError }>(
     'user/update',
     async (data, thunkApi) => {
-        let res = await talker.Talker.put('/user', JSON.stringify(data))
+        let res = await talker.Conn.put('/user', JSON.stringify(data))
         if (res.status !== 200) {
             return thunkApi.rejectWithValue({
                 msg: "Failed to Update Account."
             })
         }
+        return data
     }
 )
-
-
-//Use like this
-// {
-//     const dispact = useDispatch();
-//     () => dispact(loginThunk)
-// }

@@ -1,11 +1,10 @@
-import { createAction, createSlice, Draft, PayloadAction } from "@reduxjs/toolkit";
+import { createAction, createSlice, Draft } from "@reduxjs/toolkit";
 import { chat, room } from "global/dataType";
 import { createRoom, getChat, getRoom } from "reducer/thunks/ChatThunk";
 
 type fectState = {
     status: "loading" | "idle",
     err: string | null,
-    // data: { room: room, chatLog: chat[] }[],
     data: { [room_id: string]: { room: room, chatLog: { [chat_id: string]: chat } } }
 }
 
@@ -18,16 +17,7 @@ const initialState = {
 const Chat = createSlice({
     name: "chat",
     initialState: initialState,
-    reducers: {
-        // updateChat: (state, action: PayloadAction<chat>) => {
-        //     for (var i = 0; i < state.data.length; i++) {
-        //         if (state.data[i].room._id === action.payload._id) {
-        //             state.data[i].chatLog.push(action.payload)
-        //             break
-        //         }
-        //     }
-        // }
-    },
+    reducers: {},
     extraReducers: (builder) => {
         // Create Room
         builder.addCase(createRoom.pending, (state) => {
@@ -36,7 +26,8 @@ const Chat = createSlice({
         })
         builder.addCase(createRoom.fulfilled, (state, { payload }) => {
             state.status = "idle"
-            state.data[payload._id] = { room: payload, chatLog: {} }
+            if (payload._id)
+                state.data[payload._id] = { room: payload, chatLog: {} }
         })
         builder.addCase(createRoom.rejected, (state, { payload }) => {
             if (payload)
@@ -51,7 +42,10 @@ const Chat = createSlice({
         })
         builder.addCase(getRoom.fulfilled, (state, { payload }) => {
             state.status = "idle"
-            payload.forEach((room) => state.data[room._id] = { room: room, chatLog: {} })
+            payload.forEach((room) => {
+                if (room._id)
+                    state.data[room._id] = { room: room, chatLog: {} }
+            })
         })
         builder.addCase(getRoom.rejected, (state, { payload }) => {
             if (payload)
@@ -66,8 +60,10 @@ const Chat = createSlice({
         })
         builder.addCase(getChat.fulfilled, (state, { payload }) => {
             state.status = "idle"
-            payload.forEach((chat) => state.data[payload[0].room_id].chatLog[chat._id] = chat)
-
+            payload.forEach((chat) => {
+                if (chat._id)
+                    state.data[chat.room_id].chatLog[chat._id] = chat
+            })
         })
         builder.addCase(getChat.rejected, (state, { payload }) => {
             if (payload)
@@ -88,13 +84,12 @@ const Chat = createSlice({
             if (response !== undefined) {
                 if (state.data[response.room_id] === undefined)
                     state.data[response.room_id] = { room: {} as room, chatLog: {} }
-                state.data[response.room_id].chatLog[response._id] = response
+                if (response._id)
+                    state.data[response.room_id].chatLog[response._id] = response
             }
         })
     },
 })
 
-// const { actions, reducer } = Chat
 const { reducer } = Chat
-// export const { updateChat } = actions
 export default reducer

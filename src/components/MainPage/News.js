@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import '../../styles/News.css'
 import NewItem from './NewItem'
-import Fade from 'react-reveal/Fade';
-import Slide from 'react-reveal/Slide';
+import { Fade, Slide} from "react-awesome-reveal";
 
 import {Swiper, SwiperSlide} from 'swiper/react'
 import SwipeCore, {Navigation, Pagination} from 'swiper'
@@ -81,7 +80,7 @@ const News = () => {
     }
     return (
         <div className = 'news'>
-            <Fade top duration={2000}>
+            <Fade direction="top" duration={2000}>
                 <div className = 'text-container'>
                     <h1>News</h1>
                 </div>
@@ -90,7 +89,7 @@ const News = () => {
                 </div>
             </Fade>
             
-            <Slide left duration = {2000} >
+            <Slide direction="left" duration = {2000} >
                 <Swiper  {...params}
                 onSwiper = {() => console.log("hello")}
                 onSlideChange = {() => console.log('slide change')}

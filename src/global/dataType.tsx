@@ -1,6 +1,6 @@
 type SignUpAccountData = {
     Password: string,
-    _id: string,
+    _id?: string,
     Email: string,
     Name: string,
     Avatar: string,
@@ -11,12 +11,12 @@ type SignUpAccountData = {
 }
 
 type updatableData = {
-    Password: string,
-    Name: string,
-    Avatar: string,
-    DoB: string,
-    D_id: string,
-    Bio: string
+    Password?: string,
+    Name?: string,
+    Avatar?: string,
+    DoB?: string,
+    D_id?: string,
+    Bio?: string,
 }
 
 type resAccount = {
@@ -25,11 +25,14 @@ type resAccount = {
     Name: string,
     Avatar: string,
     DoB: string,
-    D_id: string,
+    d_id: string,
     Bio: string,
     Role: string,
+    Rate: number,
+    GPA: number,
     isOnline: boolean,
     updated_at: string
+    listSubject?: string[]
 }
 
 type loginData = {
@@ -38,7 +41,7 @@ type loginData = {
 }
 
 type room = {
-    _id: string,
+    _id?: string,
     uid: string[],
     last_msg: {
         sender: string,
@@ -47,7 +50,7 @@ type room = {
 }
 
 type chat = {
-    _id: string,
+    _id?: string,
     room_id: string,
     sender: string,
     receiver: string,
@@ -58,22 +61,35 @@ type chat = {
 type department = {
     _id: string,
     name: string,
-    courses: {
-        _id: string,
-        name: string
-    }
+    courses: { [_id: string]: string }
 }
 
 type feed = {
-    _id: string,
+    _id?: string,
     uid: string,
     detail: string,
     updated_at: string
+}
+
+type classroom = {
+    _id?: string,
+    uid: string,
+    courseID: string,
+    price: number,
+    startDate: string,
+    GPA: number,
+    description: string,
+    available: boolean,
+}
+
+type schedule = {
+
 }
 
 export type {
     SignUpAccountData, resAccount, loginData, updatableData,
     room, chat,
     department,
-    feed
+    feed,
+    classroom, schedule,
 }
