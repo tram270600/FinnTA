@@ -13,13 +13,25 @@ func InitRoute() *gin.Engine {
 	router.Use(middleware.CORSMiddleware())
 	router.Static("/public", "./public")
 
+	//Global
 	// User
 	router.POST("/user/register", services.Register)
 	router.POST("/user/login", services.GetAccount)
 
-	// Test
+	// TA
+	router.GET("/user/TA", services.GetTA)
+
+	// Department
+	router.GET("/department", services.GetAllDepartment)
+	router.PUT("/department", services.InsertDepartment)
+
+	// Class
+	router.GET("/class", services.GetClass)
+
+	// Chat
 	router.GET("ws/chat", services.TestWatch)
 
+	//USER
 	client := router.Group("/")
 	client.Use(middleware.AuthorizeJWT())
 
@@ -29,20 +41,19 @@ func InitRoute() *gin.Engine {
 	client.PUT("/user", services.UpdateUser)
 	client.GET("/user/logout", services.Logout)
 
-	client.GET("/user/TA", services.GetTA)
-
 	// Chat
 	client.POST("/chat/createRoom", services.CreateRoom)
 	client.GET("chat/room", services.GetRoom)
 	client.PUT("/chat", services.SendChat)
 	client.GET("/chat", services.GetChat)
 
-	// Department
-	client.GET("/department", services.GetAllDepartment)
-
 	// Feed
 	client.PUT("/feed", services.CreateFeed)
 	client.GET("/feed", services.GetFeed)
+
+	// Class
+	client.PUT("/class", services.CreateClass)
+	client.POST("/class", services.UpdateClass)
 
 	return router
 }

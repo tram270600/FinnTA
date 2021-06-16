@@ -13,6 +13,7 @@ type Account struct {
 	D_id       primitive.ObjectID `json:"d_id,omitempty" bson:"d_id,omitempty"`
 	Bio        string             `json:"Bio,omitempty" bson:"Bio,omitempty"`
 	Role       string             `json:"Role,omitempty" bson:"Role,omitempty"`
+	GPA        float32            `json:"GPA,omitempty" bson:"GPA,omitempty"`
 	Rate       float32            `json:"Rate,omitempty" bson:"Rate,omitempty"`
 	IsOnline   bool               `json:"isOnline,omitempty" bson:"isOnline,omitempty"`
 	Created_at primitive.DateTime `json:"created_at,omitempty" bson:"created_at,omitempty"`

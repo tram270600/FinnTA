@@ -11,9 +11,9 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
-	"labix.org/v2/mgo/bson"
 )
 
 // Login
@@ -211,9 +211,9 @@ func GetUser(c *gin.Context) {
 	}
 
 	var acc entity.Out_Account
-	err = utils.Database.Collection("Account").FindOne(ctx, entity.Account{ID: _id}).Decode(&acc)
+	err = utils.Database.Collection("Account").FindOne(ctx, bson.M{"_id": _id}).Decode(&acc)
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"msg": "Not Found ID"})
+		c.JSON(http.StatusNotFound, gin.H{"msg": err.Error()})
 		return
 	}
 
@@ -283,6 +283,11 @@ func UpdateUser(c *gin.Context) {
 			return
 		}
 		tempAcc.DoB = primitive.NewDateTimeFromTime(dob)
+	}
+
+	if data["GPA"] != "" {
+		gpa, _ := strconv.ParseFloat(data["GPA"], 32)
+		tempAcc.GPA = float32(gpa)
 	}
 
 	result, err := utils.Database.Collection("Account").

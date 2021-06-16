@@ -11,6 +11,27 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
+func InsertDepartment(c *gin.Context) {
+	if utils.Database == nil {
+		utils.Database = db.CreateConnection()
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), utils.ConnectTimeout)
+	defer cancel()
+	var data entity.Department
+	if err := c.ShouldBindJSON(&data); err != nil {
+		c.JSON(http.StatusConflict, gin.H{"msg_input": err.Error()})
+		return
+	}
+
+	_, err := utils.Database.Collection("Department").InsertOne(ctx, data)
+	if err != nil {
+		c.JSON(http.StatusForbidden, gin.H{"msg": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, data)
+}
+
 func GetAllDepartment(c *gin.Context) {
 	if utils.Database == nil {
 		utils.Database = db.CreateConnection()
