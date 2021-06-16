@@ -1,7 +1,6 @@
 import 'index.css'
 import HeroSection from 'components/MainPage/HeroSection'
-import * as DefaultNav from 'components/MainPage/NavBar'
-import * as UserNav from 'components/Dashboard/NavBar'
+import NavBar from 'components/Dashboard/NavBar'
 import Cards from 'components/MainPage/Cards'
 import News from 'components/MainPage/News'
 import Subscribe from 'components/MainPage/Subscribe'
@@ -32,8 +31,7 @@ const MainPage = () => {
 
     return (
         <>
-            {/* Put LoggedIn into NavBar then do sth 😐 */}
-            {loggedIn ? <UserNav.default /> : <DefaultNav.default />}
+            <NavBar loggedIn={loggedIn} />
             <HeroSection />
             <Cards />
             <News />

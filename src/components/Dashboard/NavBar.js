@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom'
+import {useState} from 'react'
+import {Link, useHistory} from 'react-router-dom'
 import logo from '../../images/Logo.png'
 import avatar from '../../images/avatar.png'
-import NotifyMe from 'react-notification-timeline';
+import NotifyMe from 'react-notification-timeline'
 import '../../styles/NavBar.css'
 
-const NavBar = () => {
+const NavBar = (props) => {
 
     const data =  [
         {
@@ -23,6 +23,12 @@ const NavBar = () => {
       ]
     const background = {background: "#5DE2E8"}
     const [isHover, setHover] = useState(false)
+
+    const history = useHistory();
+    const handleClick = (page) =>{
+        history.push(`/${page}`)
+    }
+
     return (
         <nav className = 'navbar'>
             <div className = 'navbar-container'>
@@ -58,34 +64,40 @@ const NavBar = () => {
                     </Link>
                 </li>
             </ul>
-            <div className = 'noti-container'>
-                <div 
-                onMouseMove = {(event) => setHover(true)}
-                onMouseLeave = {(event) => setHover (false)}
-                style = {isHover ? background : null}
-                className = 'icon-dash'
-                >
-                    <i class="fas fa-search"></i>
-                </div>
-                <NotifyMe
-                            data={data}
-                            storageKey='notific_key'
-                            notific_key='timestamp'
-                            notific_value='update'
-                            heading='Notification Alerts'
-                            sortedByKey={false}
-                            showDate={true}
-                            size={21}
-                            color= "black"
-                />
-                <div className = 'avatar'>
-                    <div className = 'name'>
-                        <img src = {avatar} alt = 'Avatar'/>
-                        <span>Mario</span>
+            {props.loggedIn ? 
+            <>
+                <div className = 'noti-container'>
+                    <div 
+                    onMouseMove = {() => setHover(true)}
+                    onMouseLeave = {() => setHover (false)}
+                    style = {isHover ? background : null}
+                    className = 'icon-dash'
+                    >
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <NotifyMe
+                        data={data}
+                        storageKey='notific_key'
+                        notific_key='timestamp'
+                        notific_value='update'
+                        heading='Notification Alerts'
+                        sortedByKey={false}
+                        showDate={true}
+                        size={21}
+                        color= "black"
+                    />
+                    <div className = 'avatar'>
+                        <div className = 'name'>
+                            <img src = {avatar} alt = 'Avatar'/>
+                            <span>Mario</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </nav>
+            </>:<>
+                <button className = 'btn' onClick={()=>handleClick('login')}>Sign In</button>
+                <button className = 'btn signup' onClick={()=>handleClick('signup')}>Sign Up</button>
+            </>}
+           </nav>
     )
 }
 export default NavBar

@@ -1,4 +1,4 @@
-import { ChangeEvent, SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import 'styles/login.scss'
 
@@ -8,7 +8,6 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { loginThunk } from 'reducer/thunks/AccountThunk';
 import { useAppDispatch } from 'app/store';
 import { connect } from 'app/ws';
-import { imgCompress } from 'utils/converter';
 
 const Login = () => {
     const [Email, setEmail] = useState('');
