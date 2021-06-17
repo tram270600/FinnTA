@@ -1,12 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { RootState } from "app/store";
 import { resAccount } from "global/dataType";
 import { authAccount, loginThunk, logoutAccount, updateAccount } from "reducer/thunks/AccountThunk";
-
-
+import avatar from 'images/avatar.svg'
 type fetchState = {
     status: "loading" | "idle",
-    err: string | null,
+    err: string | null | undefined,
     data: resAccount
 }
 
@@ -15,8 +13,6 @@ const initialState = {
     err: null,
     data: {} as resAccount,
 } as fetchState
-
-// const selectStatus = (state: RootState) => state.account.status;
 
 const Account = createSlice({
     name: 'Account',
@@ -30,12 +26,17 @@ const Account = createSlice({
 
         builder.addCase(loginThunk.fulfilled, (state, { payload }) => {
             state.data = payload;
+            if (!state.data.Avatar)
+                state.data.Avatar = avatar
             state.status = "idle";
         });
 
-        builder.addCase(loginThunk.rejected, (state, { payload }) => {
-            if (payload)
-                state.err = payload.msg;
+        builder.addCase(loginThunk.rejected, (state, action) => {
+            if (action.payload) {
+                state.err = action.payload.msg
+            } else {
+                state.err = action.error.message
+            }
             state.status = "idle";
         });
 
@@ -69,6 +70,8 @@ const Account = createSlice({
         builder.addCase(authAccount.fulfilled, (state, { payload }) => {
             state.status = "idle"
             state.data = payload
+            if (!state.data.Avatar)
+                state.data.Avatar = avatar
         })
         builder.addCase(authAccount.rejected, (state, { payload }) => {
             if (payload)
@@ -93,7 +96,5 @@ const Account = createSlice({
     },
 })
 
-// const { actions, reducer } = Account
 const { reducer } = Account
-// export const {  } = actions
 export default reducer

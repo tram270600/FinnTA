@@ -2,9 +2,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import routes from './utils/route';
 import { Suspense } from 'react';
 import { useAppDispatch, useTypedSelector } from "app/store";
-import { connect, disconnect } from "app/ws";
-import { unwrapResult } from "@reduxjs/toolkit"
-import { getAllDepartment } from "reducer/thunks/DepartmentThunk"
+import { disconnect } from "app/ws";
 
 function App() {
   const dispatch = useAppDispatch()
@@ -21,7 +19,7 @@ function App() {
       <BrowserRouter>
         <Suspense fallback={<div>Loading...</div>}>
           {routes.filter((route) => {
-            // Remove 2 lines below to test without login
+            // Remove 2 lines below to test routes without login
             if (route.Scope === "User" && user.data.Role === undefined)
               return false
             return true

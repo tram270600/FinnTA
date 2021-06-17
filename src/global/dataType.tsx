@@ -37,7 +37,8 @@ type resAccount = {
 
 type loginData = {
     Email: string,
-    Password: string
+    Password: string,
+    // Stay: boolean,
 }
 
 type room = {

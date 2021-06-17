@@ -16,7 +16,6 @@ const MainPage = () => {
     const [loggedIn, setLoggedIn] = useState(true)
     const department = useTypedSelector(state => state.Department)
     const getDepartment = useCallback(async () => {
-        console.log(department)
         if (Object.keys(department.data).length === 0) {
             try {
                 const res = await dispatch(getAllDepartment())
@@ -61,7 +60,7 @@ const MainPage = () => {
 
     return (
         <>
-            <NavBar loggedIn={loggedIn} />
+            <NavBar />
             <HeroSection />
             <Cards />
             <News />

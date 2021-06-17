@@ -1,34 +1,30 @@
 import { SyntheticEvent, useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import 'styles/login.scss'
-
-import showPw from 'images/showPw.svg';
-
-import { unwrapResult } from '@reduxjs/toolkit';
+import { Link, Redirect } from 'react-router-dom';
 import { loginThunk } from 'reducer/thunks/AccountThunk';
 import { useAppDispatch } from 'app/store';
 import { connect } from 'app/ws';
 
+import 'styles/login.scss'
+import showPw from 'images/showPw.svg';
+
 const Login = () => {
     const [Email, setEmail] = useState('');
     const [Password, setPw] = useState('');
+    const [stay, setStay] = useState(false);
     const [redirect, setRedirect] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
     const dispatch = useAppDispatch()
     const handleForm = async (e: SyntheticEvent) => {
-        try {
-            e.preventDefault()
-            const res = await dispatch(loginThunk({ Email: Email, Password: Password }))
-            const account = unwrapResult(res)
-            console.log("Loggeed account:", account)
-            dispatch(connect(account._id))
+        e.preventDefault()
+        const res = await dispatch(loginThunk({ Email: Email, Password: Password, Stay: stay }))
+        if (loginThunk.fulfilled.match(res)) {
+            console.log("Loggeed account:", res.payload)
+            dispatch(connect(res.payload._id))
             setRedirect(true)
-        } catch (error) {
-            console.log("Failed to login: ", error.message)
-            alert(`Login Failed: ${error.message}`)
+        } else {
+            alert(res.payload?.msg)
         }
-
     }
 
     if (redirect) return <Redirect to="/" />
@@ -38,12 +34,12 @@ const Login = () => {
             <div className="loginForm">
                 <div className="header">
                     <h1>Connect with other<br />Make you better</h1>
-                    <a href="/"><b>Sign in</b> to your FinnTA Account !</a>
+                    <p style={{ cursor: 'default', color: '#35bbca', textAlign: 'start' }}><b>Sign in</b> to your FinnTA Account !</p>
                 </div>
                 <form className="inputForm" onSubmit={handleForm} method="POST">
                     <div className="field">
                         <input
-                            type="text"
+                            type="email"
                             name="ipEmail"
                             id="ipEmail"
                             placeholder="avc@avc.com"
@@ -63,11 +59,14 @@ const Login = () => {
                         <img src={showPw} width={24} onClick={() => setShowPassword(!showPassword)}
                             style={{ filter: showPassword ? 'none' : 'grayscale(100%)' }}></img>
                     </div>
+                    <div className="checkbox">
+                        <input type="checkbox" value="stay" onClick={() => setStay(!stay)} /> <p style={{ display: "contents" }}>Stay logged in</p>
+                    </div>
                     <div className="Container">
-                        <input type="submit" value="Sign in" />
+                        <input type="submit" aria-label="Sign in" />
                     </div>
                 </form>
-                <p>Don't have an account? <a href="/">Sign up</a></p>
+                <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
             </div>
         </div>
     );

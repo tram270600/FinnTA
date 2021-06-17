@@ -3,12 +3,10 @@ import CardItem from './CardItem'
 import '../../styles/Cards.scss'
 import { Fade } from "react-awesome-reveal";
 import talker from 'utils/talker';
-import { department, resAccount } from 'global/dataType';
-import { useAppDispatch, useTypedSelector } from 'app/store';
+import { useTypedSelector } from 'app/store';
 import { useState } from 'react';
-import { unwrapResult } from '@reduxjs/toolkit';
-import { getAllDepartment } from 'reducer/thunks/DepartmentThunk';
 import { useCallback } from 'react';
+import avatar from 'images/avatar.svg'
 
 const Card = () => {
     const gradientList = ['linear-gradient(180deg, #0191B4 0%, #35BBCA 100%)',
@@ -20,15 +18,12 @@ const Card = () => {
     const [cards, setCards] = useState(<></>)
     const department = useTypedSelector(state => state.Department)
     const getCard = useCallback(async () => {
-        console.log(department)
         let TAList = await talker.TA.getSortTA("des", "rate", 0)
         if (TAList.TA.length === 0)
             return
         let tempCard = <>
             {TAList.TA.map((ta) => {
-                console.log(ta)
                 let c_idLs = TAList.Class[ta._id]
-                console.log(c_idLs)
                 let res = c_idLs.map((c_id) => {
                     return Object.values(department.data).filter((d) => {
                         if (d.courses[c_id])
@@ -38,7 +33,10 @@ const Card = () => {
                         return d.courses[c_id]
                     })
                 }).flat()
+                if (!ta.Avatar)
+                    ta.Avatar = avatar
                 return <CardItem
+                    uid={ta._id}
                     avatar={ta.Avatar}
                     name={ta.Name}
                     major={department.data[ta.d_id].name}
