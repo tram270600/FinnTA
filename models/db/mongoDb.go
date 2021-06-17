@@ -29,6 +29,7 @@ func CreateConnection() *mongo.Database {
 
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(connectURI))
 	if err != nil {
+		fmt.Println(err.Error())
 		panic(err)
 	}
 

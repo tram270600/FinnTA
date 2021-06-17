@@ -5,6 +5,7 @@ import (
 	"API_Mongo/models/entity"
 	"API_Mongo/utils"
 	"context"
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -30,6 +31,7 @@ func CreateFeed(c *gin.Context) {
 
 	_id, err := utils.GetCookie(c)
 	if err != nil {
+		fmt.Println(err.Error())
 		return
 	}
 
@@ -40,6 +42,7 @@ func CreateFeed(c *gin.Context) {
 	feed.Updated_at = primitive.NewDateTimeFromTime(time.Now())
 	_, err = utils.Database.Collection("Feed").InsertOne(ctx, feed)
 	if err != nil {
+		fmt.Println(err.Error())
 		c.JSON(http.StatusConflict, gin.H{"msg": err.Error()})
 		return
 	}
@@ -63,6 +66,7 @@ func GetFeed(c *gin.Context) {
 
 	cursor, err := utils.Database.Collection("Feed").Find(ctx, bson.M{}, opt)
 	if err != nil {
+		fmt.Println(err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return
 	}

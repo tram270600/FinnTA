@@ -5,6 +5,7 @@ import (
 	"API_Mongo/models/entity"
 	"API_Mongo/utils"
 	"context"
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -34,6 +35,7 @@ func CreateClass(c *gin.Context) {
 	gpa, _ := strconv.ParseFloat(data["GPA"], 32)
 	startDate, err := utils.ParseDate(data["startDate"])
 	if err != nil {
+		fmt.Println(err.Error())
 		c.JSON(http.StatusConflict, gin.H{"msg_bcr": err.Error()})
 		return
 	}
@@ -53,6 +55,7 @@ func CreateClass(c *gin.Context) {
 
 	_, err = utils.Database.Collection("Class").InsertOne(ctx, class)
 	if err != nil {
+		fmt.Println(err.Error())
 		c.JSON(http.StatusForbidden, gin.H{"msg": err.Error()})
 		return
 	}
@@ -79,6 +82,7 @@ func GetClass(c *gin.Context) {
 
 	cursor, err := utils.Database.Collection("Class").Find(ctx, filter, opt)
 	if err != nil {
+		fmt.Println(err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return
 	}
@@ -126,6 +130,7 @@ func UpdateClass(c *gin.Context) {
 	if data["startDate"] != "" {
 		startDate, err := utils.ParseDate(data["startDate"])
 		if err != nil {
+			fmt.Println(err.Error())
 			c.JSON(http.StatusConflict, gin.H{"msg_bcr": err.Error()})
 			return
 		}
@@ -145,6 +150,7 @@ func UpdateClass(c *gin.Context) {
 	result, err := utils.Database.Collection("Class").
 		UpdateOne(ctx, entity.Class{ID: _id}, bson.M{"$set": tempClass})
 	if err != nil {
+		fmt.Println(err.Error())
 		c.JSON(http.StatusConflict, gin.H{"msg_bcr": err.Error()})
 		return
 	}

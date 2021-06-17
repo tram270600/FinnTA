@@ -52,6 +52,7 @@ func GetTA(c *gin.Context) {
 	filter := bson.M{"Role": "T.A"}
 	cursor, err := utils.Database.Collection("Account").Find(ctx, filter, opt)
 	if err != nil {
+		fmt.Println(err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return
 	}
@@ -77,6 +78,7 @@ func GetTA(c *gin.Context) {
 	fmt.Println(id_ls)
 	cursor, err = utils.Database.Collection("Class").Find(ctx, filter, opt)
 	if err != nil {
+		fmt.Println(err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return
 	}

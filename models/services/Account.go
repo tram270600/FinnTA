@@ -36,13 +36,13 @@ func GetAccount(c *gin.Context) {
 
 	err = utils.Database.Collection("Account").FindOne(ctx, entity.Account{Email: data["Email"]}).Decode(&account)
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"msg": "Wrong email"})
+		c.JSON(http.StatusConflict, gin.H{"msg": "Wrong credencial"})
 		return
 	}
 
 	err = bcrypt.CompareHashAndPassword(account.Password, []byte(data["Password"]))
 	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{"msg": "Wrong password"})
+		c.JSON(http.StatusConflict, gin.H{"msg": "Wrong credencial"})
 		return
 	}
 
@@ -62,7 +62,7 @@ func GetAccount(c *gin.Context) {
 		UpdateOne(ctx, entity.Account{ID: account.ID},
 			bson.M{"$set": entity.Account{IsOnline: true, Updated_at: primitive.NewDateTimeFromTime(time.Now())}})
 	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{"msg_bcr": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"msg_bcr": err.Error()})
 		return
 	}
 
@@ -98,7 +98,7 @@ func Register(c *gin.Context) {
 	var result entity.Account
 
 	if err := c.ShouldBindJSON(&data); err != nil {
-		c.JSON(http.StatusConflict, gin.H{"msg_input": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"msg_input": err.Error()})
 		return
 	}
 
@@ -163,7 +163,7 @@ func AuthUser(c *gin.Context) {
 	//Take parameter
 	var data map[string]string
 	if err := c.ShouldBindJSON(&data); err != nil {
-		c.JSON(http.StatusConflict, gin.H{"msg_input": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"msg_input": err.Error()})
 		return
 	}
 
@@ -229,7 +229,7 @@ func UpdateUser(c *gin.Context) {
 
 	var data map[string]string
 	if err := c.ShouldBindJSON(&data); err != nil {
-		c.JSON(http.StatusConflict, gin.H{"msg_input": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"msg_input": err.Error()})
 		return
 	}
 

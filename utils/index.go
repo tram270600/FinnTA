@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -23,12 +24,14 @@ func EnvVar(key string, defaulVal string) string {
 func GetCookie(c *gin.Context) (primitive.ObjectID, error) {
 	cookie, err := c.Cookie("_id")
 	if err != nil {
+		fmt.Println(err.Error())
 		c.JSON(http.StatusNonAuthoritativeInfo, gin.H{"msg": err.Error()})
 		return primitive.NilObjectID, err
 	}
 
 	_id, err := primitive.ObjectIDFromHex(cookie)
 	if err != nil {
+		fmt.Println(err.Error())
 		c.JSON(http.StatusConflict, gin.H{"msg": err.Error()})
 		return primitive.NilObjectID, err
 	}

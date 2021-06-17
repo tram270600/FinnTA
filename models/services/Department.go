@@ -5,6 +5,7 @@ import (
 	"API_Mongo/models/entity"
 	"API_Mongo/utils"
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -25,6 +26,7 @@ func InsertDepartment(c *gin.Context) {
 
 	_, err := utils.Database.Collection("Department").InsertOne(ctx, data)
 	if err != nil {
+		fmt.Println(err.Error())
 		c.JSON(http.StatusForbidden, gin.H{"msg": err.Error()})
 		return
 	}
@@ -42,6 +44,7 @@ func GetAllDepartment(c *gin.Context) {
 	var d_list []entity.Department
 	cursor, err := utils.Database.Collection("Department").Find(ctx, bson.M{})
 	if err != nil {
+		fmt.Println(err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return
 	}
