@@ -13,7 +13,7 @@ const ErrMsg = new Map([
 ])
 
 
-export const loginThunk = createAsyncThunk<resAccount, { Stay: boolean } & loginData, { rejectValue: contactError }>(
+export const loginThunk = createAsyncThunk<resAccount, loginData, { rejectValue: contactError }>(
     'user/login',
     async (data, thunkApi) => {
         let msg = "Failed to login"
@@ -21,11 +21,9 @@ export const loginThunk = createAsyncThunk<resAccount, { Stay: boolean } & login
             jwt: string,
             account: resAccount
         }
-        const { Stay, ..._data } = data
         try {
-            let res = await talker.Conn.post<response>('/user/login', JSON.stringify(_data))
-            if (Stay)
-                localStorage.setItem("jwt", res.data.jwt)
+            let res = await talker.Conn.post<response>('/user/login', JSON.stringify(data))
+            localStorage.setItem("jwt", res.data.jwt)
             return res.data.account
         } catch (err) {
             let error: AxiosError<contactError> = err
@@ -45,17 +43,22 @@ export const authAccount = createAsyncThunk<resAccount, null, { rejectValue: con
     'user/auth',
     async (_, thunkApi) => {
         let msg = "Failed to Auth"
-        let res = await talker.Conn.post<resAccount>('/user', JSON.stringify({
-            "jwt": localStorage.getItem("jwt")
-        }))
-
-        if (res.status !== 200) {
-            msg = ErrMsg.get(res.status)!
+        try {
+            let res = await talker.Conn.post<resAccount>('/user', JSON.stringify({
+                "jwt": localStorage.getItem("jwt")
+            }))
+            return res.data
+        } catch (err) {
+            let error: AxiosError<contactError> = err
+            if (!error.response) {
+                throw err
+            }
+            msg = ErrMsg.get(error.response.status)!
+            console.log(msg)
             return thunkApi.rejectWithValue({
                 msg: msg
             })
         }
-        return res.data
     }
 )
 
@@ -63,15 +66,20 @@ export const logoutAccount = createAsyncThunk<void, null, { rejectValue: contact
     'user/logout',
     async (_, thunkApi) => {
         let msg = "Failed to logout"
-        let res = await talker.Conn.get('/user/logout')
-
-        if (res.status !== 200) {
-            msg = ErrMsg.get(res.status)!
+        try {
+            await talker.Conn.get('/user/logout')
+            localStorage.clear()
+        } catch (err) {
+            let error: AxiosError<contactError> = err
+            if (!error.response) {
+                throw err
+            }
+            msg = ErrMsg.get(error.response.status)!
+            console.log(msg)
             return thunkApi.rejectWithValue({
                 msg: msg
             })
         }
-        localStorage.setItem("jwt", "")
     }
 )
 
@@ -79,13 +87,25 @@ export const updateAccount = createAsyncThunk<updatableData, updatableData, { re
     'user/update',
     async (data, thunkApi) => {
         let msg = "Failed to update"
-        let res = await talker.Conn.put('/user', JSON.stringify(data))
-        if (res.status !== 200) {
-            msg = ErrMsg.get(res.status)!
+        try {
+            let res = await talker.Conn.put('/user', JSON.stringify(data))
+            if (res.status !== 200) {
+                msg = ErrMsg.get(res.status)!
+                return thunkApi.rejectWithValue({
+                    msg: msg
+                })
+            }
+            return data
+        } catch (err) {
+            let error: AxiosError<contactError> = err
+            if (!error.response) {
+                throw err
+            }
+            msg = ErrMsg.get(error.response.status)!
+            console.log(msg)
             return thunkApi.rejectWithValue({
                 msg: msg
             })
         }
-        return data
     }
 )

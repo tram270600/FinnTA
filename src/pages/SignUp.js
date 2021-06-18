@@ -18,6 +18,8 @@ import ModalViewRate from '../components/ModalPopup/ModalViewRate';
 import ModalCourse from '../components/ModalPopup/ModalCourse';
 import useModalCourse from 'components/ModalPopup/useModalCourse';
 import ModalConfirmTeach from 'components/ModalPopup/ModalConfirmTeach';
+import talker from 'utils/talker';
+import { useTypedSelector } from 'app/store';
 // import Modal from 'react-bootstrap/Modal';
 
 
@@ -25,7 +27,7 @@ const SignUp = () => {
     const [Password, setPw] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [showPassword2, setShowPassword2] = useState(false);
-    const { handleChange, values, handleSubmit } = useSignUpForm();
+    const { handleChange, handleSubmit, values, errors, redirect } = useSignUpForm();
 
     const { isShowing, toggle } = useModal(); //custom modal hook 
     const { isShowingCreate, toggleCreate } = useModal();
@@ -35,6 +37,11 @@ const SignUp = () => {
     const { isShowingViewRate, toggleViewRate } = useModal();
     const { isShowingCourse, toggleCourse } = useModalCourse();
     const { isShowingConfirmTeach, toggleConfirmTeach } = useModalCourse();
+
+    const department = useTypedSelector(state => state.Department.data)
+
+    if (redirect)
+        return <Redirect to='/' />
 
     return (
         <div className='backGround'>
@@ -50,7 +57,7 @@ const SignUp = () => {
                             <div className="field">
                                 <input
                                     type="text"
-                                    name="fullname"
+                                    name="Name"
                                     id="fullname"
                                     placeholder="Ex: Nguyen Giang Ngoc Tram"
                                     value={values.fullname}
@@ -60,23 +67,25 @@ const SignUp = () => {
                             </div>
 
                             <div className="field">
-                                <input type="text" name="email" id="email" placeholder="Enter email" value={values.email}
+                                <input type="email" name="Email" id="email" placeholder="Enter email" value={values.email}
                                     onChange={handleChange} required />
                                 <label>Email</label>
                             </div>
 
                             <div className="field">
-                                <input type="text" name="phonenumber" className="form-input" placeholder="Enter phone number" value={values.phone}
+                                <input type="number" name="Phone" className="form-input" placeholder="Enter phone number" value={values.phone}
                                     onChange={handleChange} ></input>
                                 <label>Phone Number</label>
                             </div>
 
                             <div className="field">
-                                <select NAME="department" SIZE="1" style={{ width: '360px' }}>
-                                    <option VALUE="default"> Choose your faculty </option>
-                                    <option VALUE="CSE">CSE - Computer Science and Engineering</option>
-                                    <option VALUE="BA"> BA - Business Administration </option>
-                                    <option VALUE="IEM">IEM - Industrial Engineering and Management </option>
+                                <select NAME="d_id" onChange={handleChange}>
+                                    <option VALUE=""> Choose your faculty </option>
+                                    {Object.keys(department).map((d) => {
+                                        return <option value={department[d]._id}>
+                                            {department[d].name}
+                                        </option>
+                                    })}
                                 </select>
                                 <label>Department</label>
                             </div>
@@ -86,10 +95,10 @@ const SignUp = () => {
                             <div className="field">
                                 <input
                                     type={showPassword ? "text" : "password"}
-                                    name="password"
+                                    name="Password"
                                     id="password"
                                     placeholder="Enter password"
-                                    onChange={(e) => { setPw(e.target.value) }} required />
+                                    onChange={handleChange} required />
                                 <label> Password </label>
                                 <img src={showPw} width={24} onClick={() => setShowPassword(!showPassword)}
                                     style={{ filter: showPassword ? 'none' : 'grayscale(100%)' }}></img>
@@ -98,10 +107,10 @@ const SignUp = () => {
                             <div className="field">
                                 <input
                                     type={showPassword2 ? "text" : "password"}
-                                    name="ipPass"
-                                    id="ipPass"
+                                    name="Password2"
+                                    id="password"
                                     placeholder="Confirm"
-                                    onChange={(e) => { setPw(e.target.value) }} required />
+                                    onChange={handleChange} required />
                                 <label> Confirm Password </label>
                                 <img src={showPw} width={24} onClick={() => setShowPassword2(!showPassword2)}
                                     style={{ filter: showPassword2 ? 'none' : 'grayscale(100%)' }}></img>
@@ -109,12 +118,16 @@ const SignUp = () => {
 
                             <label style={{ marginTop: '20px', }}>Role</label>
                             <div class="radio-item">
-                                <input type="radio" id="ritema" name="ritem" value="ropt1" checked />
+                                <input type="radio" id="ritema"
+                                    name="Role" value="Student"
+                                    onChange={handleChange} checked />
                                 <label for="ritema">Student</label>
                             </div>
 
                             <div class="radio-item">
-                                <input type="radio" id="ritemb" name="ritem" value="ropt2" />
+                                <input type="radio" id="ritemb"
+                                    name="Role" value="T.A"
+                                    onChange={handleChange} />
                                 <label for="ritemb">Teaching Assistant</label>
                             </div>
                         </div>
@@ -167,7 +180,7 @@ const SignUp = () => {
                         hide={toggleViewRate}
                     />
                 </div> */}
-                 {/* <div className="Modall">
+                {/* <div className="Modall">
                     <button className="button-default" onClick={toggleCourse}>Show Modal Course</button>
                     <ModalCourse
                         isShowingCourse={isShowingCourse}

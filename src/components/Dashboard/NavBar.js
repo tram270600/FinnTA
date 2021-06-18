@@ -28,7 +28,6 @@ const NavBar = () => {
     const handleClick = (page) => {
         history.push(`/${page}`)
     }
-
     const account = useTypedSelector(state => state.Account)
 
     return (
@@ -88,7 +87,8 @@ const NavBar = () => {
                             size={21}
                             color="black"
                         />
-                        <div className='avatar'>
+                        <div className='avatar' style={{ cursor: 'pointer' }}
+                            onClick={() => handleClick('profile')}>
                             <div className='name'>
                                 <img src={account.data.Avatar} alt='Avatar' />
                                 <span>{account.data.Name}</span>

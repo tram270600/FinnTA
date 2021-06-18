@@ -1,16 +1,9 @@
 import { BrowserRouter, Route } from "react-router-dom";
 import routes from './utils/route';
 import { Suspense } from 'react';
-import { useAppDispatch, useTypedSelector } from "app/store";
-import { disconnect } from "app/ws";
+import { useTypedSelector } from "app/store";
 
 function App() {
-  const dispatch = useAppDispatch()
-  window.onbeforeunload = function () {
-    dispatch(disconnect())
-    if (localStorage.getItem("jwt") === null)
-      localStorage.clear();
-  }
 
   const user = useTypedSelector(state => state.Account)
 
@@ -25,8 +18,8 @@ function App() {
             return true
           })
             .map((route, i) => {
-              return <Route key={i} path={route.Path} exact={route.isExact}>
-                {route.Component}
+              return <Route key={i} path={route.Path} exact={route.isExact} render={(props) => route.Render!(props)}>
+                {route.Component!}
               </Route>
             })}
         </Suspense>

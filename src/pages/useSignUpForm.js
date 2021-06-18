@@ -1,26 +1,41 @@
-import {useState, useEffect} from 'react';
+import { useState } from 'react';
+import talker from 'utils/talker';
 
 const useSignUpForm = () => {
     const [values, setValues] = useState({
-        fullname: '',
-        email: '',
-        phonenumber: '',
-        password:'',
-        password2: '',
+        Name: '',
+        Email: '',
+        Phone: '',
+        Password: '',
+        Password2: '',
+        d_id: '',
+        Role: 'Student'
     });
     const [errors, setErrors] = useState({});
-    const handleChange = e => {
-        const {name, value} = e.target;
+    const handleChange = (e) => {
+        const { name, value } = e.target;
         setValues({
             ...values,
             [name]: value
         });
     };
-    const handleSubmit = e => {
+    const [redirect, setRedirect] = useState(false);
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        const { Password2, ...data } = values
+        // if(data.Password !== Password2)
+        //     setErrors("")
+        try {
+            await talker.Account.register({ ...data })
+            setRedirect(true)
+        } catch (err) {
+            console.log("Error:", err.response.data)
+            alert(err.response.data.msg)
+        }
+
     }
 
-    return {handleChange, values};
+    return { handleChange, handleSubmit, values, errors, redirect };
 
 };
 

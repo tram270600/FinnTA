@@ -39,7 +39,7 @@ const Card = () => {
                     uid={ta._id}
                     avatar={ta.Avatar}
                     name={ta.Name}
-                    major={department.data[ta.d_id].name}
+                    major={department.data[ta.d_id!].name}
                     gpa={ta.GPA}
                     star={ta.Rate}
                     background={gradientList[0]}

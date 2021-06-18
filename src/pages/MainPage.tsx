@@ -5,7 +5,7 @@ import Cards from 'components/MainPage/Cards'
 import News from 'components/MainPage/News'
 import Subscribe from 'components/MainPage/Subscribe'
 import Footer from 'components/MainPage/Footer'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import { useAppDispatch, useTypedSelector } from 'app/store'
 import { getAllDepartment } from 'reducer/thunks/DepartmentThunk'
@@ -13,7 +13,7 @@ import { connect } from 'app/ws'
 import { unwrapResult } from '@reduxjs/toolkit'
 
 const MainPage = () => {
-    const [loggedIn, setLoggedIn] = useState(true)
+    // Get Department
     const department = useTypedSelector(state => state.Department)
     const getDepartment = useCallback(async () => {
         if (Object.keys(department.data).length === 0) {
@@ -27,9 +27,10 @@ const MainPage = () => {
         }
     }, [])
     useEffect(() => { getDepartment() }, [])
+
+    // Auth logged in
     useEffect(() => {
         console.log("Check Logged in")
-
         let token = localStorage.getItem("jwt")
         if (token !== null) {
             // Check expired token
@@ -37,7 +38,6 @@ const MainPage = () => {
             // if expired -> not logged in + delete token
             if (token_exp !== undefined) {
                 if (token_exp > Date.now() / 1000) {
-                    setLoggedIn(true)
                     console.log("Logged in")
                     return
                 }
@@ -46,8 +46,7 @@ const MainPage = () => {
         localStorage.clear()
     }, [])
 
-
-
+    // Open websocket
     const dispatch = useAppDispatch()
     const account = useTypedSelector(state => state.Account)
     useEffect(() => {

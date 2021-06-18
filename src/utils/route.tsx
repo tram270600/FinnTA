@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect, RouteChildrenProps, RouteComponentProps } from "react-router-dom";
 
 const MainPage = React.lazy(() => import('pages/MainPage'))
 const Login = React.lazy(() => import('pages/login'))
@@ -7,8 +8,9 @@ const ProfileDash = React.lazy(() => import('pages/ProfileDash'))
 
 type Routes = {
     Path: string,
-    Component: JSX.Element,
+    Component?: JSX.Element,
     isExact: boolean,
+    Render?: Function,
     Scope: "Global" | "T.A" | "Student" | "User",
 }
 
@@ -39,10 +41,19 @@ const routes: Routes[] = [
     },
     {
         Path: '/profile/:id',
-        Component: <ProfileDash isGuest={true} />,
+        Render: (props: any) => {
+            console.log(props)
+            return <ProfileDash isGuest={true} {...props} />
+        },
         isExact: false,
         Scope: "Global"
-    }
+    },
+    {
+        Path: '',
+        Component: <Redirect to='/'></Redirect>,
+        isExact: true,
+        Scope: "Global"
+    },
 ]
 
 export default routes;

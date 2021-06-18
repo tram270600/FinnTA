@@ -1,23 +1,23 @@
 import { SyntheticEvent, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { loginThunk } from 'reducer/thunks/AccountThunk';
-import { useAppDispatch } from 'app/store';
+import { useAppDispatch, useTypedSelector } from 'app/store';
 import { connect } from 'app/ws';
 
 import 'styles/login.scss'
 import showPw from 'images/showPw.svg';
+import { useEffect } from 'react';
 
 const Login = () => {
     const [Email, setEmail] = useState('');
     const [Password, setPw] = useState('');
-    const [stay, setStay] = useState(false);
     const [redirect, setRedirect] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
     const dispatch = useAppDispatch()
     const handleForm = async (e: SyntheticEvent) => {
         e.preventDefault()
-        const res = await dispatch(loginThunk({ Email: Email, Password: Password, Stay: stay }))
+        const res = await dispatch(loginThunk({ Email: Email, Password: Password }))
         if (loginThunk.fulfilled.match(res)) {
             console.log("Loggeed account:", res.payload)
             dispatch(connect(res.payload._id))
@@ -27,7 +27,13 @@ const Login = () => {
         }
     }
 
-    if (redirect) return <Redirect to="/" />
+    const account = useTypedSelector(state => state.Account).data
+    useEffect(() => {
+        if (Object.keys(account).length !== 0)
+            setRedirect(true)
+    }, [])
+
+    if (redirect) return <Redirect to="/profile" />
 
     return (
         <div className="backGround">
@@ -58,9 +64,6 @@ const Login = () => {
                         <label> Password </label>
                         <img src={showPw} width={24} onClick={() => setShowPassword(!showPassword)}
                             style={{ filter: showPassword ? 'none' : 'grayscale(100%)' }}></img>
-                    </div>
-                    <div className="checkbox">
-                        <input type="checkbox" value="stay" onClick={() => setStay(!stay)} /> <p style={{ display: "contents" }}>Stay logged in</p>
                     </div>
                     <div className="Container">
                         <input type="submit" aria-label="Sign in" />

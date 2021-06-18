@@ -23,3 +23,13 @@ yarn-debug.log*
 yarn-error.log*
 Database/Department.json
 Database/Course.json
+src.png
+uml_horizontal.png
+uml.png
+.idea/finnta.iml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/inspectionProfiles/Project_Default.xml
+dependencies.html
+.dependency-cruiser.js
+dependencygraph.svg
