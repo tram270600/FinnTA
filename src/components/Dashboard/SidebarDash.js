@@ -1,9 +1,10 @@
-import { useAppDispatch } from 'app/store';
+import { useAppDispatch, useTypedSelector } from 'app/store';
 import { disconnect } from 'app/ws';
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { logoutAccount } from 'reducer/thunks/AccountThunk';
-
+import talker from 'utils/talker';
+import avatar from 'images/avatar.svg'
 const style = {
     color: "#0191B4",
     transform: "scale(1.1)",
@@ -23,7 +24,7 @@ const BtnList = {
     }
 }
 
-const SidebarDash = ({ body, setBody, isGuest }) => {
+const SidebarDash = ({ body, setBody, isGuest, uid }) => {
     const useHolver = () => {
         const [holver, setHolver] = useState(false);
         const eventHandler = useMemo(() => ({
@@ -45,6 +46,29 @@ const SidebarDash = ({ body, setBody, isGuest }) => {
         </button>);
     }
 
+    const [data, setData] = useState({})
+    const getInfo = useCallback(async () => {
+        if (isGuest) {
+            const res = await talker.Account.getAccount({ ID: uid })
+
+            console.log(res)
+            if ((typeof res) === 'string') {
+                alert(res)
+                return
+            }
+            if (res.Avatar === "") {
+                res.Avatar = avatar
+            }
+            setData(res)
+        }
+        else setData(account)
+    }, [uid])
+    const account = useTypedSelector(state => state.Account.data)
+
+    useEffect(() => {
+        getInfo()
+    }, [])
+
     const dispatch = useAppDispatch()
     const [redirect, setRedirect] = useState(false)
     const handleLogout = async () => {
@@ -59,8 +83,8 @@ const SidebarDash = ({ body, setBody, isGuest }) => {
     return (
         <>
             <div className='avatar inDash'>
-                <img src="https://scontent-hkg4-1.xx.fbcdn.net/v/t1.6435-9/173675054_1559121364419800_5783364412267366985_n.jpg?_nc_cat=106&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=iYlzD0IeYT4AX8hCA2y&_nc_ht=scontent-hkg4-1.xx&oh=72b4b5442405e38859a0b3c1f8c1e06f&oe=60E0E4ED" alt='Avatar' />
-                <h2>Mario Nguyen</h2>
+                <img src={data.Avatar} alt='Avatar' />
+                <h2>{data.Name}</h2>
             </div>
             <div className='dash-sidebar-menu'>
                 {Object.keys(BtnList).filter((scope) => {

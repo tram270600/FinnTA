@@ -20,39 +20,48 @@ const CardGrid = ({ isTA, isStudent, uid, keyword, available }) => {
     const [card, setCard] = useState(<></>)
     const getCourse = useCallback(async () => {
         var data = ({})
-        if (uid !== undefined) {
-            data = ({ page: 0, uid: uid, available: available })
+        var res
+        if (isStudent) {
+            res = await talker.Schedule.getStudentCourse({ uid: uid, page: 0, available: available })
         } else {
-            if (keyword !== undefined) {
-                setCard(<></>)
-                let key = '(' + keyword.replace(" ", ")|(") + ')'
-                var list = Object.keys(department).map((d_id) => {
-                    return Object.keys(department[d_id].courses).filter((cid) => {
-                        if (department[d_id].courses[cid].search(key) === -1)
-                            return false
-                        return true
-                    }).map((cid) => cid)
-                }).flat()
-                console.log(list)
-                data = ({ page: 0, keyword: list, available: true })
+            if (uid !== undefined) {
+                data = ({ page: 0, uid: uid, available: available })
+            } else {
+                if (keyword !== undefined) {
+                    setCard(<></>)
+                    let key = '(' + keyword.replace(" ", ")|(") + ')'
+                    var list = Object.keys(department).map((d_id) => {
+                        return Object.keys(department[d_id].courses).filter((cid) => {
+                            if (department[d_id].courses[cid].search(key) === -1)
+                                return false
+                            return true
+                        }).map((cid) => cid)
+                    }).flat()
+                    console.log(list)
+                    data = ({ page: 0, keyword: list, available: true })
+                }
             }
+            res = await talker.TA.getClassroom(data)
         }
-        const res = await talker.TA.getClassroom(data)
         console.log("res", res)
-        if (res.data === null) {
+        if (res === null) {
             return
         }
-        let cards = res.data["Class"].map((c) => {
+        let cards = res["Class"]?.map((c) => {
             var date = new Date(c.updated_at)
+            if (res["Schedule"])
+                date = new Date(res["Schedule"].startDate)
             var now = new Date()
+
             let falcuty = Object.keys(department).filter((d_id) => {
                 if (department[d_id].courses[c.cid] === undefined)
                     return false
                 return true
             }).map((d_id) => d_id)[0]
-            let ava = res.data["T.A"][c.uid].Avatar
+            let ava = res["T.A"][c.uid].Avatar
             if (!ava)
                 ava = avatar
+
             return <Grid item>
                 <CardTAView
                     source={imgList[Math.floor(Math.random() * 8)]}
@@ -63,7 +72,7 @@ const CardGrid = ({ isTA, isStudent, uid, keyword, available }) => {
                     create_at={now.getDate() - date.getDate() + " days ago"}
                     isTA={isTA}
                     isStudent={isStudent}
-                    name={res.data["T.A"][c.uid].Name}
+                    name={res["T.A"][c.uid].Name}
                     avatar={ava}
                     uid={c.uid}
                 />
