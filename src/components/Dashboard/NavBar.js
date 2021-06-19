@@ -92,7 +92,7 @@ const NavBar = () => {
                         <div className='avatar-nav' style={{ cursor: 'pointer' }}
                             onClick={() => handleClick('profile')}>
                             <div className='name'>
-                                <img src={account.data.avatar} alt='Avatar' />
+                                <img src={account.data.Avatar} alt='Avatar' />
                                 <span>{account.data.Name}</span>
                             </div>
                         </div>

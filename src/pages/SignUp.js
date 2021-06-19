@@ -4,6 +4,7 @@ import '../styles/Signup.scss'
 import showPw from '../images/showPw.svg';
 import React, { SyntheticEvent, useState } from 'react';
 import useSignUpForm from './useSignUpForm';
+import { Link, Redirect } from 'react-router-dom';
 import ProfileDashBody from '../components/Dashboard/ProfileDashBody';
 import SidebarDash from '../components/Dashboard/SidebarDash';
 import NavBar from '../components/Dashboard/NavBar'
@@ -193,8 +194,9 @@ const SignUp = () => {
                         isShowingConfirmTeach={isShowingConfirmTeach}
                         hide={toggleConfirmTeach}
                     />
+                </div>
                 </div> */}
-                <p>Already have an account?<Link to="/login">Sign in</Link></p>
+                <p>Already have an account? <Link to='/login'>Sign in</Link></p>
             </div>
         </div>
     )

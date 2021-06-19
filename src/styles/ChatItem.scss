@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+@mixin fontStyle($weight, $size, $height, $color) {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $height;
+  color: $color;
+}
+
+.chatitem-container {
+    background: #FFFFFF;
+    border-radius: 10px;
+    // border: 1px solid black;
+    max-height: 180px;
+    padding: 0 2%;
+    overflow-x: hidden;
+    cursor: pointer;
+    &:hover{
+        box-shadow: 0px 8px 24px rgba(1, 145, 180, 0.1), 0px 16px 32px rgba(1, 145, 180, 0.08);
+    }
+ 
+    .chatitem-head{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2%;
+        .infor {
+            // border: 1px solid red;
+            width: 68%;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            img{
+                width: 50px;
+                height: 50px;
+                margin-right: 3%;
+            }
+            span{
+                @include fontStyle(600,1.1rem,21px,#0D1C2E);
+                overflow-x: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                display: inline-block;
+            }
+        }
+        .time{
+            // border: 1px solid red;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            span{
+                @include fontStyle(400,1rem,19px,#707C97 );
+            }
+        }
+    }
+    .chatitem-body{
+        overflow: hidden;
+        // border: 1px solid red;
+        p {
+            @include fontStyle(400,1.1rem ,26px ,#707C97 );
+        }
+    }
+}   

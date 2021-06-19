@@ -14,12 +14,33 @@ const gradientList = ['linear-gradient(180deg, #0191B4 0%, #35BBCA 100%)',
     "linear-gradient(108deg, rgba(248, 217, 15, 0.9) 1.48%, rgba(254, 122, 21, 0.9) 100%), #BCD1FF",
     "linear-gradient(180deg, #709CFF 0%, #64CDFF 100%)"]
 
-const Card = () => {
+type cardProps = {
+    name?: string
+    setLoading?: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+var sort: "des" | "asc"
+var by: "rate" | "name"
+
+sort = "des"
+by = "rate"
+let page = 0
+
+const Card = ({ name = undefined, setLoading = undefined }: cardProps) => {
     const [cards, setCards] = useState(<></>)
     const department = useTypedSelector(state => state.Department)
-    const getCard = useCallback(async () => {
-        let TAList = await talker.TA.getSortTA("des", "rate", 0)
-        if (TAList.TA.length === 0)
+    const getCard = useCallback(async (name) => {
+        setCards(<></>)
+        if (setLoading)
+            setLoading(true)
+        if (name !== undefined) {
+            sort = "asc"
+            by = "name"
+        }
+        let TAList = await talker.TA.getSortTA(sort, by, 0, name)
+        if (setLoading)
+            setLoading(false)
+        if (TAList.TA === undefined)
             return
         let tempCard = <>
             {TAList.TA.map((ta) => {
@@ -50,21 +71,23 @@ const Card = () => {
         </>
         setCards(tempCard)
     }, [department])
-
     useEffect(() => {
+        console.log(name)
+
         if (Object.keys(department.data).length !== 0)
-            getCard()
-    }, [getCard])
+            getCard(name)
+    }, [name])
 
     return (
-        <Fade triggerOnce = {true} duration={2300} direction="left">
+        <Fade triggerOnce={true} duration={2300} direction="left">
             <div className='cards'>
-                <div className='text-container'>
-                    <h1>Teaching Assistant Around You</h1>
-                </div>
-                <div className='text-container'>
-                    <h3>Finding Tutor that suits with your requirement who are able to help you to boost up your marks</h3>
-                </div>
+                {name !== undefined ? <></> :
+                    <><div className='text-container'>
+                        <h1>Teaching Assistant Around You</h1>
+                    </div>
+                        <div className='text-container'>
+                            <h3>Finding Tutor that suits with your requirement who are able to help you to boost up your marks</h3>
+                        </div></>}
 
                 <div className='cards-container'>
                     <div className='cards-wrapper'>

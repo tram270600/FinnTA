@@ -5,6 +5,7 @@ import Cards from 'components/MainPage/Cards'
 import News from 'components/MainPage/News'
 import Subscribe from 'components/MainPage/Subscribe'
 import Footer from 'components/MainPage/Footer'
+import Courses from 'components/MainPage/Courses'
 import { useCallback, useEffect } from 'react'
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import { useAppDispatch, useTypedSelector } from 'app/store'
@@ -62,6 +63,7 @@ const MainPage = () => {
             <NavBar />
             <HeroSection />
             <Cards />
+            <Courses />
             <News />
             <Subscribe />
             <Footer />

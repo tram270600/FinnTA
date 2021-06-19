@@ -3,7 +3,7 @@ import eye from 'images/eyes.svg'
 import avatar from 'images/avatar.png'
 import 'styles/Card.scss'
 
-const CardTAView = ({ source, falcuty, subject, content, isProgress, isTA, isStudent }) => {
+const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress, isTA, isStudent }) => {
 
     const style = {
         color: "#C4C4C4"
@@ -23,7 +23,7 @@ const CardTAView = ({ source, falcuty, subject, content, isProgress, isTA, isStu
             <div className='content'>
                 <div className='falcuty'>
                     <span style={isProgress ? null : style} className='title1'>{falcuty}</span>
-                    <span className='title2'>{isProgress ? '5 days ago' : ''}</span>
+                    <span className='title2'>{create_at ?? ''}</span>
                 </div>
                 <div className='text'>
                     <h3 style={isProgress ? null : style}>{subject}</h3>
@@ -46,12 +46,12 @@ const CardTAView = ({ source, falcuty, subject, content, isProgress, isTA, isStu
                         <>
                             <div className='footer'>
                                 <div className='view'>
-                                    <img className = 'student-avatar' src={avatar} alt='avatar' />
-                                    <a href='#' style = {isProgress ? null : colorText}>Mario Nguyen</a>
+                                    <img className='student-avatar' src={avatar} alt='avatar' />
+                                    <a href='#' style={isProgress ? null : colorText}>Mario Nguyen</a>
                                 </div>
                                 <div className='option'>
-                                    <button className='ta' style={isStudent ? null : display}> 
-                                        {isProgress ? 'Edit' : <button className = 'rate'>Rate</button>}
+                                    <button className='ta' style={isStudent ? null : display}>
+                                        {isProgress ? 'Edit' : <button className='rate'>Rate</button>}
                                     </button>
                                 </div>
                             </div>

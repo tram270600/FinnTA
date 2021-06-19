@@ -61,12 +61,13 @@ type feed = {
 type classroom = {
     _id?: string,
     uid?: string,
-    c_id: string,
+    cid: string,
     price: number,
     duration: string,
     GPA: number,
     description: string,
     available: boolean,
+    updated_at: string,
 }
 
 type feedback = {

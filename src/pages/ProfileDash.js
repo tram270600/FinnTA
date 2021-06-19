@@ -7,18 +7,20 @@ import { useEffect, useState } from 'react';
 import CourseDashBody from 'components/Dashboard/CourseDashBody';
 import NotiDashBody from 'components/Dashboard/NotiDashBody';
 import ScheduleDashBody from 'components/Dashboard/ScheduleDashBody';
+import Chat from 'components/Dashboard/Chat'
 import { useTypedSelector } from 'app/store';
 
 const ProfileDash = (props) => {
     const [body, setBody] = useState("PROFILE")
     const [isGuest, setGuest] = useState(props.isGuest)
-    const uid = useTypedSelector(state => state.Account.data._id)
+    const account = useTypedSelector(state => state.Account.data)
     // console.log(props.match.params.id)
     useEffect(() => {
-        if (props.match?.params.id === uid)
+        if (props.match?.params.id === account._id)
             setGuest(false)
     }, [])
     console.log(isGuest)
+    console.log(account.Role)
 
     const getBody = () => {
         switch (body) {
@@ -27,7 +29,7 @@ const ProfileDash = (props) => {
             case "COURSE":
                 return <CourseDashBody isTA={false} isStudent={true} />
             case "CHAT":
-                return
+                return <Chat />
             case "NOTIFICATIONS":
                 return <NotiDashBody />
             case "SCHEDULE":

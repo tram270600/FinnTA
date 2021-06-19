@@ -1,22 +1,17 @@
 import '../styles/Search.scss'
 import '../index.css'
-import ProfileDashBody from '../components/Dashboard/ProfileDashBody';
-import SidebarDash from '../components/Dashboard/SidebarDash';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 import NavBar from '../components/Dashboard/NavBar'
-import { useEffect, useState } from 'react';
-import CourseDashBody from 'components/Dashboard/CourseDashBody';
-import NotiDashBody from 'components/Dashboard/NotiDashBody';
-import ScheduleDashBody from 'components/Dashboard/ScheduleDashBody';
+import { useState } from 'react'
+import Card from 'components/MainPage/Cards'
+import CardGrid from 'components/Dashboard/CardGrid';
 import Footer from 'components/MainPage/Footer';
-import { useTypedSelector } from 'app/store';
-import Cards from 'components/MainPage/Cards';
 
 const SearchPage = (props) => {
-    const [body, setBody] = useState("PROFILE")
-    const [isGuest, setGuest] = useState(props.isGuest)
-    const uid = useTypedSelector(state => state.Account.data._id)
-
-    const [Search, setSearch] = useState('');
+    const [query, setQuery] = useState()
+    const [search, setSearch] = useState("")
+    const [isLoading, setLoading] = useState(false)
     return (
         <div className='view-container'>
             <div className='profileDash'>
@@ -25,24 +20,34 @@ const SearchPage = (props) => {
             <div className='dash-search'>
                 <div class='search-bar'>
                     <input
-                            type="text"
-                            name="search"
-                            id="search"
-                            size="20px"
-                            placeholder=" Type in the course or Teaching Assistant you are looking for..."
-                            onChange={(e) => {
-                                setSearch(e.target.value)
-                            }} required />
+                        type="text"
+                        name="search"
+                        id="search"
+                        size="20px"
+                        placeholder=" Type in the course or Teaching Assistant you are looking for..."
+                        onChange={(e) => {
+                            setQuery(e.target.value)
+                        }} required />
 
-                    <div className='search-button'>
-                    <i class="fas fa-search" 
-                    // onClick={() => handleClick('search')}
-                    ></i>
+                    <div className='search-button' onClick={() => {
+                        if (!isLoading)
+                            setSearch(query)
+                    }}>
+                        <i class="fas fa-search"></i>
                     </div>
                 </div>
-              
+
             </div>
-            <Cards />
+            {isLoading ? <Loader
+                className="loader"
+                type="Puff"
+                color="#FE7A15"
+                height={100}
+                width={100}
+                timeout={10000} //10 secs
+            /> : <></>}
+            <Card name={search} setLoading={setLoading} />
+            <CardGrid keyword={search} />
             <Footer />
         </div>
     )
