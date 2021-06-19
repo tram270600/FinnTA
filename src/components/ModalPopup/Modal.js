@@ -2,15 +2,54 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import '../../styles/modal.scss';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
-import { UKeyboardDateTimePicker } from '@unicef/material-ui';
 import { useState } from 'react';
-import { TextField } from '@material-ui/core';
+import { useTypedSelector } from 'app/store';
+import talker from 'utils/talker';
+import { Redirect } from 'react-router-dom';
 
+const unitDuration = ["day", "month", "year"]
+const dayOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
 const Modal = ({ isShowing, hide }) => {
-    const [selectedDate, handleDateChange] = useState(new Date());
-    const [value, setValue] = React.useState();
-    const isValid = value < 70;
+
+    const [data, setData] = useState({
+        c_id: '',
+        price: 0,
+        duration: '',
+        GPA: undefined,
+        date: dayOfWeek.reduce((data, day) => ({ ...data, [day]: false }), {}),
+        description: '',
+        available: false,
+    })
+    const [unit, setUnit] = useState('day')
+
+    const isValid = data.GPA < 70;
+
+    const department = useTypedSelector(state => state.Department.data)
+    const [depart, setDepart] = useState(Object.keys(department)[0])
+    // console.log(data)
+    const [redirect, setRedirect] = useState(false)
+    const handleChange = (e) => {
+        let { name, value } = e.target;
+        if (name === 'duration')
+            value += ` ${unit}`
+        setData({
+            ...data,
+            [name]: value
+        });
+    };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const res = await talker.TA.createClass(data)
+        if (typeof res === 'string') {
+            alert(res)
+            return
+        }
+        setRedirect(true)
+    }
+    if (redirect)
+        return <Redirect to='/' />
+
     return isShowing ? ReactDOM.createPortal(
         <React.Fragment>
             <div id="myModal" class="modal">
@@ -22,24 +61,24 @@ const Modal = ({ isShowing, hide }) => {
                         Start a Course
                         <h6>Start a new course to teach </h6>
                     </div>
-                    <divc className="modal-form">
+                    <form className="modal-form" onSubmit={handleSubmit}>
                         <h3> Course Information </h3>
                         <div className="field">
                             <label>Department</label>
-                            <select NAME="department" SIZE="1">
-                                <option VALUE="default"> Choose your faculty </option>
-                                <option VALUE="CSE">CSE - Computer Science and Engineering</option>
-                                <option VALUE="BA"> BA - Business Administration </option>
-                                <option VALUE="IEM">IEM - Industrial Engineering and Management </option>
+                            <select NAME="department" SIZE="1" onChange={(e) => { setDepart(e.target.value) }}>
+                                {Object.keys(department).map((id) => {
+                                    return <option key={id} value={id}>{department[id].name}</option>
+                                })}
                             </select>
                         </div>
                         <div className="field">
                             <label>Name of Subject</label>
-                            <select NAME="department" SIZE="1">
+                            <select NAME="c_id" SIZE="1" onChange={handleChange}>
                                 <option VALUE="default"> Choose your faculty </option>
-                                <option VALUE="CSE">CSE - Computer Science and Engineering</option>
-                                <option VALUE="BA"> BA - Business Administration </option>
-                                <option VALUE="IEM">IEM - Industrial Engineering and Management </option>
+                                {
+                                    Object.keys(department[depart]?.courses).map((id) => {
+                                        return <option key={id} value={id}>{department[depart]?.courses[id]}</option>
+                                    })}
                             </select>
                         </div>
                         <div className="field">
@@ -55,7 +94,8 @@ const Modal = ({ isShowing, hide }) => {
                                     outputFormat="string"
                                     size='small'
                                     variant='outlined'
-                                // onChange={(event, value)=> setValue(value)}
+                                    name="price"
+                                    onChange={handleChange}
                                 />
                             </div>
                         </div>
@@ -63,16 +103,37 @@ const Modal = ({ isShowing, hide }) => {
 
                         <div className="field">
                             <div className="input-number">
-                                <label>Date</label>
-                                <UKeyboardDateTimePicker
-                                    style={{ width: '70%' }}
-                                    // label="Date and Time"
-                                    size="small"
-                                    value={selectedDate}
-                                    onChange={handleDateChange}
-                                // InputLabelProps={{className: "dcm"}}
+                                <label>Duration</label>
+                                <input type="number" name="duration"
+                                    onChange={handleChange}
                                 />
+                                <select NAME="unit" SIZE="1" onChange={(e) => { setUnit(e.target.value) }}>
+                                    {unitDuration.map((unit, idx) => <option key={idx} value={unit}>{unit}</option>)}
+                                </select>
                             </div>
+                        </div>
+                        <div className="field">
+                            {dayOfWeek.map((day, i) => {
+                                return <button
+                                    key={i}
+                                    style={{ background: data['date'][day] ? "cyan" : "white" }}
+                                    onClick={() => {
+                                        var temp = { ...data['date'] }
+                                        temp[day] = !temp[day]
+                                        setData({
+                                            ...data,
+                                            ['date']: temp
+                                        })
+                                    }}>{day}</button>
+                            })}
+                        </div>
+                        <div className="field">
+                            <input type="checkbox" onClick={() => {
+                                setData({
+                                    ...data,
+                                    ['available']: !data['available']
+                                })
+                            }} /> Available
                         </div>
                         <h3> Teaching Assistant Information </h3>
                         <div className="field">
@@ -82,7 +143,7 @@ const Modal = ({ isShowing, hide }) => {
                                     style={{ width: '70%' }}
                                     // label="Score"
                                     variant="standard"
-                                    value={value}
+                                    value={data.GPA}
                                     placeholder="Enter score"
                                     currencySymbol="/100"
                                     outputFormat="string"
@@ -91,7 +152,8 @@ const Modal = ({ isShowing, hide }) => {
                                     // minimumValue="70"
                                     maximumValue="100"
                                     helperText="Minimum score to start course is 70"
-                                    onChange={(e, value) => setValue(value)}
+                                    name="GPA"
+                                    onChange={handleChange}
                                     error={isValid}
                                     helperText={isValid && "Minimum score to start course is 70"}
                                 />
@@ -99,12 +161,13 @@ const Modal = ({ isShowing, hide }) => {
                         </div>
                         <div className="field">
                             <label>Description/Message</label>
-                            <textarea rows={4} cols={47} label="Description" placeholder="Add some description" />
+                            <textarea rows={4} cols={47} label="Description" placeholder="Add some description"
+                                name="description" onChange={handleChange} />
                         </div>
                         <div className="Container">
                             <input type="submit" value="CREATE COURSE" />
                         </div>
-                    </divc>
+                    </form>
 
                 </div>
 
