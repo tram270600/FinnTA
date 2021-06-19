@@ -20,7 +20,7 @@ const ModalCreatePost = ({ isShowingCreate, hide }) => {
                         <span class="close">&times;</span>
                     </button>
                     <div className="modal-title">
-                        Create a Course
+                        Create a Post
                         <h6>To give an announcement about new course as tutor or to find tutor and courses as a student </h6>
                     </div>
                     <divc className="modal-form">
@@ -57,11 +57,11 @@ const ModalCreatePost = ({ isShowingCreate, hide }) => {
                         </div>
                         <div className="field">
                             <label>Description/Message</label>
-                            <textarea rows={4} cols={47} label="Description" placeholder="Add some description" />
+                            <textarea rows={4} cols={42} label="Description" placeholder="Add some description" />
 
                         </div>
                         <div className="Container">
-                            <input type="submit" value="CREATE COURSE" />
+                            <input type="submit" value="CREATE POST" />
                         </div>
 
                     </divc>

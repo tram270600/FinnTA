@@ -86,7 +86,7 @@ const ModalEditProfile = ({ isShowingProfile, hide }) => {
     
                 <div className="field">
                     <label>Description</label>
-                    <textarea rows={2} cols={47} label = "Description" placeholder="Add some description"/>
+                    <textarea rows={2} cols={45} label = "Description" placeholder="Add some description"/>
                 </div>
                 <h3> Contact Information </h3>
                 <div className="field">

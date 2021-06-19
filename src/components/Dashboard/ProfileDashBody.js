@@ -17,8 +17,8 @@ import ButtonStudent from './ButtonStudent';
 import 'styles/DashProfile.css'
 
 
-const ProfileDashBody = ({ isTA, isStudent }) => {
 
+const ProfileDashBody = ({ isTA, isStudent }) => {
     return (
         <>
             <div className='dash-infor'>
@@ -60,9 +60,8 @@ const ProfileDashBody = ({ isTA, isStudent }) => {
                     </div>
                 </div>
                 <div className='dash-button'>
-                    <div className='button-container'>
+                    <div className='button-container' >
                         {isTA ? <ButtonTA /> : isStudent ? <ButtonStudent /> : <ButtonTAother />}
-
                     </div>
                     {isTA ?
                         <>
@@ -126,6 +125,7 @@ const ProfileDashBody = ({ isTA, isStudent }) => {
                     isStudent = {isStudent}
                 />
             </div>
+             
         </>
     )
 }
