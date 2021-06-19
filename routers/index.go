@@ -17,9 +17,10 @@ func InitRoute() *gin.Engine {
 	// User
 	router.POST("/user/register", services.Register)
 	router.POST("/user/login", services.GetAccount)
+	router.GET("/user", services.GetUser)
 
 	// TA
-	router.GET("/user/TA", services.GetTA)
+	router.GET("/user/TA", services.GetSortTA)
 
 	// Department
 	router.GET("/department", services.GetAllDepartment)
@@ -31,13 +32,15 @@ func InitRoute() *gin.Engine {
 	// Chat
 	router.GET("ws/chat", services.TestWatch)
 
+	// Feedback
+	router.GET("/feedback", services.GetFeedback)
+
 	//USER
 	client := router.Group("/")
 	client.Use(middleware.AuthorizeJWT())
 
 	// User
 	client.POST("/user", services.AuthUser)
-	client.GET("/user", services.GetUser)
 	client.PUT("/user", services.UpdateUser)
 	client.GET("/user/logout", services.Logout)
 
@@ -55,5 +58,7 @@ func InitRoute() *gin.Engine {
 	client.PUT("/class", services.CreateClass)
 	client.POST("/class", services.UpdateClass)
 
+	// Feedback
+	client.PUT("/feedback", services.CreateFeedback)
 	return router
 }

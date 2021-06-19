@@ -15,7 +15,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func GetTA(c *gin.Context) {
+func GetSortTA(c *gin.Context) {
 	if utils.Database == nil {
 		utils.Database = db.CreateConnection()
 	}
@@ -42,14 +42,19 @@ func GetTA(c *gin.Context) {
 	opt.SetLimit(utils.ElementPerPage)
 	var TA_ls []entity.Out_Account
 	var id_ls bson.A
+	var filter bson.M
 	if by == "name" {
-		opt.SetSort(bson.M{"Name": sort_id})
+		if c.Query("name") != "" {
+			filter = bson.M{"Name": c.Query("name")}
+		} else {
+			opt.SetSort(bson.M{"Name": sort_id})
+		}
 	} else {
 		if by == "rate" {
 			opt.SetSort(bson.M{"Rate": sort_id})
 		}
 	}
-	filter := bson.M{"Role": "T.A"}
+	filter = bson.M{"Role": "T.A"}
 	cursor, err := utils.Database.Collection("Account").Find(ctx, filter, opt)
 	if err != nil {
 		fmt.Println(err.Error())
@@ -75,11 +80,10 @@ func GetTA(c *gin.Context) {
 	opt.SetSkip(int64(page) * utils.ElementPerPage)
 	opt.SetLimit(utils.ElementPerPage)
 	filter = bson.M{"uid": bson.M{"$all": id_ls}, "available": "true", "deleted_at": utils.Based_date}
-	fmt.Println(id_ls)
 	cursor, err = utils.Database.Collection("Class").Find(ctx, filter, opt)
 	if err != nil {
 		fmt.Println(err.Error())
-		c.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
 		return
 	}
 	defer cursor.Close(ctx)

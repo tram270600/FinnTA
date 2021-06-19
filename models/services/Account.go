@@ -6,6 +6,7 @@ import (
 	"API_Mongo/utils"
 	"context"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
@@ -51,7 +52,7 @@ func GetAccount(c *gin.Context) {
 		ExpiresAt: time.Now().Add(utils.Jwt_exp).Unix(),
 	})
 
-	token, err := claim.SignedString([]byte(utils.SecretKey))
+	token, err := claim.SignedString([]byte(os.Getenv("SECRET")))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
 		return
@@ -114,28 +115,22 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	dob, err := utils.ParseDate(data["DoB"])
-	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{"msg_bcr": err.Error()})
-		return
-	}
-
-	d_id, err := primitive.ObjectIDFromHex(data["D_id"])
+	d_id, err := primitive.ObjectIDFromHex(data["d_id"])
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{"msg_bcr": err.Error()})
 		return
 	}
 
 	account := entity.Account{
-		ID:         primitive.NewObjectID(),
-		Email:      data["Email"],
-		Password:   password,
-		Name:       data["Name"],
-		Avatar:     []byte(data["Avatar"]),
-		Phone:      data["Phone"],
-		DoB:        primitive.NewDateTimeFromTime(dob),
-		D_id:       d_id,
-		Bio:        data["Bio"],
+		ID:       primitive.NewObjectID(),
+		Email:    data["Email"],
+		Password: password,
+		Name:     data["Name"],
+		Avatar:   []byte(""),
+		Phone:    data["Phone"],
+		// DoB:        primitive.NewDateTimeFromTime(dob),
+		D_id: d_id,
+		// Bio:        data["Bio"],
 		Role:       data["Role"],
 		IsOnline:   false,
 		Created_at: primitive.NewDateTimeFromTime(time.Now()),
@@ -144,7 +139,7 @@ func Register(c *gin.Context) {
 
 	_, err = utils.Database.Collection("Account").InsertOne(ctx, account)
 	if err != nil {
-		c.JSON(http.StatusForbidden, gin.H{"msg": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": err.Error()})
 		return
 	}
 
@@ -169,7 +164,7 @@ func AuthUser(c *gin.Context) {
 
 	//Take token
 	token, err := jwt.ParseWithClaims(data["jwt"], &jwt.StandardClaims{}, func(t *jwt.Token) (interface{}, error) {
-		return []byte(utils.SecretKey), nil
+		return []byte(os.Getenv("SECRET")), nil
 	})
 	if err != nil {
 		c.JSON(http.StatusNonAuthoritativeInfo, gin.H{"msg": err.Error()})

@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	"API_Mongo/utils"
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
@@ -33,8 +33,9 @@ func AuthorizeJWT() gin.HandlerFunc {
 		authHeader := c.GetHeader("Authorization")
 		tokenString := authHeader[len(BEARER_SCHEMA):]
 		// fmt.Println(tokenString)
+
 		token, err := jwt.ParseWithClaims(tokenString, &jwt.StandardClaims{}, func(t *jwt.Token) (interface{}, error) {
-			return []byte(utils.SecretKey), nil
+			return []byte(os.Getenv("SECRET")), nil
 		})
 		if err != nil || !token.Valid {
 			fmt.Println(err.Error())

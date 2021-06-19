@@ -38,7 +38,7 @@ func CreateFeed(c *gin.Context) {
 	var feed entity.Feed
 	feed.ID = primitive.NewObjectIDFromTimestamp(time.Now())
 	feed.From = _id
-	feed.Detail = data["Detail"]
+	feed.Detail = data["detail"]
 	feed.Updated_at = primitive.NewDateTimeFromTime(time.Now())
 	_, err = utils.Database.Collection("Feed").InsertOne(ctx, feed)
 	if err != nil {

@@ -23,37 +23,40 @@ func CreateClass(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(context.Background(), utils.ConnectTimeout)
 	defer cancel()
 
-	var data map[string]string
+	var data struct {
+		CourseID    string            `json:"cid,omitempty" bson:"cid,omitempty"`
+		Price       string            `json:"price,omitempty" bson:"price,omitempty"`
+		Duration    string            `json:"duration,omitempty" bson:"duration,omitempty"`
+		Day         map[string]string `json:"day,omitempty" bson:"day,omitempty"`
+		GPA         string            `json:"GPA,omitempty" bson:"GPA,omitempty"`
+		Description string            `json:"description,omitempty" bson:"description,omitempty"`
+		Available   string            `json:"available,omitempty" bson:"available,omitempty"`
+	}
 	if err := c.ShouldBindJSON(&data); err != nil {
 		c.JSON(http.StatusConflict, gin.H{"msg_input": err.Error()})
 		return
 	}
 
-	uid, _ := primitive.ObjectIDFromHex(data["uid"])
-	cid, _ := primitive.ObjectIDFromHex(data["courseID"])
-	price, _ := strconv.ParseFloat(data["price"], 32)
-	gpa, _ := strconv.ParseFloat(data["GPA"], 32)
-	startDate, err := utils.ParseDate(data["startDate"])
-	if err != nil {
-		fmt.Println(err.Error())
-		c.JSON(http.StatusConflict, gin.H{"msg_bcr": err.Error()})
-		return
-	}
+	uid, _ := utils.GetCookie(c)
+	cid, _ := primitive.ObjectIDFromHex(data.CourseID)
+	price, _ := strconv.ParseFloat(data.Price, 32)
+	gpa, _ := strconv.ParseFloat(data.GPA, 32)
 
 	class := entity.Class{
 		ID:          primitive.NewObjectIDFromTimestamp(time.Now()),
 		UID:         uid,
 		CourseID:    cid,
 		Price:       float32(price),
-		StartDate:   primitive.NewDateTimeFromTime(startDate),
+		Duration:    data.Duration,
 		GPA:         float32(gpa),
-		Description: data["description"],
-		Available:   data["available"],
+		Day:         data.Day,
+		Description: data.Description,
+		Available:   data.Available,
 		Updated_at:  primitive.NewDateTimeFromTime(time.Now()),
 		Deleted_at:  utils.Based_date,
 	}
 
-	_, err = utils.Database.Collection("Class").InsertOne(ctx, class)
+	_, err := utils.Database.Collection("Class").InsertOne(ctx, class)
 	if err != nil {
 		fmt.Println(err.Error())
 		c.JSON(http.StatusForbidden, gin.H{"msg": err.Error()})
@@ -64,6 +67,10 @@ func CreateClass(c *gin.Context) {
 }
 
 func GetClass(c *gin.Context) {
+	/*
+		input: page, uid, by
+		output: class[]
+	*/
 	if utils.Database == nil {
 		utils.Database = db.CreateConnection()
 	}
@@ -72,6 +79,7 @@ func GetClass(c *gin.Context) {
 
 	var classList []entity.Class
 	page, _ := strconv.Atoi(c.Query("page"))
+	// by := c.Query("by") // uid,
 	uid, _ := primitive.ObjectIDFromHex(c.Query("uid"))
 
 	opt := options.Find()
@@ -127,14 +135,8 @@ func UpdateClass(c *gin.Context) {
 		price, _ := strconv.ParseFloat(data["price"], 32)
 		tempClass.Price = float32(price)
 	}
-	if data["startDate"] != "" {
-		startDate, err := utils.ParseDate(data["startDate"])
-		if err != nil {
-			fmt.Println(err.Error())
-			c.JSON(http.StatusConflict, gin.H{"msg_bcr": err.Error()})
-			return
-		}
-		tempClass.StartDate = primitive.NewDateTimeFromTime(startDate)
+	if data["duration"] != "" {
+		tempClass.Duration = data["duration"]
 	}
 	if data["GPA"] != "" {
 		gpa, _ := strconv.ParseFloat(data["GPA"], 32)
