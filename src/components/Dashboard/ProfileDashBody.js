@@ -20,10 +20,10 @@ import talker from 'utils/talker';
 import { useTypedSelector } from 'app/store';
 
 
-const ProfileDashBody = ({ isTA, role, uid }) => {
+const ProfileDashBody = ({ isTA, role, uid, isGuest }) => {
     const [data, setData] = useState({})
     const getInfo = useCallback(async () => {
-        if (!isTA) {
+        if (isGuest) {
             const res = await talker.Account.getAccount({ ID: uid })
 
             console.log(res)
@@ -149,6 +149,7 @@ const ProfileDashBody = ({ isTA, role, uid }) => {
                     uid={account._id}
                     isTA={isTA}
                     role = {role}
+                    isGuest = {isGuest}
                 />
             </div>
 
