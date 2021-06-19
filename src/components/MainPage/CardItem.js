@@ -14,7 +14,7 @@ const CardItem = (props) => {
                     <Link to={`/profile/${props.uid}`} className='icon' style={{ color: 'white' }}>
                         <i className="fas fa-arrow-right" />
                     </Link>
-                    <div className="avatar">
+                    <div className="avatarr">
                         <img src={props.avatar} alt='Avatar' />
                     </div>
 

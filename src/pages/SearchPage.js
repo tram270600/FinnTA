@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import CourseDashBody from 'components/Dashboard/CourseDashBody';
 import NotiDashBody from 'components/Dashboard/NotiDashBody';
 import ScheduleDashBody from 'components/Dashboard/ScheduleDashBody';
+import Footer from 'components/MainPage/Footer';
 import { useTypedSelector } from 'app/store';
 import Cards from 'components/MainPage/Cards';
 
@@ -42,6 +43,7 @@ const SearchPage = (props) => {
               
             </div>
             <Cards />
+            <Footer />
         </div>
     )
 }
