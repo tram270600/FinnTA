@@ -5,6 +5,7 @@ const MainPage = React.lazy(() => import('pages/MainPage'))
 const Login = React.lazy(() => import('pages/login'))
 const SignUp = React.lazy(() => import('pages/SignUp'))
 const ProfileDash = React.lazy(() => import('pages/ProfileDash'))
+const SearchPage = React.lazy(() => import('pages/SearchPage'))
 
 type Routes = {
     Path: string | undefined,
@@ -30,6 +31,12 @@ const routes: Routes[] = [
     {
         Path: '/signup',
         Component: <SignUp />,
+        isExact: false,
+        Scope: "Global"
+    },
+    {
+        Path: '/search',
+        Component: <SearchPage />,
         isExact: false,
         Scope: "Global"
     },

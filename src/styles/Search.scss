@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@mixin fontStyle($weight, $size, $height, $color) {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $height;
+  color: $color;
+}
+.view-container {
+    height: 100vh;
+}
+
+.profileDash {
+    height: 8%;
+}
+.dash-search{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    .search-bar{
+        width: 800px;
+        height: 60px;
+        background: #F2F5FA;
+        border-radius: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        @include fontStyle(600, 18px, 25px, #828282);
+        margin-right: 20px;
+        input{
+            background-color: transparent;
+            @include fontStyle(600, 18px, 25px, #828282);
+            width: 90%;
+            box-sizing: border-box;
+            border: 2px solid transparent;
+            border-radius: 60px;
+            padding: 12px 20px 12px 40px;
+        }
+        .search-button{
+            float: right;
+            width: 48px;
+            height: 48px;
+            border-radius: 50px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            margin: auto;
+            background: #E2E6ED;
+            font-size: 20px;
+            cursor: pointer;
+        &:hover{
+            background: #c2d8ff;
+            color: black;
+        }
+        }
+    
+    }
+}
