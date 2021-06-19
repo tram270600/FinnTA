@@ -36,7 +36,7 @@ const NavBar = () => {
             <div className='navbar-container'>
                 <Link to='/' className='navbar-logo'>
                     <img src={logo} className='logo' alt='Logo' />
-                    FinnaTa
+                    FinnTA
                 </Link>
             </div>
             <ul className='nav-menu dash'>
@@ -76,7 +76,7 @@ const NavBar = () => {
                             style={isHover ? background : null}
                             className='icon-dash'
                         >
-                            <i class="fas fa-search"></i>
+                            <i class="fas fa-search" onClick={() => handleClick('search')}></i>
                         </div>
                         <NotifyMe
                             data={data}
