@@ -4,7 +4,6 @@ import '../styles/Signup.scss'
 import showPw from '../images/showPw.svg';
 import React, { SyntheticEvent, useState } from 'react';
 import useSignUpForm from './useSignUpForm';
-import { Redirect } from 'react-router-dom';
 import ProfileDashBody from '../components/Dashboard/ProfileDashBody';
 import SidebarDash from '../components/Dashboard/SidebarDash';
 import NavBar from '../components/Dashboard/NavBar'
@@ -20,6 +19,7 @@ import useModalCourse from 'components/ModalPopup/useModalCourse';
 import ModalConfirmTeach from 'components/ModalPopup/ModalConfirmTeach';
 import talker from 'utils/talker';
 import { useTypedSelector } from 'app/store';
+import { Link, Redirect } from 'react-router-dom';
 // import Modal from 'react-bootstrap/Modal';
 
 
@@ -194,7 +194,7 @@ const SignUp = () => {
                         hide={toggleConfirmTeach}
                     />
                 </div> */}
-                <p>Already have an account? <a href="/login">Sign in</a></p>
+                <p>Already have an account?<Link to="/login">Sign in</Link></p>
             </div>
         </div>
     )

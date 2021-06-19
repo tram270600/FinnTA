@@ -97,7 +97,7 @@
       &>.Container {
         display: grid;
         padding-inline: 20%;
-        padding-top: 10%;
+        padding-top: 5%;
 
         input {
           padding: 10px;
@@ -118,7 +118,7 @@
     }
 
     & p {
-      padding-top: 10%;
+      padding-top: 5%;
       text-align: center;
       @include fontStyle(500, 16px, 19px);
       color: #838383;
