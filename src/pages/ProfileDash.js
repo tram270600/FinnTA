@@ -17,8 +17,9 @@ const ProfileDash = (props) => {
     // console.log(props.match.params.id)
     const role = account.Role
     // console.log(role)
+    let uid = props.match?.params.id
     useEffect(() => {
-        if (props.match?.params.id === account._id)
+        if (uid === account._id)
             setGuest(false)
     }, [])
     console.log(isGuest)
@@ -27,9 +28,9 @@ const ProfileDash = (props) => {
     const getBody = () => {
         switch (body) {
             case "PROFILE":
-                return <ProfileDashBody isTA={!isGuest} uid={props.match?.params.id} role = {role}/>
+                return <ProfileDashBody isTA={!isGuest} uid={uid ?? account._id} isStudent={false} />
             case "COURSE":
-                return <CourseDashBody isTA={!isGuest}/>
+                return <CourseDashBody uid={uid ?? account._id} isTA={false} isStudent={true} />
             case "CHAT":
                 return <Chat />
             case "NOTIFICATIONS":

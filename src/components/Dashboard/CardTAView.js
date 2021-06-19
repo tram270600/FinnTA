@@ -1,9 +1,11 @@
 import React from 'react'
 import eye from 'images/eyes.svg'
-import avatar from 'images/avatar.png'
 import 'styles/Card.scss'
+import { Link } from 'react-router-dom'
 
-const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress, isTA, role }) => {
+const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress,
+    isTA, isStudent,
+    name, avatar, uid }) => {
 
     const style = {
         color: "#C4C4C4"
@@ -47,7 +49,7 @@ const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress, 
                             <div className='footer'>
                                 <div className='view'>
                                     <img className='student-avatar' src={avatar} alt='avatar' />
-                                    <a href='#' style={isProgress ? null : colorText}>Mario Nguyen</a>
+                                    <Link to={`/profile/${uid}`} style={isProgress ? null : colorText}>{name}</Link>
                                 </div>
                                 <div className='option'>
                                     <button className='ta' style={(role == "Student") ? null : display}>
