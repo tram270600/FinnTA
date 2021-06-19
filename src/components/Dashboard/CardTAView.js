@@ -3,7 +3,7 @@ import eye from 'images/eyes.svg'
 import avatar from 'images/avatar.png'
 import 'styles/Card.scss'
 
-const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress, isTA, isStudent }) => {
+const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress, isTA, role }) => {
 
     const style = {
         color: "#C4C4C4"
@@ -29,7 +29,7 @@ const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress, 
                     <h3 style={isProgress ? null : style}>{subject}</h3>
                     <p style={isProgress ? null : style}>{content}</p>
                 </div>
-                {isTA ?
+                {(role == "T.A") ?
                     <>
                         <div className='footer'>
                             <div className='view'>
@@ -42,7 +42,7 @@ const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress, 
                             </div>
                         </div>
                     </>
-                    : isStudent ?
+                    : (role == "Student") ?
                         <>
                             <div className='footer'>
                                 <div className='view'>
@@ -50,7 +50,7 @@ const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress, 
                                     <a href='#' style={isProgress ? null : colorText}>Mario Nguyen</a>
                                 </div>
                                 <div className='option'>
-                                    <button className='ta' style={isStudent ? null : display}>
+                                    <button className='ta' style={(role == "Student") ? null : display}>
                                         {isProgress ? 'Edit' : <button className='rate'>Rate</button>}
                                     </button>
                                 </div>

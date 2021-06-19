@@ -13,7 +13,7 @@ import 'styles/CardGrid.scss'
 import talker from 'utils/talker';
 import { useTypedSelector } from 'app/store';
 
-const CardGrid = ({ isProgress, isTA, isStudent, uid, keyword }) => {
+const CardGrid = ({isTA, role, uid, keyword }) => {
     const imgList = [gradient1, gradient2, gradient3, gradient4, gradient5, gradient6, gradient7, gradient8]
     const department = useTypedSelector(state => state.Department.data)
     console.log(keyword)
@@ -56,7 +56,7 @@ const CardGrid = ({ isProgress, isTA, isStudent, uid, keyword }) => {
                             isProgress={c.available}
                             create_at={now.getDate() - date.getDate() + " days ago"}
                             isTA={isTA}
-                            isStudent={isStudent}
+                            role = {role}
                         />
                     </Grid>
                 })

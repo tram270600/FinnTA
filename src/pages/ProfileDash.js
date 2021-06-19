@@ -15,6 +15,8 @@ const ProfileDash = (props) => {
     const [isGuest, setGuest] = useState(props.isGuest)
     const account = useTypedSelector(state => state.Account.data)
     // console.log(props.match.params.id)
+    const role = account.Role
+    // console.log(role)
     useEffect(() => {
         if (props.match?.params.id === account._id)
             setGuest(false)
@@ -25,9 +27,9 @@ const ProfileDash = (props) => {
     const getBody = () => {
         switch (body) {
             case "PROFILE":
-                return <ProfileDashBody isTA={!isGuest} uid={props.match?.params.id} isStudent={false} />
+                return <ProfileDashBody isTA={!isGuest} uid={props.match?.params.id} role = {role}/>
             case "COURSE":
-                return <CourseDashBody isTA={false} isStudent={true} />
+                return <CourseDashBody isTA={!isGuest}/>
             case "CHAT":
                 return <Chat />
             case "NOTIFICATIONS":
