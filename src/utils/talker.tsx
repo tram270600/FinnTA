@@ -45,11 +45,6 @@ async function getSortTA(_sort: "des" | "asc", _by: "rate" | "name", _page: numb
     return res.data
 }
 
-async function getClassroom(data: { uid: string, page: number }) {
-    const res = await Conn.get<classroom[]>('/class', { params: data })
-    return res
-}
-
 // Chat
 async function sendMsg(data: { RoomID: string, Msg: string }) {
     type response = {
@@ -68,6 +63,19 @@ async function getMsg(RoomID: string, page: number) {
     return res.data
 }
 
+// class
+async function createClass(data: classroom) {
+    const res = await Conn.put('/class', JSON.stringify(data))
+    if (res.status !== 200)
+        return "Error occurred when creating course."
+    return
+}
+
+async function getClassroom(data: { uid: string, page: number }) {
+    const res = await Conn.get<classroom[]>('/class', { params: data })
+    return res
+}
+
 // Feedback
 async function getFeedback(sort: "des" | "asc", by: "rate" | "time", page: number, id?: string) {
     let res = await Conn.get<resFeedback>('/feedback', { params: { id: id!, page: page, sort: sort, by: by } })
@@ -81,7 +89,8 @@ const Account = {
 
 const TA = {
     getSortTA,
-    getClassroom
+    getClassroom,
+    createClass,
 }
 
 const Chat = {

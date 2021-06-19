@@ -18,13 +18,14 @@ const ProfileDash = (props) => {
         if (props.match?.params.id === uid)
             setGuest(false)
     }, [])
+    console.log(isGuest)
 
     const getBody = () => {
         switch (body) {
             case "PROFILE":
-                return <ProfileDashBody isTA = {false} isStudent = {false}/>
+                return <ProfileDashBody isTA={!isGuest} uid={props.match?.params.id} isStudent={false} />
             case "COURSE":
-                return <CourseDashBody isTA={false} isStudent = {false} />
+                return <CourseDashBody isTA={false} isStudent={true} />
             case "CHAT":
                 return
             case "NOTIFICATIONS":
@@ -50,7 +51,6 @@ const ProfileDash = (props) => {
                     <SidebarDash body={body} setBody={changeBody} isGuest={isGuest} />
                 </div>
                 <div className='dash-body'>
-                    {/* <ProfileDashBody /> */}
                     {getBody()}
                 </div>
             </div>

@@ -8,7 +8,7 @@ const ProfileDash = React.lazy(() => import('pages/ProfileDash'))
 const SearchPage = React.lazy(() => import('pages/SearchPage'))
 
 type Routes = {
-    Path: string,
+    Path: string | undefined,
     Component?: JSX.Element,
     isExact: boolean,
     Render?: Function,
@@ -56,7 +56,7 @@ const routes: Routes[] = [
         Scope: "Global"
     },
     {
-        Path: '',
+        Path: undefined,
         Component: <Redirect to='/'></Redirect>,
         isExact: true,
         Scope: "Global"

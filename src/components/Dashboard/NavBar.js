@@ -66,8 +66,8 @@ const NavBar = () => {
                     </Link>
                 </li>
             </ul>
-            {/* Object.keys(account.data).length !== 0 */}
-            { true ?
+
+            {Object.keys(account.data).length !== 0 ?
                 <>
                     <div className='noti-container'>
                         <div
