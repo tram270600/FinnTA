@@ -81,25 +81,28 @@ func GetClass(c *gin.Context) {
 	var filter bson.M
 
 	var data struct {
-		Uid     string   `json:"uid,omitempty" bson:"uid,omitempty"`
-		Page    int      `json:"page,omitempty" bson:"page,omitempty"`
-		Keyword []string `json:"keyword,omitempty" bson:"keyword,omitempty"`
+		Uid       string   `json:"uid,omitempty" bson:"uid,omitempty"`
+		Page      int      `json:"page,omitempty" bson:"page,omitempty"`
+		Keyword   []string `json:"keyword,omitempty" bson:"keyword,omitempty"`
+		Available bool     `json:"available,omitempty" bson:"available,omitempty"`
 	}
 	if err := c.ShouldBindJSON(&data); err != nil {
 		c.JSON(http.StatusConflict, gin.H{"msg_input": err.Error()})
 		return
 	}
+	var id_ls bson.A
+	available := strconv.FormatBool(data.Available)
 
 	if data.Uid != "" {
 		uid, _ := primitive.ObjectIDFromHex(data.Uid)
-		filter = bson.M{"uid": uid, "available": "true", "deleted_at": utils.Based_date}
+		filter = bson.M{"uid": uid, "available": available, "deleted_at": utils.Based_date}
 	} else {
 		var idLs bson.A
 		for _, s := range data.Keyword {
 			id, _ := primitive.ObjectIDFromHex(s)
 			idLs = append(idLs, id)
 		}
-		filter = bson.M{"cid": bson.M{"$in": idLs}, "available": "true", "deleted_at": utils.Based_date}
+		filter = bson.M{"cid": bson.M{"$in": idLs}, "available": available, "deleted_at": utils.Based_date}
 	}
 	fmt.Println(filter)
 	opt := options.Find()
@@ -118,6 +121,7 @@ func GetClass(c *gin.Context) {
 		fmt.Println(cursor.Current)
 		var class entity.Class
 		cursor.Decode(&class)
+		id_ls = append(id_ls, class.UID)
 		classList = append(classList, class)
 	}
 	if err := cursor.Err(); err != nil {
@@ -125,7 +129,27 @@ func GetClass(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, classList)
+	if len(id_ls) == 0 {
+		c.JSON(http.StatusOK, gin.H{})
+		return
+	}
+
+	// Get T.A
+	TAList := make(map[string]entity.Out_Account)
+	filter = bson.M{"_id": bson.M{"$in": id_ls}, "Role": "T.A"}
+	cursor, err = utils.Database.Collection("Account").Find(ctx, filter, opt)
+	if err != nil {
+		fmt.Println(err.Error())
+		c.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
+		return
+	}
+	defer cursor.Close(ctx)
+	for cursor.Next(ctx) {
+		var acc entity.Out_Account
+		cursor.Decode(&acc)
+		TAList[acc.ID.Hex()] = acc
+	}
+	c.JSON(http.StatusOK, gin.H{"Class": classList, "T.A": TAList})
 }
 
 func UpdateClass(c *gin.Context) {
