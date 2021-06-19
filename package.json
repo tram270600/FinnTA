@@ -23,7 +23,7 @@
     "@xstyled/system": "^2.4.0",
     "bootstrap": "^4.6.0",
     "browser-image-compression": "^1.0.14",
-    "formik": "^2.2.8",
+    "formik": "^2.2.9",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",
     "node-sass": "^5.0.0",
@@ -32,6 +32,7 @@
     "react-big-calendar": "^0.33.5",
     "react-bootstrap": "^1.6.1",
     "react-dom": "^17.0.2",
+    "react-loader-spinner": "^4.0.0",
     "react-material-event-calendar": "^0.3.2",
     "react-native": "^0.64.2",
     "react-native-big-calendar": "^1.0.2",
@@ -44,7 +45,8 @@
     "redux-persist": "^6.0.0",
     "styled-components": "^5.2.3",
     "swiper": "^6.5.9",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",

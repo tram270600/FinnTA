@@ -36,7 +36,7 @@ const NavBar = () => {
             <div className='navbar-container'>
                 <Link to='/' className='navbar-logo'>
                     <img src={logo} className='logo' alt='Logo' />
-                    FinnaTa
+                    FinnTA
                 </Link>
             </div>
             <ul className='nav-menu dash'>
@@ -66,8 +66,8 @@ const NavBar = () => {
                     </Link>
                 </li>
             </ul>
-            {/* Object.keys(account.data).length !== 0 */}
-            { true ?
+
+            {Object.keys(account.data).length !== 0 ?
                 <>
                     <div className='noti-container'>
                         <div
@@ -76,7 +76,7 @@ const NavBar = () => {
                             style={isHover ? background : null}
                             className='icon-dash'
                         >
-                            <i class="fas fa-search"></i>
+                            <i class="fas fa-search" onClick={() => handleClick('search')}></i>
                         </div>
                         <NotifyMe
                             data={data}
@@ -92,7 +92,7 @@ const NavBar = () => {
                         <div className='avatar-nav' style={{ cursor: 'pointer' }}
                             onClick={() => handleClick('profile')}>
                             <div className='name'>
-                                <img src={account.data.avatar} alt='Avatar' />
+                                <img src={account.data.Avatar} alt='Avatar' />
                                 <span>{account.data.Name}</span>
                             </div>
                         </div>

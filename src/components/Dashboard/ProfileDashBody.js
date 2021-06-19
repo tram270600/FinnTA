@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import cap from 'images/cap.svg'
 import envelope from 'images/envelope.svg'
 import phone from 'images/phone.svg'
@@ -14,10 +14,37 @@ import CardGrid from 'components/Dashboard/CardGrid'
 import ButtonTA from 'components/Dashboard/ButtonTA'
 import ButtonTAother from 'components/Dashboard/ButtonTAother'
 import ButtonStudent from './ButtonStudent';
-import 'styles/DashProfile.css'
+import 'styles/DashProfile.css';
+import 'styles/Signup.scss'
+import talker from 'utils/talker';
+import { useTypedSelector } from 'app/store';
 
 
-const ProfileDashBody = ({ isTA, isStudent }) => {
+const ProfileDashBody = ({ isTA, isStudent, uid }) => {
+    const [data, setData] = useState({})
+    const getInfo = useCallback(async () => {
+        if (!isTA) {
+            const res = await talker.Account.getAccount({ ID: uid })
+
+            console.log(res)
+            if ((typeof res) === 'string') {
+                alert(res)
+                return
+            }
+            let date = new Date(res.DoB)
+            res.DoB = date.toLocaleDateString()
+            setData(res)
+        }
+        else setData(account)
+    }, [uid])
+
+    const account = useTypedSelector(state => state.Account.data)
+    const department = useTypedSelector(state => state.Department.data)
+
+    useEffect(() => {
+        getInfo()
+    }, [])
+
 
     return (
         <>
@@ -28,26 +55,26 @@ const ProfileDashBody = ({ isTA, isStudent }) => {
                             <h3>General Information</h3>
                             <div className='content-dash'>
                                 <img src={cap} alt='Cap' />
-                                <div>Department: <span>Computer Science and Engineering</span></div>
+                                <div>Department: <span>{department[data.d_id]?.name}</span></div>
                             </div>
                             <div className='content-dash'>
                                 <img src={score} alt='Score' />
-                                <div>Overall: <span>77.8</span></div>
+                                <div>Overall: <span>{data.GPA}</span></div>
                             </div>
                             <div className='content-dash'>
                                 <img src={bd} alt='birthday' />
-                                <div>Date of birth: <span>27/06/2000</span></div>
+                                <div>Date of birth: <span>{data.DoB}</span></div>
                             </div>
                         </div>
                         <div className='contact social'>
                             <h3>Contact</h3>
                             <div className='content-dash'>
                                 <img src={envelope} alt='Email' />
-                                <div>Email: <span>ngntram.ityu@gmail.com</span></div>
+                                <div>Email: <span>{data.Email}</span></div>
                             </div>
                             <div className='content-dash'>
                                 <img src={phone} alt='Phone' />
-                                <div>Phone: <span>0123456789</span></div>
+                                <div>Phone: <span>{data.Phone}</span></div>
                             </div>
                             <div className='content-dash'>
                                 <img src={user} alt='User' />
@@ -56,42 +83,39 @@ const ProfileDashBody = ({ isTA, isStudent }) => {
                         </div>
                     </div>
                     <div className='dash-describe'>
-                        <p>Hello everyone, my name is Uby aka Tram Nguyen, this is few thing about myself and there is some course that I am interested in</p>
+                        <p>{data.Bio}</p>
                     </div>
                 </div>
                 <div className='dash-button'>
-                    <div className='button-container'>
+                    <div className='button-container' >
                         {isTA ? <ButtonTA /> : isStudent ? <ButtonStudent /> : <ButtonTAother />}
-
                     </div>
-                    {isTA ?
-                        <>
-                            <div className='rating-container'>
-                                <div className='rating-gap'>
-                                    <div className='rating-content'>
-                                        <img src={star} alt='star' />
-                                        <span>4.8</span>
-                                    </div>
-                                    <h5>Rating</h5>
+                    {isTA ? <>
+                        <div className='rating-container'>
+                            <div className='rating-gap'>
+                                <div className='rating-content'>
+                                    <img src={star} alt='star' />
+                                    <span>{data.Rate}</span>
                                 </div>
-                                <img src={line} alt='line' />
-                                <div className='rating-gap'>
-                                    <div className='rating-content'>
-                                        <img src={course} alt='course' />
-                                        <span>20</span>
-                                    </div>
-                                    <h5>Courses</h5>
+                                <h5>Rating</h5>
+                            </div>
+                            <img src={line} alt='line' />
+                            <div className='rating-gap'>
+                                <div className='rating-content'>
+                                    <img src={course} alt='course' />
+                                    <span>20</span>
                                 </div>
-                                <img src={line} alt='line' />
-                                <div className='rating-gap'>
-                                    <div className='rating-content'>
-                                        <img src={clock} alt='clock' />
-                                        <span>In few minutes</span>
-                                    </div>
-                                    <h5>Achievement</h5>
+                                <h5>Courses</h5>
+                            </div>
+                            <img src={line} alt='line' />
+                            <div className='rating-gap'>
+                                <div className='rating-content'>
+                                    <img src={clock} alt='clock' />
+                                    <span>In few minutes</span>
                                 </div>
                             </div>
-                        </>
+                        </div>
+                    </>
                         :
                         null
                     }
@@ -123,9 +147,10 @@ const ProfileDashBody = ({ isTA, isStudent }) => {
                 <CardGrid
                     isProgress={true}
                     isTA={isTA}
-                    isStudent = {isStudent}
+                    isStudent={isStudent}
                 />
             </div>
+             
         </>
     )
 }

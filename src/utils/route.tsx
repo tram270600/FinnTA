@@ -5,9 +5,10 @@ const MainPage = React.lazy(() => import('pages/MainPage'))
 const Login = React.lazy(() => import('pages/login'))
 const SignUp = React.lazy(() => import('pages/SignUp'))
 const ProfileDash = React.lazy(() => import('pages/ProfileDash'))
+const SearchPage = React.lazy(() => import('pages/SearchPage'))
 
 type Routes = {
-    Path: string,
+    Path: string | undefined,
     Component?: JSX.Element,
     isExact: boolean,
     Render?: Function,
@@ -34,6 +35,12 @@ const routes: Routes[] = [
         Scope: "Global"
     },
     {
+        Path: '/search',
+        Component: <SearchPage />,
+        isExact: false,
+        Scope: "Global"
+    },
+    {
         Path: '/profile',
         Component: <ProfileDash isGuest={false} />,
         isExact: true,
@@ -49,7 +56,7 @@ const routes: Routes[] = [
         Scope: "Global"
     },
     {
-        Path: '',
+        Path: undefined,
         Component: <Redirect to='/'></Redirect>,
         isExact: true,
         Scope: "Global"

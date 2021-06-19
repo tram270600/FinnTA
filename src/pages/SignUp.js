@@ -4,7 +4,7 @@ import '../styles/Signup.scss'
 import showPw from '../images/showPw.svg';
 import React, { SyntheticEvent, useState } from 'react';
 import useSignUpForm from './useSignUpForm';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import ProfileDashBody from '../components/Dashboard/ProfileDashBody';
 import SidebarDash from '../components/Dashboard/SidebarDash';
 import NavBar from '../components/Dashboard/NavBar'
@@ -138,7 +138,7 @@ const SignUp = () => {
                     </div>
                 </form>
                 {/* Turn on modal here*/}
-                <div className="Modall">
+                {/* <div className="Modall">
                     <button className="button-default" onClick={toggle}>Show Modal</button>
                     <Modal
                         isShowing={isShowing}
@@ -151,7 +151,7 @@ const SignUp = () => {
                         isShowingCreate={isShowingCreate}
                         hide={toggleCreate}
                     />
-                </div>
+                </div> */}
                 {/* <div className="Modall">
                     <button className="button-default" onClick={toggleProfile}>Show Modal Profile</button>
                     <ModalEditProfile
@@ -187,14 +187,15 @@ const SignUp = () => {
                         hide={toggleCourse}
                     />
                 </div> */}
-                <div className="Modall">
+                {/* <div className="Modall">
                     <button className="button-default" onClick={toggleConfirmTeach}>Show Modal Confirm Teach</button>
                     <ModalConfirmTeach
                         isShowingConfirmTeach={isShowingConfirmTeach}
                         hide={toggleConfirmTeach}
                     />
                 </div>
-                <p>Already have an account? <a href="/login">Sign in</a></p>
+                </div> */}
+                <p>Already have an account? <Link to='/login'>Sign in</Link></p>
             </div>
         </div>
     )

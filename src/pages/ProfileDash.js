@@ -13,19 +13,21 @@ import { useTypedSelector } from 'app/store';
 const ProfileDash = (props) => {
     const [body, setBody] = useState("PROFILE")
     const [isGuest, setGuest] = useState(props.isGuest)
-    const uid = useTypedSelector(state => state.Account.data._id)
+    const account = useTypedSelector(state => state.Account.data)
     // console.log(props.match.params.id)
     useEffect(() => {
-        if (props.match?.params.id === uid)
+        if (props.match?.params.id === account._id)
             setGuest(false)
     }, [])
+    console.log(isGuest)
+    console.log(account.Role)
 
     const getBody = () => {
         switch (body) {
             case "PROFILE":
-                return <ProfileDashBody isTA = {false} isStudent = {true}/>
+                return <ProfileDashBody isTA={!isGuest} uid={props.match?.params.id} isStudent={false} />
             case "COURSE":
-                return <CourseDashBody isTA={false} isStudent = {true} />
+                return <CourseDashBody isTA={false} isStudent={true} />
             case "CHAT":
                 return <Chat />
             case "NOTIFICATIONS":
@@ -51,7 +53,6 @@ const ProfileDash = (props) => {
                     <SidebarDash body={body} setBody={changeBody} isGuest={isGuest} />
                 </div>
                 <div className='dash-body'>
-                    {/* <ProfileDashBody /> */}
                     {getBody()}
                 </div>
             </div>

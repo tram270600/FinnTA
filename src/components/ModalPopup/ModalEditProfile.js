@@ -33,9 +33,9 @@ const ModalEditProfile = ({ isShowingProfile, hide }) => {
                 <h6>Provide some information for people to know about yourself </h6>
             </div>
            <div className="modal-form"> 
-                <div className="user-info">
+                {/* <div className="user-info">
                     <img src = {avatar} alt = 'avatar' />Tram Nguyen Giang
-                </div>
+                </div> */}
                 <h3> General Information </h3>
 
                 <div className="field">
@@ -86,7 +86,7 @@ const ModalEditProfile = ({ isShowingProfile, hide }) => {
     
                 <div className="field">
                     <label>Description</label>
-                    <textarea rows={2} cols={47} label = "Description" placeholder="Add some description"/>
+                    <textarea rows={2} cols={45} label = "Description" placeholder="Add some description"/>
                 </div>
                 <h3> Contact Information </h3>
                 <div className="field">

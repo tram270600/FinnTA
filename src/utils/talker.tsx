@@ -32,22 +32,17 @@ async function getAccount(data: { ID: string }) {
 }
 
 //TA
-async function getSortTA(_sort: "des" | "asc", _by: "rate" | "name", _page: number) {
+async function getSortTA(_sort: "des" | "asc", _by: "rate" | "name", _page: number, name?: string) {
     type resApi = {
         "TA": resAccount[],
         "Class": { [_id: string]: string[] },
     }
-    let res = await Conn.get<resApi>('/user/TA', { params: { sort: _sort, by: _by, page: _page } })
+    let res = await Conn.get<resApi>('/user/TA', { params: { sort: _sort, by: _by, page: _page, name: name } })
     if (res.status !== 200) {
         alert("Error occurred when getting T.A.")
         return {} as resApi
     }
     return res.data
-}
-
-async function getClassroom(data: { uid: string, page: number }) {
-    const res = await Conn.get<classroom[]>('/class', { params: data })
-    return res
 }
 
 // Chat
@@ -68,6 +63,20 @@ async function getMsg(RoomID: string, page: number) {
     return res.data
 }
 
+// class
+async function createClass(data: classroom) {
+    const res = await Conn.put('/class', JSON.stringify(data))
+    if (res.status !== 200)
+        return "Error occurred when creating course."
+    return
+}
+
+async function getClassroom(data: { uid?: string, page: number, keyword?: string[] }) {
+    console.log(data)
+    const res = await Conn.post<classroom[]>('/class/get', JSON.stringify(data))
+    return res
+}
+
 // Feedback
 async function getFeedback(sort: "des" | "asc", by: "rate" | "time", page: number, id?: string) {
     let res = await Conn.get<resFeedback>('/feedback', { params: { id: id!, page: page, sort: sort, by: by } })
@@ -81,7 +90,8 @@ const Account = {
 
 const TA = {
     getSortTA,
-    getClassroom
+    getClassroom,
+    createClass,
 }
 
 const Chat = {

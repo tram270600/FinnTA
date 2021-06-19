@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import '../../styles/modal.scss';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
@@ -6,9 +6,11 @@ import { UKeyboardDateTimePicker } from '@unicef/material-ui';
 import { useState } from 'react';
 import avatar from '../../images/avatar.png'
 import { TextField } from '@material-ui/core';
+import { withFormik } from 'formik';
+import * as Yup from 'yup';
 
 
-const ModalCreatePost = ({ isShowingCreate, hide }) => {
+const ModalCreatePost  = ({ isShowingCreate, hide })  => { 
     const [selectedDate, handleDateChange] = useState(new Date());
     const [value, setValue] = React.useState();
     const isValid = value < 70;
@@ -20,7 +22,7 @@ const ModalCreatePost = ({ isShowingCreate, hide }) => {
                         <span class="close">&times;</span>
                     </button>
                     <div className="modal-title">
-                        Create a Course
+                        Create a Post
                         <h6>To give an announcement about new course as tutor or to find tutor and courses as a student </h6>
                     </div>
                     <divc className="modal-form">
@@ -57,11 +59,14 @@ const ModalCreatePost = ({ isShowingCreate, hide }) => {
                         </div>
                         <div className="field">
                             <label>Description/Message</label>
-                            <textarea rows={4} cols={47} label="Description" placeholder="Add some description" />
+                            <textarea rows={4} cols={45} label="Description"  name="messagePost" placeholder='Add some content'
+                            // value={values.messagePost}
+                            // onChange={this.props.handleChange}
+                            />
 
                         </div>
                         <div className="Container">
-                            <input type="submit" value="CREATE COURSE" />
+                            <input type="submit" value="CREATE POST" />
                         </div>
 
                     </divc>
@@ -72,5 +77,17 @@ const ModalCreatePost = ({ isShowingCreate, hide }) => {
         </React.Fragment>, document.body
     ) : null;
 }
-
+// const FormikForm = withFormik({
+//     mapPropsToValues(){
+//         return {
+//             messagePost: 'dcm',
+//         }
+//     },
+//     validationSchema: Yup.object().shape({
+//         messagePost: Yup.string()
+//         .required('Description is required to tell everyone what you are looking for')
+//         .min(5, 'You must say a sentence')
+//         .max(30, 'Brief your word, nobody want to read the parapragh'),
+//     }),
+// }) (ModalCreatePost)
 export default ModalCreatePost;

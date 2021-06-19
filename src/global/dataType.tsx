@@ -1,15 +1,3 @@
-// type SignUpAccountData = {
-//     Password: string,
-//     _id?: string,
-//     Email: string,
-//     Name: string,
-//     Avatar?: string,
-//     DoB?: string, // Date.toISOString() let myDob = new Date(DoB) \ myDob.toISOString()
-//     D_id: string,
-//     Bio?: string,
-//     Role: string //T.A or Student
-// }
-
 type updatableData = {
     Password?: string,
     Name?: string,
@@ -32,15 +20,6 @@ type resAccount = {
     updated_at: string
     listSubject?: string[],
     Rate: number,
-    // Email: string,
-    // Name: string,
-    // Avatar: string,
-    // DoB: string,
-    // d_id: string,
-    // Bio: string,
-    // Role: string,
-    // Phone: string,
-    // GPA: number,
 } & SignUpAccountData
 
 type loginData = {
@@ -81,13 +60,14 @@ type feed = {
 
 type classroom = {
     _id?: string,
-    uid: string,
-    courseID: string,
+    uid?: string,
+    cid: string,
     price: number,
-    startDate: string,
+    duration: string,
     GPA: number,
     description: string,
     available: boolean,
+    updated_at: string,
 }
 
 type feedback = {
