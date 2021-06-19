@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+.other-mss{
+    max-width: 60%;
+    max-height: 70px;
+    background: #0191B4;
+    border-radius: 0px 10px 10px 10px;
+    align-items: center;
+    margin-top: 2.5%;
+    padding: 1%;
+    margin-left: 5%;
+}
+.other-mss > p{
+    font-weight: 400;
+    font-family: Inter;
+    color: #FFFFFF;
+    font-size: 1.1rem;
+    line-height: 26px;
+}
+
+.my-mss{
+    max-width: 60%;
+    max-height: 70px;
+    border-radius: 0px 10px 10px 10px;
+    align-items: center;
+    margin-top: 2%;
+    padding: 1%;
+    background: #FFFFFF;
+    border: 1px solid rgba(112, 124, 151, 0.25);
+    box-sizing: border-box;
+    box-shadow: 10px 10px 25px rgba(112, 124, 151, 0.05), 15px 15px 35px rgba(112, 124, 151, 0.05), 10px 10px 50px rgba(112, 124, 151, 0.03);
+    float: right;
+
+
+}
+.my-mss > p{
+    font-weight: 400;
+    font-family: Inter;
+    color: #707C97;
+    font-size: 1.1rem;
+    line-height: 26px;
+}

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import CourseDashBody from 'components/Dashboard/CourseDashBody';
 import NotiDashBody from 'components/Dashboard/NotiDashBody';
 import ScheduleDashBody from 'components/Dashboard/ScheduleDashBody';
+import Chat from 'components/Dashboard/Chat'
 import { useTypedSelector } from 'app/store';
 
 const ProfileDash = (props) => {
@@ -26,7 +27,7 @@ const ProfileDash = (props) => {
             case "COURSE":
                 return <CourseDashBody isTA={false} isStudent = {true} />
             case "CHAT":
-                return
+                return <Chat />
             case "NOTIFICATIONS":
                 return <NotiDashBody />
             case "SCHEDULE":
