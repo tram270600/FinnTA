@@ -14,7 +14,8 @@ import CardGrid from 'components/Dashboard/CardGrid'
 import ButtonTA from 'components/Dashboard/ButtonTA'
 import ButtonTAother from 'components/Dashboard/ButtonTAother'
 import ButtonStudent from './ButtonStudent';
-import 'styles/DashProfile.css'
+import 'styles/DashProfile.css';
+import 'styles/Signup.scss'
 import talker from 'utils/talker';
 import { useTypedSelector } from 'app/store';
 

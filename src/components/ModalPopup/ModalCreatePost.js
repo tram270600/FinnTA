@@ -57,7 +57,7 @@ const ModalCreatePost = ({ isShowingCreate, hide }) => {
                         </div>
                         <div className="field">
                             <label>Description/Message</label>
-                            <textarea rows={4} cols={42} label="Description" placeholder="Add some description" />
+                            <textarea rows={4} cols={45} label="Description" placeholder="Add some description" />
 
                         </div>
                         <div className="Container">

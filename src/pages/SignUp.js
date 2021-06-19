@@ -138,7 +138,7 @@ const SignUp = () => {
                     </div>
                 </form>
                 {/* Turn on modal here*/}
-                <div className="Modall">
+                {/* <div className="Modall">
                     <button className="button-default" onClick={toggle}>Show Modal</button>
                     <Modal
                         isShowing={isShowing}
@@ -151,7 +151,7 @@ const SignUp = () => {
                         isShowingCreate={isShowingCreate}
                         hide={toggleCreate}
                     />
-                </div>
+                </div> */}
                 {/* <div className="Modall">
                     <button className="button-default" onClick={toggleProfile}>Show Modal Profile</button>
                     <ModalEditProfile
@@ -187,13 +187,13 @@ const SignUp = () => {
                         hide={toggleCourse}
                     />
                 </div> */}
-                <div className="Modall">
+                {/* <div className="Modall">
                     <button className="button-default" onClick={toggleConfirmTeach}>Show Modal Confirm Teach</button>
                     <ModalConfirmTeach
                         isShowingConfirmTeach={isShowingConfirmTeach}
                         hide={toggleConfirmTeach}
                     />
-                </div>
+                </div> */}
                 <p>Already have an account? <a href="/login">Sign in</a></p>
             </div>
         </div>

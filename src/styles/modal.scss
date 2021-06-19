@@ -42,7 +42,7 @@ $primaryBlue: #0191B4;
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     left: 0;
-    // top: 0;
+    top: 0;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     // overflow: auto; /* Enable scroll if needed */
@@ -74,13 +74,18 @@ $primaryBlue: #0191B4;
       margin:auto;
       width: 70%;
       h3 {
-        margin-top: 10px;
+        margin-top: 5px;
         @include fontStyle(600, 16px, '', black);
       }
       .field{
         margin-left: 20px;
-        margin-right: 20px;
-        margin-bottom: 10px;
+        // margin-right: 20px;
+        margin-bottom: 5px;
+        @include fontStyle(400, 14px, '', black);
+      }
+      .dayOfWeek{
+        margin-left: 5px;
+        margin-bottom: 5px;
         @include fontStyle(400, 14px, '', black);
       }
     }
@@ -136,7 +141,7 @@ $primaryBlue: #0191B4;
       background: #0191b4;
       border-radius: 8px;
       border: none;
-      margin-top: 5px;
+      margin-top: 3px;
       &.button-secondary{
         margin-right: 10px;
         background: white;
@@ -176,7 +181,7 @@ textarea{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 5px;
 
   &label{
     @include fontStyle(500, 16px, 19px, #828282);
@@ -194,7 +199,7 @@ textarea{
 
 .comment-box{
   overflow-y: auto;
-  margin-top: 10px;
+  margin-top: 5px;
   width: 100%;
   height: 350px;
   display: grid;
@@ -362,7 +367,7 @@ textarea{
     @include fontStyle(300, 14px, '', #0D1C2E);
   }
   h3{
-    margin-top: 10px;
+    margin-top: 5px;
     @include fontStyle(600, 16px, 22px, #6E798C);
   }
   h1{
