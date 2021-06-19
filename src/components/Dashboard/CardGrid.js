@@ -14,7 +14,7 @@ import talker from 'utils/talker';
 import { useTypedSelector } from 'app/store';
 import avatar from 'images/avatar.svg'
 
-const CardGrid = ({ isTA, isStudent, uid, keyword, available }) => {
+const CardGrid = ({ isTA, isStudent, uid, keyword, available, role, isGuest }) => {
     const imgList = [gradient1, gradient2, gradient3, gradient4, gradient5, gradient6, gradient7, gradient8]
     const department = useTypedSelector(state => state.Department.data)
     const [card, setCard] = useState(<></>)
@@ -75,6 +75,8 @@ const CardGrid = ({ isTA, isStudent, uid, keyword, available }) => {
                     name={res["T.A"][c.uid].Name}
                     avatar={ava}
                     uid={c.uid}
+                    role = {role}
+                    isGuest = {isGuest}
                 />
             </Grid>
         })

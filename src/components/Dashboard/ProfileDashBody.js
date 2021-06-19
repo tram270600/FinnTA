@@ -20,10 +20,10 @@ import talker from 'utils/talker';
 import { useTypedSelector } from 'app/store';
 
 
-const ProfileDashBody = ({ isTA, isStudent, uid }) => {
+const ProfileDashBody = ({ isTA, role, uid, isGuest }) => {
     const [data, setData] = useState({})
     const getInfo = useCallback(async () => {
-        if (!isTA) {
+        if (isGuest) {
             const res = await talker.Account.getAccount({ ID: uid })
 
             console.log(res)
@@ -88,9 +88,9 @@ const ProfileDashBody = ({ isTA, isStudent, uid }) => {
                 </div>
                 <div className='dash-button'>
                     <div className='button-container' >
-                        {isTA ? <ButtonTA /> : isStudent ? <ButtonStudent /> : <ButtonTAother />}
+                        {(role == "T.A") ? <ButtonTA /> : (role == "Student") ? <ButtonStudent /> : <ButtonTAother />}
                     </div>
-                    {isTA ? <>
+                    {(role == "T.A") ? <>
                         <div className='rating-container'>
                             <div className='rating-gap'>
                                 <div className='rating-content'>
@@ -148,7 +148,8 @@ const ProfileDashBody = ({ isTA, isStudent, uid }) => {
                     available={true}
                     uid={account._id}
                     isTA={isTA}
-                    isStudent={isStudent}
+                    role = {role}
+                    isGuest = {isGuest}
                 />
             </div>
 
