@@ -11,7 +11,7 @@ import gradient7 from 'images/gradient7.svg'
 import gradient8 from 'images/gradient8.svg'
 import 'styles/CardGrid.scss'
 
-const CardGrid = ({isProgress, isTA}) => {
+const CardGrid = ({isProgress, isTA, isStudent}) => {
     const imgList = [gradient1, gradient2, gradient3, gradient4, gradient5, gradient6, gradient7, gradient8]
     
     const cardList = []
@@ -26,6 +26,7 @@ const CardGrid = ({isProgress, isTA}) => {
                 content='Review chapter for midterm. This is the second part of the SMM starter pack series of articles. If you made it this far, you must be willing to learn about promoting business.'
                 isProgress={isProgress}
                 isTA = {isTA}
+                isStudent = {isStudent}
             />
         </Grid>
         )

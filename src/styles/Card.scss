@@ -82,6 +82,10 @@
                     text-decoration: none;
                     @include fontStyle(600px,15px,15px,#35BBCA)
                 }
+                .student-avatar{
+                    width: 32px;
+                    height: 32px;
+                }
 
             }
             .option {
@@ -92,6 +96,15 @@
                 .ta{
                     @include fontStyle(600px,15px,15px ,#35BBCA);
                     display: contents;
+                }
+                .rate {
+                    width: 54px;
+                    height: 26px;
+                    border-radius: 7px;
+                    @include fontStyle(600,12px ,15px ,#FE7A15 );
+                    background: #FFFFFF;
+                    border: 1px solid #FE7A15;
+
                 }
                 .other{
                     border-radius: 7px;

@@ -13,8 +13,8 @@ function App() {
         <Suspense fallback={<div>Loading...</div>}>
           {routes.filter((route) => {
             // Remove 2 lines below to test routes without login
-            if (route.Scope === "User" && user.data.Role === undefined)
-              return false
+            // if (route.Scope === "User" && user.data.Role === undefined)
+            //   return false
             return true
           })
             .map((route, i) => {

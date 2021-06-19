@@ -10,7 +10,7 @@ const NotiItem = ({title, content, avatar}) => {
             </div>
             <div className = 'avatar'>
                 <img src = {avatar}/>
-            /</div>
+            </div>
         </div>
     )
 }

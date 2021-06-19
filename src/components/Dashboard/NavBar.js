@@ -4,6 +4,7 @@ import logo from '../../images/Logo.png'
 import NotifyMe from 'react-notification-timeline'
 import '../../styles/NavBar.css'
 import { useTypedSelector } from 'app/store'
+import avatar from 'images/avatar.png'
 
 const NavBar = () => {
 
@@ -65,7 +66,8 @@ const NavBar = () => {
                     </Link>
                 </li>
             </ul>
-            {Object.keys(account.data).length !== 0 ?
+            {/* Object.keys(account.data).length !== 0 */}
+            { true ?
                 <>
                     <div className='noti-container'>
                         <div
@@ -87,10 +89,10 @@ const NavBar = () => {
                             size={21}
                             color="black"
                         />
-                        <div className='avatar' style={{ cursor: 'pointer' }}
+                        <div className='avatar-nav' style={{ cursor: 'pointer' }}
                             onClick={() => handleClick('profile')}>
                             <div className='name'>
-                                <img src={account.data.Avatar} alt='Avatar' />
+                                <img src={account.data.avatar} alt='Avatar' />
                                 <span>{account.data.Name}</span>
                             </div>
                         </div>

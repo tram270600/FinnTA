@@ -57,7 +57,7 @@ const Card = () => {
     }, [getCard])
 
     return (
-        <Fade duration={2300} direction="left">
+        <Fade triggerOnce = {true} duration={2300} direction="left">
             <div className='cards'>
                 <div className='text-container'>
                     <h1>Teaching Assistant Around You</h1>

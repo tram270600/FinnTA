@@ -22,9 +22,9 @@ const ProfileDash = (props) => {
     const getBody = () => {
         switch (body) {
             case "PROFILE":
-                return <ProfileDashBody />
+                return <ProfileDashBody isTA = {false} isStudent = {true}/>
             case "COURSE":
-                return <CourseDashBody isTA={!isGuest} />
+                return <CourseDashBody isTA={false} isStudent = {true} />
             case "CHAT":
                 return
             case "NOTIFICATIONS":

@@ -80,7 +80,7 @@ const News = () => {
     }
     return (
         <div className = 'news'>
-            <Fade direction="top" duration={2000}>
+            <Fade triggerOnce = {true} direction="top" duration={2000}>
                 <div className = 'text-container'>
                     <h1>News</h1>
                 </div>
@@ -88,8 +88,7 @@ const News = () => {
                     <h3>These are something new everyday include post about finding suitable tutors for specific subject and there are announcement about new course is started.</h3>
                 </div>
             </Fade>
-            
-            <Slide direction="left" duration = {2000} >
+            <Slide triggerOnce = {true} direction="left" duration = {2000} >
                 <Swiper  {...params}
                 onSwiper = {() => console.log("hello")}
                 onSlideChange = {() => console.log('slide change')}
@@ -128,7 +127,7 @@ const News = () => {
                     </div>
                 </div>
                 
-            </Swiper>         
+                </Swiper>         
             </Slide>
         </div>
     )

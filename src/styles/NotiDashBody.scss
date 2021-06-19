@@ -8,15 +8,22 @@
   line-height: $height;
   color: $color;
 }
-.notidash-container{
-  margin-top: 15%;
-  margin: 3% 20%;
+.noti-body {
   height: 100%;
-  overflow: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  width: fit-content;
+  background: linear-gradient(180deg, rgba(243, 243, 251, 0.7) 0%, rgba(253, 251, 253, 0.7) 100%);
+
+  .notidash-container{
+    margin-top: 15%;
+    margin: 3% 20%;
+    height: 94%;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    width: fit-content;
+  }
+  .notidash-container::-webkit-scrollbar{
+    display: none;
+  }
+
 }
-.notidash-container::-webkit-scrollbar{
-  display: none;
-}
+
