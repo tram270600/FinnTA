@@ -70,6 +70,11 @@ type classroom = {
     updated_at: string,
 }
 
+type resClass = {
+    "Class": classroom[],
+    "T.A": { [_id: string]: resAccount }
+}
+
 type feedback = {
     _id?: string,
     s_id?: string,
@@ -99,6 +104,6 @@ export type {
     room, chat,
     department,
     feed,
-    classroom, schedule,
+    classroom, resClass, schedule,
     feedback, resFeedback
 }

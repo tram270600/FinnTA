@@ -12,78 +12,68 @@ import gradient8 from 'images/gradient8.svg'
 import 'styles/CardGrid.scss'
 import talker from 'utils/talker';
 import { useTypedSelector } from 'app/store';
+import avatar from 'images/avatar.svg'
 
-const CardGrid = ({ isProgress, isTA, isStudent, uid, keyword }) => {
+const CardGrid = ({ isTA, isStudent, uid, keyword, available }) => {
     const imgList = [gradient1, gradient2, gradient3, gradient4, gradient5, gradient6, gradient7, gradient8]
     const department = useTypedSelector(state => state.Department.data)
-    console.log(keyword)
     const [card, setCard] = useState(<></>)
     const getCourse = useCallback(async () => {
+        var data = ({})
         if (uid !== undefined) {
-            let res = await talker.TA.getClassroom(uid, 0)
-            console.log(res)
+            data = ({ page: 0, uid: uid, available: available })
         } else {
             if (keyword !== undefined) {
                 setCard(<></>)
                 let key = '(' + keyword.replace(" ", ")|(") + ')'
-                var depend = ({})
                 var list = Object.keys(department).map((d_id) => {
                     return Object.keys(department[d_id].courses).filter((cid) => {
                         if (department[d_id].courses[cid].search(key) === -1)
                             return false
                         return true
-                    }).map((cid) => {
-                        depend[cid] = d_id
-                        return cid
-                    })
+                    }).map((cid) => cid)
                 }).flat()
                 console.log(list)
-                console.log(depend)
-                let res = await talker.TA.getClassroom(({ page: 0, keyword: list }))
-                console.log("res", res)
-                if (res.data === null) {
-                    return
-                }
-                let cards = res.data.map((c) => {
-                    var date = new Date(c.updated_at)
-                    var now = new Date()
-                    return <Grid item>
-                        <CardTAView
-                            source={imgList[Math.floor(Math.random() * 8)]}
-                            falcuty={department[depend[c.cid]]?.Name}
-                            subject={department[depend[c.cid]]?.courses[c.cid]}
-                            content={c.description}
-                            isProgress={c.available}
-                            create_at={now.getDate() - date.getDate() + " days ago"}
-                            isTA={isTA}
-                            isStudent={isStudent}
-                        />
-                    </Grid>
-                })
-                setCard(cards)
+                data = ({ page: 0, keyword: list, available: true })
             }
         }
-    }, [keyword])
+        const res = await talker.TA.getClassroom(data)
+        console.log("res", res)
+        if (res.data === null) {
+            return
+        }
+        let cards = res.data["Class"].map((c) => {
+            var date = new Date(c.updated_at)
+            var now = new Date()
+            let falcuty = Object.keys(department).filter((d_id) => {
+                if (department[d_id].courses[c.cid] === undefined)
+                    return false
+                return true
+            }).map((d_id) => d_id)[0]
+            let ava = res.data["T.A"][c.uid].Avatar
+            if (!ava)
+                ava = avatar
+            return <Grid item>
+                <CardTAView
+                    source={imgList[Math.floor(Math.random() * 8)]}
+                    falcuty={department[falcuty]?.name}
+                    subject={department[falcuty]?.courses[c.cid]}
+                    content={c.description}
+                    isProgress={available}
+                    create_at={now.getDate() - date.getDate() + " days ago"}
+                    isTA={isTA}
+                    isStudent={isStudent}
+                    name={res.data["T.A"][c.uid].Name}
+                    avatar={ava}
+                    uid={c.uid}
+                />
+            </Grid>
+        })
+        setCard(cards)
+    }, [uid, keyword])
     useEffect(() => {
         getCourse()
     }, [getCourse])
-    const cardList = []
-
-    // for (let i = 0; i < 10; i++) {
-    //     cardList.push(
-    //         <Grid item>
-    //             <CardTAView
-    //                 source={imgList[Math.floor(Math.random() * 8)]}
-    //                 falcuty='Business Administration'
-    //                 subject='Principles of Marketing'
-    //                 content='Review chapter for midterm. This is the second part of the SMM starter pack series of articles. If you made it this far, you must be willing to learn about promoting business.'
-    //                 isProgress={isProgress}
-    //                 isTA={isTA}
-    //                 isStudent={isStudent}
-    //             />
-    //         </Grid>
-    //     )
-    // }
     return (
         <div className='grid-container'>
             <Grid container spacing={5} direction="row">

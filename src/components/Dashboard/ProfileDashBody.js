@@ -145,12 +145,13 @@ const ProfileDashBody = ({ isTA, isStudent, uid }) => {
                     </div>
                 </div>
                 <CardGrid
-                    isProgress={true}
+                    available={true}
+                    uid={account._id}
                     isTA={isTA}
                     isStudent={isStudent}
                 />
             </div>
-             
+
         </>
     )
 }

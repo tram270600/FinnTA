@@ -4,7 +4,8 @@ import {
     resAccount,
     chat,
     classroom,
-    resFeedback
+    resFeedback,
+    resClass
 } from 'global/dataType'
 
 export const Conn = axios.create({
@@ -71,9 +72,9 @@ async function createClass(data: classroom) {
     return
 }
 
-async function getClassroom(data: { uid?: string, page: number, keyword?: string[] }) {
+async function getClassroom(data: { uid?: string, page: number, keyword?: string[], available: boolean }) {
     console.log(data)
-    const res = await Conn.post<classroom[]>('/class/get', JSON.stringify(data))
+    const res = await Conn.post<resClass>('/class/get', JSON.stringify(data))
     return res
 }
 
