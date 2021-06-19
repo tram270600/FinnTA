@@ -8,13 +8,13 @@ import { useState } from 'react';
 import { useCallback } from 'react';
 import avatar from 'images/avatar.svg'
 
-const Card = () => {
-    const gradientList = ['linear-gradient(180deg, #0191B4 0%, #35BBCA 100%)',
-        'linear-gradient(180deg, #FE7A15 0%, #FFAF72 100%)',
-        "linear-gradient(180deg, #A64DFF 0%, #C68BFF 100%)",
-        "linear-gradient(108deg, rgba(248, 217, 15, 0.9) 1.48%, rgba(254, 122, 21, 0.9) 100%), #BCD1FF",
-        "linear-gradient(180deg, #709CFF 0%, #64CDFF 100%)"]
+const gradientList = ['linear-gradient(180deg, #0191B4 0%, #35BBCA 100%)',
+    'linear-gradient(180deg, #FE7A15 0%, #FFAF72 100%)',
+    "linear-gradient(180deg, #A64DFF 0%, #C68BFF 100%)",
+    "linear-gradient(108deg, rgba(248, 217, 15, 0.9) 1.48%, rgba(254, 122, 21, 0.9) 100%), #BCD1FF",
+    "linear-gradient(180deg, #709CFF 0%, #64CDFF 100%)"]
 
+const Card = () => {
     const [cards, setCards] = useState(<></>)
     const department = useTypedSelector(state => state.Department)
     const getCard = useCallback(async () => {

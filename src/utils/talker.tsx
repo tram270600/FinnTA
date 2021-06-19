@@ -3,7 +3,8 @@ import {
     SignUpAccountData,
     resAccount,
     chat,
-    classroom
+    classroom,
+    resFeedback
 } from 'global/dataType'
 
 export const Conn = axios.create({
@@ -67,6 +68,12 @@ async function getMsg(RoomID: string, page: number) {
     return res.data
 }
 
+// Feedback
+async function getFeedback(sort: "des" | "asc", by: "rate" | "time", page: number, id?: string) {
+    let res = await Conn.get<resFeedback>('/feedback', { params: { id: id!, page: page, sort: sort, by: by } })
+    return res.data
+}
+
 const Account = {
     register,
     getAccount,
@@ -82,8 +89,13 @@ const Chat = {
     getMsg
 }
 
+const Feedback = {
+    getFeedback,
+}
+
 export default {
     Account,
     TA,
-    Chat
+    Chat,
+    Feedback,
 }

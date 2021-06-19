@@ -90,6 +90,26 @@ type classroom = {
     available: boolean,
 }
 
+type feedback = {
+    _id?: string,
+    s_id?: string,
+    class_id: string,
+    detail: string,
+    Rate: number,
+}
+
+type resFeedback = {
+    "Feedback": feedback[],
+    "User": {
+        [_id: string]:
+        {
+            _id: string,
+            Name: string,
+            Avatar: string
+        }
+    },
+}
+
 type schedule = {
 
 }
@@ -100,4 +120,5 @@ export type {
     department,
     feed,
     classroom, schedule,
+    feedback, resFeedback
 }
