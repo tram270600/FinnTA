@@ -27,7 +27,7 @@ func InitRoute() *gin.Engine {
 	router.PUT("/department", services.InsertDepartment)
 
 	// Class
-	router.GET("/class", services.GetClass)
+	router.POST("/class/get", services.GetClass)
 
 	// Chat
 	router.GET("ws/chat", services.TestWatch)

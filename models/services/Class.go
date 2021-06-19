@@ -68,7 +68,7 @@ func CreateClass(c *gin.Context) {
 
 func GetClass(c *gin.Context) {
 	/*
-		input: page, uid, by
+		input: page, uid
 		output: class[]
 	*/
 	if utils.Database == nil {
@@ -78,15 +78,34 @@ func GetClass(c *gin.Context) {
 	defer cancel()
 
 	var classList []entity.Class
-	page, _ := strconv.Atoi(c.Query("page"))
-	// by := c.Query("by") // uid,
-	uid, _ := primitive.ObjectIDFromHex(c.Query("uid"))
+	var filter bson.M
 
+	var data struct {
+		Uid     string   `json:"uid,omitempty" bson:"uid,omitempty"`
+		Page    int      `json:"page,omitempty" bson:"page,omitempty"`
+		Keyword []string `json:"keyword,omitempty" bson:"keyword,omitempty"`
+	}
+	if err := c.ShouldBindJSON(&data); err != nil {
+		c.JSON(http.StatusConflict, gin.H{"msg_input": err.Error()})
+		return
+	}
+
+	if data.Uid != "" {
+		uid, _ := primitive.ObjectIDFromHex(data.Uid)
+		filter = bson.M{"uid": uid, "available": "true", "deleted_at": utils.Based_date}
+	} else {
+		var idLs bson.A
+		for _, s := range data.Keyword {
+			id, _ := primitive.ObjectIDFromHex(s)
+			idLs = append(idLs, id)
+		}
+		filter = bson.M{"cid": bson.M{"$in": idLs}, "available": "true", "deleted_at": utils.Based_date}
+	}
+	fmt.Println(filter)
 	opt := options.Find()
 	opt.SetSort(bson.M{"_id": -1})
-	opt.SetSkip(int64(page) * utils.ElementPerPage)
+	opt.SetSkip(int64(data.Page) * utils.ElementPerPage)
 	opt.SetLimit(utils.ElementPerPage)
-	filter := bson.M{"uid": uid, "available": "true", "deleted_at": utils.Based_date}
 
 	cursor, err := utils.Database.Collection("Class").Find(ctx, filter, opt)
 	if err != nil {
@@ -96,6 +115,7 @@ func GetClass(c *gin.Context) {
 	}
 	defer cursor.Close(ctx)
 	for cursor.Next(ctx) {
+		fmt.Println(cursor.Current)
 		var class entity.Class
 		cursor.Decode(&class)
 		classList = append(classList, class)

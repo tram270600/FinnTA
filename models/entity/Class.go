@@ -5,7 +5,7 @@ import "go.mongodb.org/mongo-driver/bson/primitive"
 type Class struct {
 	ID          primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
 	UID         primitive.ObjectID `json:"uid,omitempty" bson:"uid,omitempty"`
-	CourseID    primitive.ObjectID `json:"c_id,omitempty" bson:"c_id,omitempty"`
+	CourseID    primitive.ObjectID `json:"cid,omitempty" bson:"cid,omitempty"`
 	Price       float32            `json:"price,omitempty" bson:"price,omitempty"`
 	Duration    string             `json:"duration,omitempty" bson:"duration,omitempty"`
 	Day         map[string]string  `json:"day,omitempty" bson:"day,omitempty"`

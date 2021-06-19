@@ -16,6 +16,11 @@ import (
 )
 
 func GetSortTA(c *gin.Context) {
+	/*
+	   input: sort, by, page, {name}
+	   output: t.a[], class[]
+	*/
+
 	if utils.Database == nil {
 		utils.Database = db.CreateConnection()
 	}
@@ -45,16 +50,17 @@ func GetSortTA(c *gin.Context) {
 	var filter bson.M
 	if by == "name" {
 		if c.Query("name") != "" {
-			filter = bson.M{"Name": c.Query("name")}
+			filter = bson.M{"$text": bson.M{"$search": c.Query("name")}, "Role": "T.A"}
 		} else {
 			opt.SetSort(bson.M{"Name": sort_id})
+			filter = bson.M{"Role": "T.A"}
 		}
 	} else {
 		if by == "rate" {
 			opt.SetSort(bson.M{"Rate": sort_id})
 		}
+		filter = bson.M{"Role": "T.A"}
 	}
-	filter = bson.M{"Role": "T.A"}
 	cursor, err := utils.Database.Collection("Account").Find(ctx, filter, opt)
 	if err != nil {
 		fmt.Println(err.Error())
@@ -73,13 +79,17 @@ func GetSortTA(c *gin.Context) {
 		return
 	}
 
+	if len(id_ls) == 0 {
+		c.JSON(http.StatusOK, gin.H{})
+		return
+	}
 	// Query class
 	classList := make(map[string][]string)
 
 	opt = options.Find()
 	opt.SetSkip(int64(page) * utils.ElementPerPage)
 	opt.SetLimit(utils.ElementPerPage)
-	filter = bson.M{"uid": bson.M{"$all": id_ls}, "available": "true", "deleted_at": utils.Based_date}
+	filter = bson.M{"uid": bson.M{"$in": id_ls}, "available": "true", "deleted_at": utils.Based_date}
 	cursor, err = utils.Database.Collection("Class").Find(ctx, filter, opt)
 	if err != nil {
 		fmt.Println(err.Error())

@@ -136,7 +136,7 @@ func GetFeedback(c *gin.Context) {
 
 	// Query user
 	var u_list = make(map[string]userStruct)
-	filter = bson.M{"_id": bson.M{"$all": idLs}}
+	filter = bson.M{"_id": bson.M{"$in": idLs}}
 
 	opt = options.Find()
 	opt.SetSkip(int64(page) * utils.ElementPerPage)
