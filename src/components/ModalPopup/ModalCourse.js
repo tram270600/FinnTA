@@ -8,10 +8,12 @@ import coin from '../../images/coin.svg';
 import { makeStyles } from '@material-ui/core/styles';
 import Star from "@material-ui/icons/Star";
 import laptop from '../../images/laptop.svg';
-const ModalCourse = ({ isShowingCourse, hide }) => {
+import { marginTop } from '@xstyled/system';
+import { Link } from 'react-router-dom'
+const ModalCourse = ({ isShowingCourse, hide, faculty, subject, content, price, duration, tutorname, gpa, uid }) => {
     return isShowingCourse ? ReactDOM.createPortal(  
   <React.Fragment>
-    <div id="myModal" class="modal">
+    <div id="myModal" class="modal" style={{marginTop:"40px"}}>
         <div className="course-info">
             <div className="gradient-bg">
                 <button className="modalcourse-close-button" data-dismiss="modal" aria-label="Close" onClick={hide}>
@@ -21,31 +23,32 @@ const ModalCourse = ({ isShowingCourse, hide }) => {
             </div>
             <div className="header">
                 <div className="ta-info">
+                    <Link to={`/profile/${uid}`} style={{ color: 'black' }}>
                     <div className="info">
-                        <img src = {avatar} alt = 'avatar'/>Patricia Kemp
+                        <img src = {avatar} alt = 'avatar'/>{tutorname}
                         <div className="rating">
                             <h5>5</h5>
                             <Star fontSize="small"style={{color:"#FFC87B",marginRight: "10px"}}/> 
                         </div>
                     </div>
-                    
+                    </Link>
                 </div>
                 <div className="Container"> 
-                        <input type="submit" style={{width:"144px", height:"38px", marginRight:"50px"}} value="Book Course"/>  
+                <Link to={`/profile/${uid}`} style={{ color: 'black' }}>
+                        <input type="submit" style={{width:"144px", height:"38px", marginRight:"50px"}} value="Book Course"/>  </Link>
                 </div>
             </div>
             <div className="course-detail">
-                <h6> Department:</h6> Computer Science and Engineering <br></br>
-                <h6>Overall:</h6>  77.8/100
-                <h3 style={{marginTop:"20px"}}> GENERAL </h3>
-                <h1> Calculus 2 </h1>
-                <h5> Review chapter for midterm.
-This is the second part of the SMM starter pack series of articles. If you made it this far, you must be willing to learn about promoting business.</h5>
+                <h6> Department:</h6> {faculty} <br></br>
+                <h6>Overall:</h6>  {gpa}/100
+                <h3 style={{marginTop:"20px"}}> {faculty} </h3>
+                <h1> {subject} </h1>
+                <h5> {content}</h5>
                 <div className="threebox">
                     <div className="box"> 
-                        <h3> DATE </h3>
+                        <h3> DURATION </h3>
                         <img src = {calendar} alt = 'calendar'/>
-                        27th Jun
+                        {duration}
                     </div>
                     <div className="box"> 
                         <h3> TIME </h3>
@@ -55,7 +58,7 @@ This is the second part of the SMM starter pack series of articles. If you made 
                     <div className="box"> 
                     <h3> PRICE </h3>
                     <img src = {coin} alt = 'coin'/>
-                    $90.00
+                    ${price}
                     </div>
                 </div>
             </div>

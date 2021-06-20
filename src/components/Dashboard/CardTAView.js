@@ -4,6 +4,8 @@ import 'styles/Card.scss'
 import { Link } from 'react-router-dom'
 import useModal from 'components/ModalPopup/useModal';
 import ModalConfirmBook from 'components/ModalPopup/ModalConfirmBook';
+import ModalCourse from 'components/ModalPopup/ModalCourse';
+import useModalCourse from 'components/ModalPopup/useModalCourse';
 
 const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress,
     role, isGuest,
@@ -19,8 +21,9 @@ const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress,
         color: "#FE7A15"
     }
     const { isShowingBook, toggleBook } = useModal();
+    const { isShowingCourse, toggleCourse } = useModalCourse();
     return (
-        <div className='card-container'>
+        <div className='card-container' onClick={toggleCourse}>
             <div className='img'>
                 <img src={source} alt='background' />
             </div>
@@ -59,6 +62,18 @@ const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress,
                         <button className={isProgress ? 'other' : 'other booked'} style={((role === "T.A") && (isGuest)) ? null : display} onClick={toggleBook}>
                             {isProgress ? 'Book' : 'Booked'}
                         </button>
+                        <ModalCourse
+                        isShowingCourse={isShowingCourse}
+                        hide={toggleCourse}
+                        faculty={falcuty}
+                        subject={subject}
+                        content={content}
+                        price={price}
+                        duration={duration}
+                        tutorname={name}
+                        gpa={gpa}
+                        uid={uid}
+                        />
                         <ModalConfirmBook
                         isShowingBook={isShowingBook}
                         hide={toggleBook}

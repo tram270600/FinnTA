@@ -55,9 +55,9 @@ const ModalCreatePost  = ({ isShowingCreate, hide })  => {
                             <label>Subject</label>
                             <select NAME="department" SIZE="1">
                                 <option VALUE="default"> Choose Subject to Teach/Study </option>
-                                <option VALUE="CSE">CSE - Computer Science and Engineering</option>
-                                <option VALUE="BA"> BA - Business Administration </option>
-                                <option VALUE="IEM">IEM - Industrial Engineering and Management </option>
+                                <option VALUE="CSE">Physic2</option>
+                                <option VALUE="BA"> Fundamental of Financial Management </option>
+                                <option VALUE="IEM">Applied Linear Algebra </option>
                             </select>
                         </div>
                         <div className="field">
@@ -69,7 +69,7 @@ const ModalCreatePost  = ({ isShowingCreate, hide })  => {
 
                         </div>
                         <div className="Container">
-                            <input type="submit" value="CREATE POST" />
+                            <input type="submit" value="CREATE POST"  onClick={hide}/>
                         </div>
 
                     </divc>

@@ -82,7 +82,7 @@ const CardGrid = ({ uid, keyword, available, role, isGuest }) => {
                     isGuest={isGuest}
                     gpa={c.GPA}
                     price={c.price}
-                    duration={c.day}
+                    duration={c.duration}
                 />
             </Grid>
         })

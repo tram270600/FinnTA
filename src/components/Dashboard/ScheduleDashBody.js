@@ -22,7 +22,7 @@ const ScheduleDashBody = ({ isTA }) => {
                     year={currentYear}
                     selectedDays={
                         {
-                            '2021-6': [{ '3': { info: subjectName[0], color: colorList[0] } }, { '8': { info: subjectName[2], color: colorList[2] } }],
+                            '2021-6': [{ '3': { info: subjectName[0], color: colorList[0] } }, { '8': { info: subjectName[2], color: colorList[2] },  }],
                             '2021-5': [{ '25': { info: subjectName[1], color: colorList[1] } }],
                         }
                     } />
@@ -30,19 +30,19 @@ const ScheduleDashBody = ({ isTA }) => {
                     <div className='course-note'>
                         <div className='color-indicator' style={{ background: colorList[0] }}>
                         </div>
-                        <h6> Computer Architecture</h6>
+                        <h6> Physics 2</h6>
                     </div>
 
                     <div className='course-note'>
                         <div className='color-indicator' style={{ background: colorList[1] }}>
                         </div>
-                        <h6> Principle of Programming Language </h6>
+                        <h6> Fundamental of Financial Management </h6>
                     </div>
 
                     <div className='course-note'>
                         <div className='color-indicator' style={{ background: colorList[2] }}>
                         </div>
-                        <h6> Web Application Development</h6>
+                        <h6> Applied Linear Algebra </h6>
                     </div>
 
 

@@ -106,7 +106,7 @@ const ModalConfirmBook = ({ isShowingBook, hide, subject, uid, role, tutorname, 
                     <div className="input-number">
                         <label>GPA</label>
                         <ThemeProvider theme={theme}>
-                            <CurrencyTextField
+                            <CurrencyTextField readOnly
                                         style ={{width: '70%'}}
                                         variant="standard"
                                         value={gpa}
@@ -122,7 +122,7 @@ const ModalConfirmBook = ({ isShowingBook, hide, subject, uid, role, tutorname, 
                     </div>
                 </div>
                 <div className="Container"> 
-                    <input type="submit" value="REGISTER COURSE"/>  
+                    <input type="submit" value="REGISTER COURSE" onClick={hide}/>  
                 </div>
                 
             </div>
