@@ -50,12 +50,13 @@ const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress,
                     </div>
                     <div className='option'>
 
-                        <button className='ta' style={((role == "Student") && (!isGuest)) ? null : display}>
-                            {isProgress ? role == "T.A" ? 'Edit' : null : <button className='rate'>Rate</button>}
+                        <button className='ta' style={((role === "Student") && (!isGuest)) ? null : display}>
+                            {isProgress ? role === "T.A" ? 'Edit' : null : <button className='rate'>Rate</button>}
                         </button>
 
-                        <button className='ta' style={((role == "T.A") && (!isGuest)) ? null : display}> {isProgress ? 'Edit' : 'Reopen'}</button>
-                        <button className={isProgress ? 'other' : 'other booked'} style={((role == "T.A") && (isGuest)) ? null : display} onClick={toggleBook}>
+                        <button className='ta' style={((role === "T.A") && (!isGuest)) ? null : display}> {isProgress ? 'Edit' : 'Reopen'}</button>
+
+                        <button className={isProgress ? 'other' : 'other booked'} style={((role === "T.A") && (isGuest)) ? null : display} onClick={toggleBook}>
                             {isProgress ? 'Book' : 'Booked'}
                         </button>
                         <ModalConfirmBook

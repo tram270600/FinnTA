@@ -7,11 +7,13 @@ import { useState } from 'react'
 import Card from 'components/MainPage/Cards'
 import CardGrid from 'components/Dashboard/CardGrid';
 import Footer from 'components/MainPage/Footer';
+import { useTypedSelector } from 'app/store';
 
 const SearchPage = (props) => {
     const [query, setQuery] = useState()
     const [search, setSearch] = useState("")
     const [isLoading, setLoading] = useState(false)
+    const account = useTypedSelector(style => style.Account.data)
     return (
         <div className='view-container'>
             <div className='profileDash'>
@@ -47,7 +49,7 @@ const SearchPage = (props) => {
                 timeout={10000} //10 secs
             /> : <></>}
             <Card name={search} setLoading={setLoading} />
-            <CardGrid keyword={search} />
+            <CardGrid role={account.Role === "Student" ? "T.A" : "Student"} keyword={search} available={true} isGuest={true} />
             <Footer />
         </div>
     )
