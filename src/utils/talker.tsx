@@ -5,7 +5,8 @@ import {
     chat,
     classroom,
     resFeedback,
-    resClass
+    resClass,
+    resStudentCouse
 } from 'global/dataType'
 
 export const Conn = axios.create({
@@ -75,12 +76,18 @@ async function createClass(data: classroom) {
 async function getClassroom(data: { uid?: string, page: number, keyword?: string[], available: boolean }) {
     console.log(data)
     const res = await Conn.post<resClass>('/class/get', JSON.stringify(data))
-    return res
+    return res.data
 }
 
 // Feedback
 async function getFeedback(sort: "des" | "asc", by: "rate" | "time", page: number, id?: string) {
     let res = await Conn.get<resFeedback>('/feedback', { params: { id: id!, page: page, sort: sort, by: by } })
+    return res.data
+}
+
+// Schedule
+async function getStudentCourse(data: { uid: string, page: string, available: boolean }) {
+    let res = await Conn.post<resStudentCouse>("/user/student/get", JSON.stringify({ data }))
     return res.data
 }
 
@@ -104,9 +111,14 @@ const Feedback = {
     getFeedback,
 }
 
+const Schedule = {
+    getStudentCourse,
+}
+
 export default {
     Account,
     TA,
     Chat,
     Feedback,
+    Schedule,
 }

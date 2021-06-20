@@ -96,14 +96,23 @@ type resFeedback = {
 }
 
 type schedule = {
-
+    _id?: string,
+    uid: string,
+    s_id: string,
+    class_id: string,
+    startDate: string,
+    isConfirmed: string,
 }
+
+type resStudentCouse = {
+    "Schedule": { [_id: string]: schedule },
+} & resClass
 
 export type {
     SignUpAccountData, resAccount, loginData, updatableData,
     room, chat,
     department,
     feed,
-    classroom, resClass, schedule,
+    classroom, resClass, schedule, resStudentCouse,
     feedback, resFeedback
 }

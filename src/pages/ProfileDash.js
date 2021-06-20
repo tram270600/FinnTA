@@ -28,9 +28,9 @@ const ProfileDash = (props) => {
     const getBody = () => {
         switch (body) {
             case "PROFILE":
-                return <ProfileDashBody isTA={!isGuest} uid={uid ?? account._id} role = {role} isGuest = {isGuest} />
+                return <ProfileDashBody isTA={!isGuest} uid={uid ?? account._id} role={role} isGuest={isGuest} />
             case "COURSE":
-                return <CourseDashBody uid={uid ?? account._id} isTA={false} isStudent={true} isGuest = {isGuest} role = {role} />
+                return <CourseDashBody uid={uid ?? account._id} isTA={false} isStudent={true} isGuest={isGuest} role={role} />
             case "CHAT":
                 return <Chat />
             case "NOTIFICATIONS":
@@ -53,7 +53,7 @@ const ProfileDash = (props) => {
             </div>
             <div className='dash-container'>
                 <div className='dash-sidebar'>
-                    <SidebarDash body={body} setBody={changeBody} isGuest={isGuest} />
+                    <SidebarDash body={body} setBody={changeBody} isGuest={isGuest} uid={uid} />
                 </div>
                 <div className='dash-body'>
                     {getBody()}
