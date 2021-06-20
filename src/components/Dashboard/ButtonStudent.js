@@ -3,7 +3,7 @@ import ModalEditProfile from 'components/ModalPopup/ModalEditProfile';
 import ModalCreatePost from 'components/ModalPopup/ModalCreatePost';
 import useModal from 'components/ModalPopup/useModal';
 
-const ButtonStudent = () => {
+const ButtonStudent = ({data}) => {
     const { isShowingProfile, toggleProfile } = useModal();
     const { isShowingCreate, toggleCreate } = useModal();
     
@@ -19,6 +19,7 @@ const ButtonStudent = () => {
             <ModalEditProfile 
                 isShowingProfile={isShowingProfile}
                 hide={toggleProfile}
+                data = {data}
             />
             <ModalCreatePost
                 isShowingCreate={isShowingCreate}

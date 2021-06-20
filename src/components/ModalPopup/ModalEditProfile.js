@@ -12,7 +12,7 @@ import {
   } from "@material-ui/core/styles";
 
 
-const ModalEditProfile = ({ isShowingProfile, hide }) => {
+const ModalEditProfile = ({ isShowingProfile, hide, data }) => {
     const [selectedDate, handleDateChange] = useState(new Date());
     const [value, setValue] = React.useState();
     const isValid = value < 70;

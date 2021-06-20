@@ -6,7 +6,7 @@ import ModalCreatePost from 'components/ModalPopup/ModalCreatePost';
 import useModal from 'components/ModalPopup/useModal';
 import Modal from "components/ModalPopup/Modal";
 
-const ButtonTA = () => {
+const ButtonTA = ({data}) => {
     const { isShowingProfile, toggleProfile } = useModal();
     const { isShowing, toggle } = useModal(); //custom modal hook 
     const { isShowingCreate, toggleCreate } = useModal();
@@ -35,6 +35,7 @@ const ButtonTA = () => {
             <ModalEditProfile 
                 isShowingProfile={isShowingProfile}
                 hide={toggleProfile}
+                data = {data}
             />
             <ModalCreatePost
                 isShowingCreate={isShowingCreate}

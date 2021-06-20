@@ -29,7 +29,7 @@ const useStyles = makeStyles({
     iconHover5: { color: "#FFC87B" }
   });
 
-const ModalViewRate = ({ isShowingViewRate, hide }) => {
+const ModalViewRate = ({ isShowingViewRate, hide, data }) => {
     const [value, setValue] = React.useState(4);
     const [hover, setHover] = React.useState(-1);
     const {isShowingRate, toggleRate} = useModal();
@@ -49,7 +49,7 @@ const ModalViewRate = ({ isShowingViewRate, hide }) => {
             </div>
            <div className="modal-form"> 
                 <div className="rate-indicator">
-                <h2 style={{textAlign:"center", fontSize:"48px", fontFamily:"Inter", fontWeight:"700"}}> 4.0 <h6 style={{display:"inline-block"}}>/5</h6> </h2>
+                <h2 style={{textAlign:"center", fontSize:"48px", fontFamily:"Inter", fontWeight:"700"}}> {data.Rate} <h6 style={{display:"inline-block"}}>/5</h6> </h2>
                 </div>
                 
                 <div className={classes.root}>
@@ -125,6 +125,7 @@ const ModalViewRate = ({ isShowingViewRate, hide }) => {
                         />
                     </div>
                 </div>
+                {console.log(data)}
                 <div className="comment-box">
                         <div className="box">
                             <div className="review-info">

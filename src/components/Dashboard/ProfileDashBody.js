@@ -41,6 +41,7 @@ const ProfileDashBody = ({ guest, viewer_role, uid }) => {
         getInfo()
     }, [getInfo])
     console.log(data.Role)
+    console.log(data)
     return (
         <>
             <div className='dash-infor'>
@@ -83,7 +84,7 @@ const ProfileDashBody = ({ guest, viewer_role, uid }) => {
                 </div>
                 <div className='dash-button'>
                     <div className='button-container' >
-                        {(guest) ? <ButtonTAother /> : (data.Role === "T.A") ? <ButtonTA /> : (data.Role === "Student") ? <ButtonStudent /> : null}
+                        {(guest) ? <ButtonTAother data = {data} /> : (data.Role === "T.A") ? <ButtonTA data = {data} /> : (data.Role === "Student") ? <ButtonStudent data = {data} /> : null}
                     </div>
                     {(data.Role == "T.A") ? <>
                         <div className='rating-container'>

@@ -2,7 +2,7 @@ import React from 'react'
 import ModalViewRate from 'components/ModalPopup/ModalViewRate';
 import useModal from 'components/ModalPopup/useModal';
 
-const ButtonTAother = () => {
+const ButtonTAother = ({data}) => {
     const { isShowingViewRate, toggleViewRate } = useModal();
     return (
         <>
@@ -15,6 +15,7 @@ const ButtonTAother = () => {
             <ModalViewRate
                 isShowingViewRate={isShowingViewRate}
                 hide={toggleViewRate}
+                data = {data}
             />
         </>
     )
