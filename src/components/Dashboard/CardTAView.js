@@ -31,35 +31,33 @@ const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress,
                     <h3 style={isProgress ? null : style}>{subject}</h3>
                     <p style={isProgress ? null : style}>{content}</p>
                 </div>
-                {(role == "T.A") ?
-                    <>
-                        <div className='footer'>
-                            <div className='view'>
+
+                <div className='footer'>
+                    <div className='view'>
+                        {(role == "T.A") ?
+                            <>
                                 <img src={eye} alt='eye' />
                                 <a href='#'>{isProgress ? 'View participants' : 'View ratings'}</a>
-                            </div>
-                            <div className='option'>
-                                <button className='ta' style={isGuest ? display : null}> {isProgress ? 'Edit' : 'Reopen'}</button>
-                                <button className={isProgress ? 'other' : 'other booked'} style={isGuest ? null : display}>{isProgress ? 'Book' : 'Booked'}</button>
-                            </div>
-                        </div>
-                    </>
-                    : (role == "Student") ?
-                        <>
-                            <div className='footer'>
-                                <div className='view'>
-                                    <img className='student-avatar' src={avatar} alt='avatar' />
-                                    <Link to={`/profile/${uid}`} style={isProgress ? null : colorText}>{name}</Link>
-                                </div>
-                                <div className='option'>
-                                    <button className='ta' style={isGuest ? display : null}>
-                                        {isProgress ? 'Edit' : <button className='rate'>Rate</button>}
-                                    </button>
-                                </div>
-                            </div>
-                        </>
-                        : null
-                }
+                            </>
+                            :
+                            <>
+                                <img className='student-avatar' src={avatar} alt='avatar' />
+                                <Link to={`/profile/${uid}`} style={isProgress ? null : colorText}>{name}</Link>
+                            </>
+                        }
+                    </div>
+                    <div className='option'>
+
+                        <button className='ta' style={((role == "Student") && (!isGuest)) ? null : display}>
+                            {isProgress ? 'Edit' : <button className='rate'>Rate</button>}
+                        </button>
+
+                        <button className='ta' style={((role == "T.A") && (!isGuest)) ? null : display}> {isProgress ? 'Edit' : 'Reopen'}</button>
+                        <button className={isProgress ? 'other' : 'other booked'} style={((role == "T.A") && (isGuest)) ? null : display}>
+                                    {isProgress ? 'Book' : 'Booked'}
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     )
