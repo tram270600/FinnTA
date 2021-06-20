@@ -40,8 +40,8 @@
 
         .falcuty{
             display: flex;
-            text-align: center;
-            align-items: center;
+            text-align: start;
+            align-items: flex-start;
             justify-content: space-between;
             width: 100%;
             margin-bottom: 9px;
@@ -51,11 +51,13 @@
                 text-transform: uppercase;
             }
             .title2 {
-                @include fontStyle('normal',11px ,15px ,#6E798C)
+                @include fontStyle('normal',11px ,15px ,#6E798C);
+                text-align: center;
             }
         }
 
         .text{
+            width: 100%;
             text-align: start;
             h3 {
                 @include fontStyle(600px,20px ,25px ,#081F32)
