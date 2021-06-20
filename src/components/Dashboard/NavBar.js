@@ -32,7 +32,7 @@ const NavBar = () => {
     const account = useTypedSelector(state => state.Account)
 
     return (
-        <nav className='navbar'>
+        <nav id = 'nav' style = {{position: "sticky"}} className='navbar'>
             <div className='navbar-container'>
                 <Link to='/' className='navbar-logo'>
                     <img src={logo} className='logo' alt='Logo' />
@@ -41,27 +41,27 @@ const NavBar = () => {
             </div>
             <ul className='nav-menu dash'>
                 <li className='nav-items'>
-                    <Link to='/' className='nav-links'>
+                    <a href = "#footer-container" className='nav-links'>
                         About
-                    </Link>
+                    </a>
                 </li>
                 <li className='nav-items'>
-                    <Link to='/' className='nav-links'>
+                    <a href='#nav' className='nav-links'>
                         Home
-                    </Link>
+                    </a>
                 </li>
                 <li className='nav-items'>
-                    <Link to='/' className='nav-links'>
+                    <a href='#news' className='nav-links'>
                         News
-                    </Link>
+                    </a>
                 </li>
                 <li className='nav-items'>
-                    <Link to='/' className='nav-links'>
+                    <a href='#cards' className='nav-links'>
                         Find Tutor
-                    </Link>
+                    </a>
                 </li>
                 <li className='nav-items'>
-                    <Link to='/' className='nav-links'>
+                    <Link href='/' className='nav-links'>
                         Features
                     </Link>
                 </li>

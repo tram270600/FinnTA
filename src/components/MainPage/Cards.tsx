@@ -80,7 +80,7 @@ const Card = ({ name = undefined, setLoading = undefined }: cardProps) => {
 
     return (
         <Fade triggerOnce={true} duration={2300} direction="left">
-            <div className='cards'>
+            <div id = 'cards' className='cards'>
                 {name !== undefined ? <></> :
                     <><div className='text-container'>
                         <h1>Teaching Assistant Around You</h1>
