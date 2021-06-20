@@ -7,7 +7,7 @@ import ModalConfirmBook from 'components/ModalPopup/ModalConfirmBook';
 
 const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress,
     role, isGuest,
-    name, avatar, uid }) => {
+    name, avatar, uid, gpa, price, duration }) => {
 
     const style = {
         color: "#C4C4C4"
@@ -19,7 +19,6 @@ const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress,
         color: "#FE7A15"
     }
     const { isShowingBook, toggleBook } = useModal();
-
     return (
         <div className='card-container'>
             <div className='img'>
@@ -51,20 +50,25 @@ const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress,
                     </div>
                     <div className='option'>
 
-                        <button className='ta' style={((role == "Student") && (!isGuest)) ? null : display}>
-                            {isProgress ? role == "T.A" ? 'Edit' : null : <button className='rate'>Rate</button>}
+                        <button className='ta' style={((role === "Student") && (!isGuest)) ? null : display}>
+                            {isProgress ? role === "T.A" ? 'Edit' : null : <button className='rate'>Rate</button>}
                         </button>
 
-                        <button className='ta' style={((role == "T.A") && (!isGuest)) ? null : display}> {isProgress ? 'Edit' : 'Reopen'}</button>
-                        <button className={isProgress ? 'other' : 'other booked'} style={((role == "T.A") && (isGuest)) ? null : display} onClick={toggleBook}>
+                        <button className='ta' style={((role === "T.A") && (!isGuest)) ? null : display}> {isProgress ? 'Edit' : 'Reopen'}</button>
+
+                        <button className={isProgress ? 'other' : 'other booked'} style={((role === "T.A") && (isGuest)) ? null : display} onClick={toggleBook}>
                             {isProgress ? 'Book' : 'Booked'}
                         </button>
                         <ModalConfirmBook
-                            isShowingBook={isShowingBook}
-                            hide={toggleBook}
-                            subject={subject}
-                            uid={uid}
-                        />
+                        isShowingBook={isShowingBook}
+                        hide={toggleBook}
+                        subject={subject}
+                        uid={uid}
+                        tutorname={name}
+                        gpa={gpa}
+                        price={price}
+                        duration={duration}
+                    />
                     </div>
                 </div>
             </div>

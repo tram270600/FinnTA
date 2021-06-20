@@ -25,9 +25,9 @@ const CardGrid = ({ uid, keyword, available, role, isGuest }) => {
         var res
         console.log(uid)
         console.log(role === "Student")
-        if (!role || !uid)
+        if (!role || (!uid && !keyword))
             return
-        if (role === "Student") {
+        if (role === "Student" && uid) {
             res = await talker.Schedule.getStudentCourse({ s_id: uid, page: 0, available: available })
         } else {
             if (uid !== undefined) {
@@ -56,7 +56,7 @@ const CardGrid = ({ uid, keyword, available, role, isGuest }) => {
         let cards = res["Class"]?.map((c) => {
             var date = new Date(c.updated_at)
             if (res["Schedule"])
-                date = new Date(res["Schedule"][c._id].updated_at)
+                date = new Date(res["Schedule"][c._id]?.updated_at)
             var now = new Date()
             let falcuty = Object.keys(department).filter((d_id) => {
                 if (department[d_id].courses[c.cid] === undefined)
@@ -80,6 +80,9 @@ const CardGrid = ({ uid, keyword, available, role, isGuest }) => {
                     uid={c.uid}
                     role={role}
                     isGuest={isGuest}
+                    gpa={c.GPA}
+                    price={c.price}
+                    duration={c.day}
                 />
             </Grid>
         })

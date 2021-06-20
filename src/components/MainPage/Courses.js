@@ -1,8 +1,10 @@
 import React from 'react'
 import { Fade, Slide } from "react-awesome-reveal";
 import CardGrid from 'components/Dashboard/CardGrid';
+import { useTypedSelector } from 'app/store';
 
 const Courses = () => {
+    const account = useTypedSelector(state => state.Account.data)
     return (
         <>
             <div className='news'>
@@ -15,9 +17,11 @@ const Courses = () => {
                     </div>
                 </Fade>
                 <Slide triggerOnce={true} direction="left" duration={2000} >
-                    <CardGrid 
-                        isProgress = {true}
-                        isTA = {true}
+                    <CardGrid
+                        available={true}
+                        role={account.Role === "Student" ? "T.A" : "Student"}
+                        keyword={"Lin Fun"}
+                        isGuest={true}
                     />
                 </Slide>
             </div>

@@ -12,7 +12,7 @@ import {
   } from "@material-ui/core/styles";
 
 
-const ModalConfirmBook = ({ isShowingBook, hide, subject, uid, role }) => {
+const ModalConfirmBook = ({ isShowingBook, hide, subject, uid, role, tutorname, gpa, price, duration }) => {
     const [selectedDate, handleDateChange] = useState(new Date());
     const [value, setValue] = React.useState();
     const [valuep, setValueP] = React.useState();
@@ -48,7 +48,7 @@ const ModalConfirmBook = ({ isShowingBook, hide, subject, uid, role }) => {
                     </select>
                 </div>
 
-                <div className="field">
+                {/* <div className="field">
                         <div className="input-number">
                             <label>Date - Time</label>
                             <UKeyboardDateTimePicker
@@ -58,18 +58,28 @@ const ModalConfirmBook = ({ isShowingBook, hide, subject, uid, role }) => {
                                 onChange={handleDateChange}
                             /> 
                         </div>
+                </div> */}
+                 <div className="field">
+                    <div className="input-number">
+                        <label>Duration</label>
+                        <TextField  
+                                style ={{width: '70%'}}
+                                size="small" 
+                                id="outlined-basic" variant="outlined" placeholder={duration}
+                                value={tutorname} />
+                    </div>
                 </div>
                 
                 <div className="field">
                     <div className="input-number">
                         <label>Price</label>
                         <ThemeProvider theme={theme}>
-                            <CurrencyTextField
+                            <CurrencyTextField readOnly
                                         style ={{width: '70%'}}
                                         // inputProps={{ style: { fontFamily: 'nunito', color: 'green',  borderColor: "yellow !important"}}}
                                         variant="standard"
-                                        value={valuep}
-                                        placeholder="Enter price"
+                                        value={price}
+                                        // placeholder={price}
                                         currencySymbol="$"
                                         outputFormat="string"
                                         size = 'small'
@@ -88,7 +98,8 @@ const ModalConfirmBook = ({ isShowingBook, hide, subject, uid, role }) => {
                         <TextField  
                                 style ={{width: '70%'}}
                                 size="small" 
-                                id="outlined-basic" variant="outlined" placeholder="Add some description" />
+                                id="outlined-basic" variant="outlined" placeholder={tutorname}
+                                value={tutorname} />
                     </div>
                 </div>
                 <div className="field">
@@ -98,8 +109,8 @@ const ModalConfirmBook = ({ isShowingBook, hide, subject, uid, role }) => {
                             <CurrencyTextField
                                         style ={{width: '70%'}}
                                         variant="standard"
-                                        value={value}
-                                        placeholder="Enter score"
+                                        value={gpa}
+                                        placeholder="GPA of T.A is hidden"
                                         currencySymbol="/100"
                                         outputFormat="string"
                                         size = 'small'
