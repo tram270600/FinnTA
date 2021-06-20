@@ -112,14 +112,15 @@
                     border-radius: 7px;
                     background-color: #0191B4;
                     @include fontStyle(600px,15px,15px,#FFFFFF );
-                    width: 54px;
-                    height: 26px;
+                    width: 60px;
+                    height: 28px;
                     border: none;
+                    padding: 0;
                     
                     &.booked{
                         background-color: #BDBDBD;
-                        width: 60px;
-                        height: 28px;
+                        width: 64px;
+                        height: 30px;
                     }
                 }
             }

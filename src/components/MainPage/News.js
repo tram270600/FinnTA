@@ -76,7 +76,7 @@ const News = () => {
         border: '2px solid #FEA250'
     }
     return (
-        <div className = 'news'>
+        <div id = 'news' className = 'news'>
             <Fade triggerOnce = {true} direction="top" duration={2000}>
                 <div className = 'text-container'>
                     <h1>News</h1>

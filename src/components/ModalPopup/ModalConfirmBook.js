@@ -12,7 +12,7 @@ import {
   } from "@material-ui/core/styles";
 
 
-const ModalConfirmBook = ({ isShowingBook, hide }) => {
+const ModalConfirmBook = ({ isShowingBook, hide, subject, uid, role }) => {
     const [selectedDate, handleDateChange] = useState(new Date());
     const [value, setValue] = React.useState();
     const [valuep, setValueP] = React.useState();
@@ -40,8 +40,8 @@ const ModalConfirmBook = ({ isShowingBook, hide }) => {
 
                 <div className="field">
                 <label>Subject</label>
-                    <select NAME="subject" SIZE="1" >
-                        <option VALUE="default"> Choose Subject to Book </option>
+                    <select NAME="subject" SIZE="1" disabled>
+                        <option VALUE="default"> {subject} </option>
                         <option VALUE="CSE">CSE - Computer Science and Engineering</option>
                         <option VALUE="BA"> BA - Business Administration </option>
                         <option VALUE="IEM">IEM - Industrial Engineering and Management </option>

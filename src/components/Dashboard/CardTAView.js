@@ -2,6 +2,8 @@ import React from 'react'
 import eye from 'images/eyes.svg'
 import 'styles/Card.scss'
 import { Link } from 'react-router-dom'
+import useModal from 'components/ModalPopup/useModal';
+import ModalConfirmBook from 'components/ModalPopup/ModalConfirmBook';
 
 const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress,
     role, isGuest,
@@ -16,6 +18,7 @@ const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress,
     const colorText = {
         color: "#FE7A15"
     }
+    const { isShowingBook, toggleBook } = useModal();
 
     return (
         <div className='card-container'>
@@ -53,9 +56,15 @@ const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress,
                         </button>
 
                         <button className='ta' style={((role == "T.A") && (!isGuest)) ? null : display}> {isProgress ? 'Edit' : 'Reopen'}</button>
-                        <button className={isProgress ? 'other' : 'other booked'} style={((role == "T.A") && (isGuest)) ? null : display}>
+                        <button className={isProgress ? 'other' : 'other booked'} style={((role == "T.A") && (isGuest)) ? null : display} onClick={toggleBook}>
                             {isProgress ? 'Book' : 'Booked'}
                         </button>
+                        <ModalConfirmBook
+                            isShowingBook={isShowingBook}
+                            hide={toggleBook}
+                            subject={subject}
+                            uid={uid}
+                        />
                     </div>
                 </div>
             </div>

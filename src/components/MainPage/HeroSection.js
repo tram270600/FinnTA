@@ -9,7 +9,7 @@ const HeroSection = () => {
         transform: 'scale(1.1)'
     }
     return (
-        <div className='hero-container'>
+        <div id = 'hero-container' className='hero-container'>
             <div className='text'>
                 <h2>Better learn your friend than your teacher</h2>
                 <h4>The most beautiful thing about learning is that no one take away from you</h4>
