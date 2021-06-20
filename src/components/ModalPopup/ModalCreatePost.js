@@ -8,12 +8,15 @@ import avatar from '../../images/avatar.png'
 import { TextField } from '@material-ui/core';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
+import { useTypedSelector } from 'app/store';
 
 
 const ModalCreatePost  = ({ isShowingCreate, hide })  => { 
     const [selectedDate, handleDateChange] = useState(new Date());
     const [value, setValue] = React.useState();
     const isValid = value < 70;
+    const department = useTypedSelector(state => state.Department.data)
+    const [depart, setDepart] = useState(Object.keys(department)[0])
     return isShowingCreate ? ReactDOM.createPortal(
         <React.Fragment>
             <div id="myModal" class="modal">

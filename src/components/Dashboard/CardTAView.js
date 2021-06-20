@@ -7,7 +7,7 @@ import ModalConfirmBook from 'components/ModalPopup/ModalConfirmBook';
 
 const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress,
     isTA, isStudent, role, isGuest,
-    name, avatar, uid }) => {
+    name, avatar, uid, gpa, price, duration }) => {
 
     const style = {
         color: "#C4C4C4"
@@ -19,7 +19,6 @@ const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress,
         color: "#FE7A15"
     }
     const { isShowingBook, toggleBook } = useModal();
-
     return (
         <div className='card-container'>
             <div className='img'>
@@ -64,6 +63,10 @@ const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress,
                         hide={toggleBook}
                         subject={subject}
                         uid={uid}
+                        tutorname={name}
+                        gpa={gpa}
+                        price={price}
+                        duration={duration}
                     />
                     </div>
                 </div>
