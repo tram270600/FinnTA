@@ -23,7 +23,10 @@ const CardGrid = ({ uid, keyword, available, role, isGuest }) => {
     const getCourse = useCallback(async () => {
         var data = ({})
         var res
-        console.log(role)
+        console.log(uid)
+        console.log(role === "Student")
+        if (!role || !uid)
+            return
         if (role === "Student") {
             res = await talker.Schedule.getStudentCourse({ s_id: uid, page: 0, available: available })
         } else {
@@ -53,9 +56,8 @@ const CardGrid = ({ uid, keyword, available, role, isGuest }) => {
         let cards = res["Class"]?.map((c) => {
             var date = new Date(c.updated_at)
             if (res["Schedule"])
-                date = new Date(res["Schedule"].startDate)
+                date = new Date(res["Schedule"][c._id].updated_at)
             var now = new Date()
-
             let falcuty = Object.keys(department).filter((d_id) => {
                 if (department[d_id].courses[c.cid] === undefined)
                     return false

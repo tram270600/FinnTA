@@ -5,7 +5,7 @@ import logo from '../../images/Logo.png'
 
 const Footer = () => {
     return(
-        <footer className = 'footer-container'>
+        <footer id = 'footer-container' className = 'footer-container'>
             <div className = 'wrapper'>
                 <div className = 'footer-infor'>
                     <div className = 'footer-logo'>
