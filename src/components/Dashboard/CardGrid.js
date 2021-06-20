@@ -14,15 +14,18 @@ import talker from 'utils/talker';
 import { useTypedSelector } from 'app/store';
 import avatar from 'images/avatar.svg'
 
-const CardGrid = ({ isTA, isStudent, uid, keyword, available, role, isGuest }) => {
-    const imgList = [gradient1, gradient2, gradient3, gradient4, gradient5, gradient6, gradient7, gradient8]
+const imgList = [gradient1, gradient2, gradient3, gradient4, gradient5, gradient6, gradient7, gradient8]
+
+const CardGrid = ({ uid, keyword, available, role, isGuest }) => {
     const department = useTypedSelector(state => state.Department.data)
     const [card, setCard] = useState(<></>)
+
     const getCourse = useCallback(async () => {
         var data = ({})
         var res
-        if (isStudent) {
-            res = await talker.Schedule.getStudentCourse({ uid: uid, page: 0, available: available })
+        console.log(role)
+        if (role === "Student") {
+            res = await talker.Schedule.getStudentCourse({ s_id: uid, page: 0, available: available })
         } else {
             if (uid !== undefined) {
                 data = ({ page: 0, uid: uid, available: available })
@@ -70,13 +73,11 @@ const CardGrid = ({ isTA, isStudent, uid, keyword, available, role, isGuest }) =
                     content={c.description}
                     isProgress={available}
                     create_at={now.getDate() - date.getDate() + " days ago"}
-                    isTA={isTA}
-                    isStudent={isStudent}
                     name={res["T.A"][c.uid].Name}
                     avatar={ava}
                     uid={c.uid}
-                    role = {role}
-                    isGuest = {isGuest}
+                    role={role}
+                    isGuest={isGuest}
                 />
             </Grid>
         })

@@ -6,7 +6,9 @@ import {
     classroom,
     resFeedback,
     resClass,
-    resStudentCouse
+    resStudentCouse,
+    schedule,
+    resSchedule
 } from 'global/dataType'
 
 export const Conn = axios.create({
@@ -66,7 +68,7 @@ async function getMsg(RoomID: string, page: number) {
 }
 
 // class
-async function createClass(data: classroom) {
+async function createClass(data: { day: { [date: string]: boolean } & classroom }) {
     const res = await Conn.put('/class', JSON.stringify(data))
     if (res.status !== 200)
         return "Error occurred when creating course."
@@ -86,8 +88,23 @@ async function getFeedback(sort: "des" | "asc", by: "rate" | "time", page: numbe
 }
 
 // Schedule
-async function getStudentCourse(data: { uid: string, page: string, available: boolean }) {
+async function getStudentCourse(data: { s_id: string, page: string, available: boolean }) {
     let res = await Conn.post<resStudentCouse>("/user/student/get", JSON.stringify({ data }))
+    return res.data
+}
+
+async function getSchedule(data: { uid?: string, s_id?: string }) {
+    let res = await Conn.get<resSchedule>("/schedule", { params: data })
+    return res.data
+}
+
+async function createSchedule(data: schedule) {
+    let res = await Conn.post("/schedule", JSON.stringify(data))
+    return res.data
+}
+
+async function confirmSchedule() {
+    let res = await Conn.get("/schedule/cf")
     return res.data
 }
 
@@ -113,6 +130,9 @@ const Feedback = {
 
 const Schedule = {
     getStudentCourse,
+    getSchedule,
+    createSchedule,
+    updateSchedule: confirmSchedule,
 }
 
 export default {

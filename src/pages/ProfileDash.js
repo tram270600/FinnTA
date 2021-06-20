@@ -12,31 +12,28 @@ import { useTypedSelector } from 'app/store';
 
 const ProfileDash = (props) => {
     const [body, setBody] = useState("PROFILE")
-    const [isGuest, setGuest] = useState(props.isGuest)
     const account = useTypedSelector(state => state.Account.data)
-    // console.log(props.match.params.id)
-    const role = account.Role
-    // console.log(role)
+    const [guest, setGuest] = useState(true)
+    const role = account.Role ?? "Guest"
     let uid = props.match?.params.id
+    console.log(guest)
     useEffect(() => {
-        if (uid === account._id)
+        if (uid === account._id | !uid)
             setGuest(false)
-    }, [])
-    console.log(isGuest)
-    console.log(account.Role)
+    }, [uid])
 
     const getBody = () => {
         switch (body) {
             case "PROFILE":
-                return <ProfileDashBody isTA={!isGuest} uid={uid ?? account._id} role={role} isGuest={isGuest} />
+                return <ProfileDashBody guest={guest} uid={uid ?? account._id} viewer_role={role} />
             case "COURSE":
-                return <CourseDashBody uid={uid ?? account._id} isTA={false} isStudent={true} isGuest={isGuest} role={role} />
+                return <CourseDashBody uid={uid ?? account._id} isGuest={guest} viewer_role={role} />
             case "CHAT":
                 return <Chat />
             case "NOTIFICATIONS":
                 return <NotiDashBody />
             case "SCHEDULE":
-                return <ScheduleDashBody isTA={!isGuest} />
+                return <ScheduleDashBody isTA={!guest} />
             case "SETTINGS":
                 return
         }
@@ -53,7 +50,7 @@ const ProfileDash = (props) => {
             </div>
             <div className='dash-container'>
                 <div className='dash-sidebar'>
-                    <SidebarDash body={body} setBody={changeBody} isGuest={isGuest} uid={uid} />
+                    <SidebarDash body={body} setBody={changeBody} isGuest={guest} uid={uid} />
                 </div>
                 <div className='dash-body'>
                     {getBody()}

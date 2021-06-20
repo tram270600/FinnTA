@@ -20,13 +20,11 @@ import talker from 'utils/talker';
 import { useTypedSelector } from 'app/store';
 
 
-const ProfileDashBody = ({ isTA, role, uid, isGuest }) => {
+const ProfileDashBody = ({ guest, viewer_role, uid }) => {
     const [data, setData] = useState({})
     const getInfo = useCallback(async () => {
-        if (isGuest) {
+        if (guest) {
             const res = await talker.Account.getAccount({ ID: uid })
-
-            console.log(res)
             if ((typeof res) === 'string') {
                 alert(res)
                 return
@@ -37,15 +35,12 @@ const ProfileDashBody = ({ isTA, role, uid, isGuest }) => {
         }
         else setData(account)
     }, [uid])
-
-    const account = useTypedSelector(state => state.Account.data)
     const department = useTypedSelector(state => state.Department.data)
-
+    const account = useTypedSelector(state => state.Account.data)
     useEffect(() => {
         getInfo()
-    }, [])
-
-
+    }, [getInfo])
+    console.log(data.Role)
     return (
         <>
             <div className='dash-infor'>
@@ -88,9 +83,9 @@ const ProfileDashBody = ({ isTA, role, uid, isGuest }) => {
                 </div>
                 <div className='dash-button'>
                     <div className='button-container' >
-                        {(role == "T.A") ? <ButtonTA /> : (role == "Student") ? <ButtonStudent /> : <ButtonTAother />}
+                        {(guest) ? <ButtonTAother /> : (data.Role === "T.A") ? <ButtonTA /> : (data.Role === "Student") ? <ButtonStudent /> : null}
                     </div>
-                    {(role == "T.A") ? <>
+                    {(data.Role == "T.A") ? <>
                         <div className='rating-container'>
                             <div className='rating-gap'>
                                 <div className='rating-content'>
@@ -146,13 +141,11 @@ const ProfileDashBody = ({ isTA, role, uid, isGuest }) => {
                 </div>
                 <CardGrid
                     available={true}
-                    uid={account._id}
-                    isTA={isTA}
-                    role = {role}
-                    isGuest = {isGuest}
+                    uid={data._id}
+                    role={data.Role}
+                    isGuest={guest}
                 />
             </div>
-
         </>
     )
 }

@@ -56,18 +56,18 @@ const SidebarDash = ({ body, setBody, isGuest, uid }) => {
                 alert(res)
                 return
             }
-            if (res.Avatar === "") {
+            if (!res.Avatar) {
                 res.Avatar = avatar
             }
             setData(res)
         }
         else setData(account)
+
     }, [uid])
     const account = useTypedSelector(state => state.Account.data)
-
     useEffect(() => {
         getInfo()
-    }, [])
+    }, [getInfo])
 
     const dispatch = useAppDispatch()
     const [redirect, setRedirect] = useState(false)
@@ -83,7 +83,7 @@ const SidebarDash = ({ body, setBody, isGuest, uid }) => {
     return (
         <>
             <div className='avatar inDash'>
-                <img src={data.Avatar} alt='Avatar' />
+                <img src={data.Avatar ?? avatar} alt='Avatar' />
                 <h2>{data.Name}</h2>
             </div>
             <div className='dash-sidebar-menu'>

@@ -64,6 +64,7 @@ type classroom = {
     cid: string,
     price: number,
     duration: string,
+    day: { [date: string]: string }
     GPA: number,
     description: string,
     available: boolean,
@@ -100,8 +101,13 @@ type schedule = {
     uid: string,
     s_id: string,
     class_id: string,
-    startDate: string,
-    isConfirmed: string,
+    updated_at: string,
+    isConfirmed?: string,
+}
+
+type resSchedule = {
+    "Class": classroom[],
+    "Schedule": { [_id: string]: schedule },
 }
 
 type resStudentCouse = {
@@ -113,6 +119,6 @@ export type {
     room, chat,
     department,
     feed,
-    classroom, resClass, schedule, resStudentCouse,
+    classroom, resClass, schedule, resStudentCouse, resSchedule,
     feedback, resFeedback
 }

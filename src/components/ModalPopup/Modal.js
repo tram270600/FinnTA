@@ -8,7 +8,7 @@ import talker from 'utils/talker';
 import { Redirect } from 'react-router-dom';
 
 const unitDuration = ["day", "month", "year"]
-const dayOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+const dayOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
 const Modal = ({ isShowing, hide }) => {
 
@@ -17,7 +17,7 @@ const Modal = ({ isShowing, hide }) => {
         price: 0,
         duration: '',
         GPA: undefined,
-        date: dayOfWeek.reduce((data, day) => ({ ...data, [day]: false }), {}),
+        date: dayOfWeek.reduce((data, _, idx) => ({ ...data, [idx]: false }), {}),
         description: '',
         available: false,
     })
@@ -99,10 +99,12 @@ const Modal = ({ isShowing, hide }) => {
                                 />
                             </div>
                         </div>
+
+
                         <div className="field">
                             <div className="input-number">
                                 <label>Duration</label>
-                                <input type="number" name="duration" style={{marginLeft:"40px", width:"100px", marginRight:"20px"}}
+                                <input type="number" name="duration"
                                     onChange={handleChange}
                                 />
                                 <select NAME="unit" SIZE="1" onChange={(e) => { setUnit(e.target.value) }}>
@@ -110,11 +112,11 @@ const Modal = ({ isShowing, hide }) => {
                                 </select>
                             </div>
                         </div>
-                        <div className="dayOfWeek">
+                        <div className="field">
                             {dayOfWeek.map((day, i) => {
                                 return <button
                                     key={i}
-                                    style={{ width: "45px", padding:"10px", background: data['date'][day] ? "#35BBCA" : "white" }}
+                                    style={{ background: data['date'][day] ? "cyan" : "white" }}
                                     onClick={() => {
                                         var temp = { ...data['date'] }
                                         temp[day] = !temp[day]
@@ -159,7 +161,7 @@ const Modal = ({ isShowing, hide }) => {
                         </div>
                         <div className="field">
                             <label>Description/Message</label>
-                            <textarea rows={2} cols={47} label="Description" placeholder="Add some description"
+                            <textarea rows={4} cols={47} label="Description" placeholder="Add some description"
                                 name="description" onChange={handleChange} />
                         </div>
                         <div className="Container">
