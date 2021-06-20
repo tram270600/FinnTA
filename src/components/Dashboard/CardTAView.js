@@ -4,7 +4,7 @@ import 'styles/Card.scss'
 import { Link } from 'react-router-dom'
 
 const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress,
-    isTA, isStudent, role, isGuest,
+    role, isGuest,
     name, avatar, uid }) => {
 
     const style = {
@@ -49,12 +49,12 @@ const CardTAView = ({ source, falcuty, subject, content, create_at, isProgress,
                     <div className='option'>
 
                         <button className='ta' style={((role == "Student") && (!isGuest)) ? null : display}>
-                            {isProgress ? 'Edit' : <button className='rate'>Rate</button>}
+                            {isProgress ? role == "T.A" ? 'Edit' : null : <button className='rate'>Rate</button>}
                         </button>
 
                         <button className='ta' style={((role == "T.A") && (!isGuest)) ? null : display}> {isProgress ? 'Edit' : 'Reopen'}</button>
                         <button className={isProgress ? 'other' : 'other booked'} style={((role == "T.A") && (isGuest)) ? null : display}>
-                                    {isProgress ? 'Book' : 'Booked'}
+                            {isProgress ? 'Book' : 'Booked'}
                         </button>
                     </div>
                 </div>
