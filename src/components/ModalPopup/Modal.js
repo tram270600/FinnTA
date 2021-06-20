@@ -74,7 +74,7 @@ const Modal = ({ isShowing, hide }) => {
                         <div className="field">
                             <label>Name of Subject</label>
                             <select NAME="c_id" SIZE="1" onChange={handleChange}>
-                                <option VALUE="default"> Choose your faculty </option>
+                                <option VALUE="default"> Choose your desired subject </option>
                                 {
                                     Object.keys(department[depart]?.courses).map((id) => {
                                         return <option key={id} value={id}>{department[depart]?.courses[id]}</option>
