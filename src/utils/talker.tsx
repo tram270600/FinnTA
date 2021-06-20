@@ -89,7 +89,8 @@ async function getFeedback(sort: "des" | "asc", by: "rate" | "time", page: numbe
 
 // Schedule
 async function getStudentCourse(data: { s_id: string, page: string, available: boolean }) {
-    let res = await Conn.post<resStudentCouse>("/user/student/get", JSON.stringify({ data }))
+    console.log(data)
+    let res = await Conn.post<resStudentCouse>("/user/student/get", JSON.stringify(data))
     return res.data
 }
 
