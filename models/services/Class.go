@@ -24,24 +24,26 @@ func CreateClass(c *gin.Context) {
 	defer cancel()
 
 	var data struct {
-		CourseID    string            `json:"cid,omitempty" bson:"cid,omitempty"`
-		Price       string            `json:"price,omitempty" bson:"price,omitempty"`
-		Duration    string            `json:"duration,omitempty" bson:"duration,omitempty"`
-		Day         map[string]string `json:"day,omitempty" bson:"day,omitempty"`
-		GPA         string            `json:"GPA,omitempty" bson:"GPA,omitempty"`
-		Description string            `json:"description,omitempty" bson:"description,omitempty"`
-		Available   string            `json:"available,omitempty" bson:"available,omitempty"`
+		CourseID    string          `json:"cid,omitempty" bson:"cid,omitempty"`
+		Price       string          `json:"price,omitempty" bson:"price,omitempty"`
+		Duration    string          `json:"duration,omitempty" bson:"duration,omitempty"`
+		Day         map[string]bool `json:"day,omitempty" bson:"day,omitempty"`
+		GPA         string          `json:"GPA,omitempty" bson:"GPA,omitempty"`
+		Description string          `json:"description,omitempty" bson:"description,omitempty"`
+		Available   string          `json:"available,omitempty" bson:"available,omitempty"`
 	}
 	if err := c.ShouldBindJSON(&data); err != nil {
 		c.JSON(http.StatusConflict, gin.H{"msg_input": err.Error()})
 		return
 	}
-
+	var day = make(map[string]string)
 	uid, _ := utils.GetCookie(c)
 	cid, _ := primitive.ObjectIDFromHex(data.CourseID)
 	price, _ := strconv.ParseFloat(data.Price, 32)
 	gpa, _ := strconv.ParseFloat(data.GPA, 32)
-
+	for s, i := range data.Day {
+		day[s] = strconv.FormatBool(i)
+	}
 	class := entity.Class{
 		ID:          primitive.NewObjectIDFromTimestamp(time.Now()),
 		UID:         uid,
@@ -49,7 +51,7 @@ func CreateClass(c *gin.Context) {
 		Price:       float32(price),
 		Duration:    data.Duration,
 		GPA:         float32(gpa),
-		Day:         data.Day,
+		Day:         day,
 		Description: data.Description,
 		Available:   data.Available,
 		Updated_at:  primitive.NewDateTimeFromTime(time.Now()),
@@ -102,6 +104,7 @@ func GetClass(c *gin.Context) {
 			id, _ := primitive.ObjectIDFromHex(s)
 			idLs = append(idLs, id)
 		}
+		fmt.Println(idLs)
 		filter = bson.M{"cid": bson.M{"$in": idLs}, "available": available, "deleted_at": utils.Based_date}
 	}
 	fmt.Println(filter)
@@ -159,7 +162,13 @@ func UpdateClass(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(context.Background(), utils.ConnectTimeout)
 	defer cancel()
 
-	var data map[string]string
+	var data struct {
+		UID         string          `json:"_id,omitempty" bson:"_id,omitempty"`
+		Price       string          `json:"price,omitempty" bson:"price,omitempty"`
+		Day         map[string]bool `json:"day,omitempty" bson:"day,omitempty"`
+		Description string          `json:"description,omitempty" bson:"description,omitempty"`
+		Available   string          `json:"available,omitempty" bson:"available,omitempty"`
+	}
 	if err := c.ShouldBindJSON(&data); err != nil {
 		c.JSON(http.StatusConflict, gin.H{"msg_input": err.Error()})
 		return
@@ -169,28 +178,25 @@ func UpdateClass(c *gin.Context) {
 		Updated_at: primitive.NewDateTimeFromTime(time.Now()),
 	}
 
-	_id, _ := primitive.ObjectIDFromHex(data["_id"])
+	_id, _ := primitive.ObjectIDFromHex(data.UID)
 
-	if data["courseID"] != "" {
-		cid, _ := primitive.ObjectIDFromHex(data["courseID"])
-		tempClass.CourseID = cid
-	}
-	if data["price"] != "" {
-		price, _ := strconv.ParseFloat(data["price"], 32)
+	if data.Price != "" {
+		price, _ := strconv.ParseFloat(data.Price, 32)
 		tempClass.Price = float32(price)
 	}
-	if data["duration"] != "" {
-		tempClass.Duration = data["duration"]
+
+	if data.Description != "" {
+		tempClass.Description = data.Description
 	}
-	if data["GPA"] != "" {
-		gpa, _ := strconv.ParseFloat(data["GPA"], 32)
-		tempClass.GPA = float32(gpa)
+	if data.Available != "" {
+		tempClass.Available = data.Available
 	}
-	if data["description"] != "" {
-		tempClass.Description = data["description"]
-	}
-	if data["available"] != "" {
-		tempClass.Available = data["available"]
+	if data.Day != nil {
+		var day = make(map[string]string)
+		for s, i := range data.Day {
+			day[s] = strconv.FormatBool(i)
+		}
+		tempClass.Day = day
 	}
 
 	result, err := utils.Database.Collection("Class").

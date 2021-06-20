@@ -22,6 +22,9 @@ func InitRoute() *gin.Engine {
 	// TA
 	router.GET("/user/TA", services.GetSortTA)
 
+	// Student
+	router.POST("user/student/get", services.GetStudentCourse)
+
 	// Department
 	router.GET("/department", services.GetAllDepartment)
 	router.PUT("/department", services.InsertDepartment)
@@ -60,5 +63,10 @@ func InitRoute() *gin.Engine {
 
 	// Feedback
 	client.PUT("/feedback", services.CreateFeedback)
+
+	// Schedule
+	client.POST("/schedule", services.CreateSchedule)
+	client.GET("/schedule", services.GetSchedule)
+	client.GET("/schedule/cf", services.ConfirmSchedule)
 	return router
 }
